@@ -100,7 +100,7 @@
                 <div class="row"><span class="initials">OC</span><span class="nm">Olivia Chen</span><span class="st st-green">Confirmed</span></div>
                 <div class="row"><span class="initials">SM</span><span class="nm">Sophia Martinez</span><span class="st st-green">Confirmed</span></div>
                 <div class="row"><span class="initials">DK</span><span class="nm">Daniel Kim</span><span class="st st-green">Confirmed</span></div>
-                <div class="row"><span class="initials">AJ</span><span class="nm">Albert John</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">AJ</span><span class="nm" data-me>Albert John (You)</span><span class="st st-green">Confirmed</span></div>
               </div>
             </div>
           </article>
@@ -125,7 +125,7 @@
                 <div class="row"><span class="initials">PN</span><span class="nm">Priya Nair</span><span class="st st-green">Confirmed</span></div>
                 <div class="row"><span class="initials">NW</span><span class="nm">Noah Williams</span><span class="st st-yellow">Pending</span></div>
                 <div class="row"><span class="initials">MR</span><span class="nm">Marcus Reed</span><span class="st st-yellow">Pending</span></div>
-                <div class="row"><span class="initials">AJ</span><span class="nm">Albert John</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">AJ</span><span class="nm" data-me>Albert John (You)</span><span class="st st-green">Confirmed</span></div>
               </div>
             </div>
           </article>
@@ -145,7 +145,7 @@
               </div>
             </div>
             <div class="s-players">
-              <button type="button" aria-expanded="false" aria-controls="pl-24"><span>4/4 Players</span><img src="assets/icons/caret-down-sm.svg" alt=""></button>
+              <button type="button" aria-expanded="false" aria-controls="pl-24"><span data-count>3/4 Players</span><img src="assets/icons/caret-down-sm.svg" alt=""></button>
               <div class="s-plist" id="pl-24" hidden>
                 <div class="row"><span class="initials">JL</span><span class="nm">Jessica Lee</span><span class="st st-red">Need Replacement</span></div>
                 <div class="row"><span class="initials">OC</span><span class="nm">Olivia Chen</span><span class="st st-green">Confirmed</span></div>
@@ -175,7 +175,7 @@
                 <div class="row"><span class="initials">TR</span><span class="nm">Tomas Rivera</span><span class="st st-green">Confirmed</span></div>
                 <div class="row"><span class="initials">OC</span><span class="nm">Olivia Chen</span><span class="st st-green">Confirmed</span></div>
                 <div class="row"><span class="initials">MR</span><span class="nm">Marcus Reed</span><span class="st st-green">Confirmed</span></div>
-                <div class="row"><span class="initials">AJ</span><span class="nm">Albert John</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">AJ</span><span class="nm" data-me>Albert John (You)</span><span class="st st-green">Confirmed</span></div>
               </div>
             </div>
           </article>
@@ -203,7 +203,7 @@
           <div class="m-row"><span class="initials m-av">OC</span><div class="m-who"><b>Olivia Chen</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
           <div class="m-row"><span class="initials m-av">SM</span><div class="m-who"><b>Sophia Martinez</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
           <div class="m-row"><span class="initials m-av">DK</span><div class="m-who"><b>Daniel Kim</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
-          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b>Albert John</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b data-me>Albert John (You)</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
       </section>
     </div>
   </div>
@@ -227,7 +227,7 @@
           <div class="m-row"><span class="initials m-av">PN</span><div class="m-who"><b>Priya Nair</b><span class="rating">NTRP 3.0</span></div><span class="st st-green">Confirmed</span></div>
           <div class="m-row"><span class="initials m-av">NW</span><div class="m-who"><b>Noah Williams</b><span class="rating">NTRP 3.5</span></div><span class="st st-yellow">Pending</span></div>
           <div class="m-row"><span class="initials m-av">MR</span><div class="m-who"><b>Marcus Reed</b><span class="rating">NTRP 4.5</span></div><span class="st st-yellow">Pending</span></div>
-          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b>Albert John</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b data-me>Albert John (You)</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
       </section>
     </div>
   </div>
@@ -239,7 +239,7 @@
       </div>
       <div class="m-stats">
         <div><span>Confirmed</span><b data-confirmed>03</b></div>
-        <div><span>Open spots</span><b>01</b></div>
+        <div><span>Open spots</span><b data-open>01</b></div>
         <div><span>Capacity</span><b>04</b></div>
       </div>
       <hr class="m-hr">
@@ -249,11 +249,12 @@
             <div class="m-req-cols" data-req-cols>
               <div><span>Player</span><b>Jessica Lee</b></div>
               <div><span>Date &amp; Time</span><b>Sat, Oct 24 · 9:00 AM</b></div>
-              <div><span>Status</span><span class="st st-purple">Fellow Players</span></div>
+              <div><span>Status</span><span class="st st-purple" data-req-status>Request Sent to Players</span></div>
             </div>
-            <p class="m-req-done" data-req-done hidden>Priya Nair has been added to the roster and the request is closed.</p>
+            <p class="m-req-done" data-req-done hidden></p>
+            <button class="m-req-demo" type="button" data-to-subs="24">Prototype: no player joins in time</button>
           </div>
-          <button class="btn btn-sm btn-primary" type="button" data-approve="24">Approve &amp; Join as subs</button>
+          <button class="btn btn-sm btn-primary" type="button" data-join="24">Join this Session</button>
         </div>
       <section class="m-sec"><h3>Coach</h3>
         <div class="m-row coach"><img class="avatar-img" src="assets/img/coach-maria-lopez.png" alt=""><div class="m-who"><b>Maria Lopez</b><span>Tennis Coach</span></div><span class="m-fee">$120<small>/player</small></span><span class="st st-green">Confirmed</span></div>
@@ -297,7 +298,7 @@
           <div class="m-row"><span class="initials m-av">TR</span><div class="m-who"><b>Tomas Rivera</b><span class="rating">NTRP 4.5</span></div><span class="st st-green">Confirmed</span></div>
           <div class="m-row"><span class="initials m-av">OC</span><div class="m-who"><b>Olivia Chen</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
           <div class="m-row"><span class="initials m-av">MR</span><div class="m-who"><b>Marcus Reed</b><span class="rating">NTRP 4.5</span></div><span class="st st-green">Confirmed</span></div>
-          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b>Albert John</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b data-me>Albert John (You)</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
       </section>
     </div>
   </div>
@@ -340,23 +341,57 @@
     document.querySelectorAll('[data-filter-menu] [data-f]').forEach(b => b.addEventListener('click', () => {
       status = b.dataset.f; document.getElementById('status-label').textContent = status === 'all' ? 'Status' : b.textContent; apply();
     }));
-    // Approve & Join as subs (replacement request -> confirmed state)
-    document.querySelectorAll('[data-approve]').forEach(b => b.addEventListener('click', () => {
-      const d = b.dataset.approve, box = document.getElementById('req-' + d);
+    // Replacement requests need no organizer approval. The open spot goes to the clinic's players first
+    // ("Join this Session", which the organizer can use too); if nobody joins it goes to the substitutes.
+    // Status: Request Sent to Players -> Player Replacement Confirmed, or
+    //         Request Sent to Substitutes -> Substitute Player Confirmed.
+    const row = (p) => `<div class="m-row"><span class="initials m-av">${p.ini}</span><div class="m-who"><b${p.me ? ' data-me' : ''}>${p.name}</b><span class="rating">NTRP ${p.rating}</span></div><span class="st st-green">Confirmed</span></div>`;
+    const cardRow = (p) => `<div class="row"><span class="initials">${p.ini}</span><span class="nm"${p.me ? ' data-me' : ''}>${p.name}</span><span class="st st-green">Confirmed</span></div>`;
+    // You (the organizer) only get "Join this Session" when you're not already playing in that session
+    document.querySelectorAll('[data-join]').forEach(b => {
+      if (document.querySelector(`#players-${b.dataset.join} [data-me]`)) b.hidden = true;
+    });
+    function fillSpot(d, person, fromSubs) {
+      const box = document.getElementById('req-' + d);
       box.classList.add('done');
-      box.querySelector('[data-req-title]').textContent = 'Replacement Confirmed';
+      box.querySelector('[data-req-title]').textContent = fromSubs ? 'Substitute Player Confirmed' : 'Player Replacement Confirmed';
       box.querySelector('[data-req-cols]').hidden = true;
-      box.querySelector('[data-req-done]').hidden = false;
-      b.hidden = true;
+      const done = box.querySelector('[data-req-done]');
+      done.innerHTML = person.me ? `<b>You’ve</b> been added to the roster and the request is closed.` : `<b>${person.name}</b> has been added to the roster and the request is closed.`; done.hidden = false;
+      box.querySelectorAll('[data-join], [data-to-subs]').forEach(x => (x.hidden = true));
+      const modal = box.closest('.modal');
+      modal.querySelector('[data-confirmed]').textContent = '04';
+      modal.querySelector('[data-open]').textContent = '00';
       const pl = document.getElementById('players-' + d);
-      const need = [...pl.querySelectorAll('.st-red')][0]; if (need) { need.className = 'st st-gray'; need.textContent = 'Replaced'; }
-      const sec = document.createElement('section'); sec.className = 'm-sec'; sec.id = 'sub-' + d;
-      sec.innerHTML = '<h3>Substitute</h3><div class="m-row"><span class="initials m-av">PN</span><div class="m-who"><b>Priya Nair</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>';
-      const hr = document.createElement('hr'); hr.className = 'm-hr';
-      pl.before(sec, hr);
-      const card = document.getElementById('card-' + d); card.dataset.status = 'subs';
-      const bd = card.querySelector('[data-badge]'); bd.className = 'st st-green'; bd.textContent = 'Confirmed • 1 Subs';
-      window.toast('Priya Nair joined as a substitute');
+      const need = pl.querySelector('.st-red'); if (need) { need.className = 'st st-green'; need.textContent = 'Replacement Confirmed'; }
+      if (fromSubs) {
+        // Only split out a Substitute section when the spot was filled from the sub list
+        const sec = document.createElement('section'); sec.className = 'm-sec'; sec.id = 'sub-' + d;
+        sec.innerHTML = '<h3>Substitute</h3>' + row(person);
+        const hr = document.createElement('hr'); hr.className = 'm-hr';
+        pl.before(sec, hr);
+      } else {
+        pl.insertAdjacentHTML('beforeend', row(person));
+      }
+      // Session card's player list: replacement confirmed, new player added, 4/4
+      const plist = document.getElementById('pl-' + d);
+      if (plist) {
+        const cneed = plist.querySelector('.st-red'); if (cneed) { cneed.className = 'st st-green'; cneed.textContent = 'Replacement Confirmed'; }
+        plist.insertAdjacentHTML('beforeend', cardRow(person));
+        const cnt = document.querySelector(`[aria-controls="pl-${d}"] [data-count]`); if (cnt) cnt.textContent = '4/4 Players';
+      }
+      const card = document.getElementById('card-' + d); card.dataset.status = fromSubs ? 'subs' : 'confirmed';
+      const bd = card.querySelector('[data-badge]'); bd.className = 'st st-green'; bd.textContent = fromSubs ? 'Confirmed • 1 Sub' : 'Confirmed';
+      window.toast(person.me ? 'You joined this session' : fromSubs ? `${person.name} joined as a substitute` : `${person.name} joined this session`);
+    }
+    document.querySelectorAll('[data-join]').forEach(b => b.addEventListener('click', () =>
+      fillSpot(b.dataset.join, { ini: 'AJ', name: 'Albert John (You)', rating: '4.0', me: true }, false)));
+    document.querySelectorAll('[data-to-subs]').forEach(b => b.addEventListener('click', () => {
+      const d = b.dataset.toSubs, box = document.getElementById('req-' + d);
+      const st = box.querySelector('[data-req-status]'); st.textContent = 'Request Sent to Substitutes'; st.className = 'st st-yellow';
+      box.querySelector('[data-join]').hidden = true; b.hidden = true;
+      window.toast('No player joined in time. Request sent to substitutes');
+      setTimeout(() => fillSpot(d, { ini: 'PN', name: 'Priya Nair', rating: '3.5', me: false }, true), 2200);
     }));
     // Reschedule form
     document.querySelectorAll('[data-reschedule]').forEach(f => f.addEventListener('submit', e => {

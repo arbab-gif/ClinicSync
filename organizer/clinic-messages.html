@@ -281,27 +281,30 @@
 
     function postRequest() {
       const r = req, time = clock();
-      const status = r.how === 'player' ? ['Finding Fellow players'] : r.how === 'sub' ? ['Finding Substitute'] : ['Invited by email'];
+      // Replacement status, visible to everyone in the clinic (no organizer approval):
+      // Request Sent to Players -> Player Replacement Confirmed, or
+      // Request Sent to Substitutes -> Substitute Player Confirmed.
+      const status = r.how === 'player' ? 'Request Sent to Players' : r.how === 'sub' ? 'Request Sent to Substitutes' : 'Invited by email';
       const card = push(`<div class="card-msg" data-card><div class="cm-top"><div><p class="cm-title">Robert Wilson needs a replacement. <em class="you">You</em></p><p class="cm-sub">${r.sess} • ${r.date}</p></div><i class="cm-time">${time}</i></div>
-        <div class="cm-box"><p class="cm-line">Looking for an available ${r.how === 'player' ? 'player' : r.how === 'sub' ? 'substitute' : 'person'}</p><i class="pill-purple" data-status>${status[0]}</i></div>
-        <div class="cm-act" hidden><button class="btn-ok" type="button" data-accept>Accept to Play</button><button class="btn-no" type="button" data-decline>Decline</button></div></div>`);
+        <div class="cm-box"><p class="cm-line">Looking for an available ${r.how === 'player' ? 'player' : r.how === 'sub' ? 'substitute' : 'person'}</p><i class="pill-purple" data-status>${status}</i></div>
+        <div class="cm-act" hidden><button class="btn-ok" type="button" data-accept>Join this Session</button><button class="btn-no" type="button" data-decline>Can't join</button></div></div>`);
       const setStatus = (t, cls) => { const p = $('[data-status]', card); p.textContent = t; if (cls) p.className = cls; };
-      const confirmed = who => {
-        setStatus('Replacement confirmed', 'pill-green');
+      const confirmed = (who, fromSubs) => {
+        setStatus(fromSubs ? 'Substitute Player Confirmed' : 'Player Replacement Confirmed', 'pill-green');
         $('.cm-act', card).hidden = true;
         push(`<div class="sys"><img class="icon-16" src="assets/icons/check-circle.svg" alt=""><span><b>${esc(who)}</b> will replace <b>Robert Wilson (you)</b> for ${r.sess} • ${r.short.replace(' · ', ', ')}.</span></div>`);
       };
       if (r.how === 'player') {
-        // a fellow player picks up the request: show approve / reject
+        // the clinic's players see "Join this Session"; if nobody joins, it goes out to the substitutes
         setTimeout(() => { $('.cm-act', card).hidden = false; $('.you', card)?.remove(); list.scrollTop = list.scrollHeight; }, 1600);
-        $('[data-accept]', card).addEventListener('click', () => confirmed('Daniel Kim'));
+        $('[data-accept]', card).addEventListener('click', () => confirmed('Daniel Kim', false));
         $('[data-decline]', card).addEventListener('click', () => {
-          $('.cm-act', card).hidden = true; setStatus('Finding Substitute');
-          window.toast('Declined — substitutes are being notified');
-          setTimeout(() => confirmed('Daniel Kim'), 2500);
+          $('.cm-act', card).hidden = true; setStatus('Request Sent to Substitutes');
+          window.toast('No player could join, so the request went to the substitutes');
+          setTimeout(() => confirmed('Priya Nair', true), 2500);
         });
       } else if (r.how === 'sub') {
-        setTimeout(() => confirmed(r.who), 2500);
+        setTimeout(() => confirmed(r.who, true), 2500);
       }
     }
   })();
