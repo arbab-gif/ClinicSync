@@ -1,0 +1,89 @@
+/* Sessions list (Figma 370:1737, All States 611:11606) + session detail modal (384:374 / 611:12306 / 613:12733) + reschedule modal (614:13012) */
+.st-purple { background: #ebe9fe; color: #5925dc; }
+.ss { padding-top: 20px; display: flex; flex-direction: column; gap: 24px; padding-bottom: 56px; }
+.ss .section-head { min-height: 40px; }
+.ss-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ss-bar .search { width: 380px; max-width: 100%; }
+.ss-bar .search .input { height: 48px; background: var(--card); border: 1px solid var(--border); font-size: 14px; border-radius: 96px; }
+.ss-bar .search .input:focus { background: #fff; border-color: var(--brand); }
+.ss-right { display: flex; align-items: center; gap: 16px; }
+.dd { position: relative; }
+.dd-btn { display: inline-flex; align-items: center; gap: 12px; height: 42px; padding: 0 18px; border: 1px solid #d8dfe0; border-radius: 56px; background: #fff; font-size: 14px; color: var(--ink); cursor: pointer; }
+.dd-btn img { width: 16px; height: 16px; transform: rotate(90deg); }
+.dd .menu { right: auto; left: 0; min-width: 220px; }
+.view-seg { display: inline-flex; align-items: center; height: 48px; padding: 6px 8px; border-radius: 25px; background: var(--field); }
+.view-seg a { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px; border-radius: 25px; font-size: 14px; color: var(--muted); text-decoration: none; }
+.view-seg a.on { background: #fff; color: var(--ink); box-shadow: 0 1px 1px rgba(17,25,39,.08); }
+.view-seg img { width: 20px; height: 20px; }
+.ss-list { display: flex; flex-direction: column; gap: 24px; }
+.s-card[hidden] { display: none; }
+
+/* Session modal */
+.session-modal { padding: 35px; display: flex; flex-direction: column; gap: 24px; max-width: 889px; border: 3px solid var(--border); }
+.m-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.m-head h2 { font-weight: 600; font-size: 40px; line-height: 40px; color: var(--ink); }
+.m-head p { margin-top: 20px; font-weight: 500; font-size: 24px; line-height: 24px; color: var(--ink); }
+.m-x { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--card); display: grid; place-items: center; cursor: pointer; flex: none; }
+.m-x img { width: 20px; height: 20px; }
+.m-stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+.m-stats > div { border-left: 1px solid var(--line); padding: 17px 0 0 25px; display: flex; flex-direction: column; gap: 4px; min-height: 112px; }
+.m-stats > div:first-child { border-left: 0; padding-left: 0; }
+.m-stats span { color: var(--muted); font-size: 16px; line-height: 20px; }
+.m-stats b { font-weight: 600; font-size: 36px; line-height: 44px; color: var(--stat); }
+.m-hr { border: 0; border-top: 1px solid var(--line); margin: 0; width: 100%; }
+.m-sec { display: flex; flex-direction: column; gap: 16px; }
+.m-sec h3 { font-weight: 500; font-size: 20px; line-height: 18px; color: var(--ink); }
+.m-row { display: flex; align-items: center; gap: 14px; background: var(--card); border-radius: 12px; padding: 10px 14px; }
+.m-row .m-av, .m-row .avatar-img { width: 45px; height: 45px; font-size: 15px; background: #eaeef8; }
+.m-row.coach .avatar-img { width: 40px; height: 40px; }
+.m-who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.m-who b { font-weight: 500; font-size: 16px; line-height: 20px; color: var(--ink); }
+.m-who .rating { align-self: flex-start; background: #f0f0f0; color: var(--chip-ink); font-size: 12px; font-weight: 500; padding: 3px 8px; border-radius: 14px; }
+.m-row.coach .m-who { gap: 4px; }
+.m-row.coach .m-who span { font-size: 12px; color: var(--muted); }
+.m-fee { font-weight: 500; font-size: 16px; margin-right: 150px; }
+.m-fee small { font-size: 12px; font-weight: 400; color: var(--muted); }
+.m-req { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; background: #fef3f2; border-radius: 12px; padding: 14px; }
+.m-req.done { background: var(--g100); align-items: center; }
+.m-req-main { display: flex; flex-direction: column; gap: 10px; }
+.m-req-h { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.m-req-h img { width: 16px; height: 16px; }
+.m-req-h b { font-weight: 600; }
+.m-req-cols { display: flex; gap: 24px; flex-wrap: wrap; }
+.m-req-cols > div { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+.m-req-cols span:first-child { font-size: 11px; color: var(--muted); }
+.m-req-cols b { font-weight: 500; font-size: 13px; }
+.m-req-done { font-size: 14px; color: var(--g700); }
+.m-holiday { display: flex; align-items: center; gap: 12px; background: #fefbe8; color: var(--y700); border-radius: 12px; padding: 8px 14px; }
+.m-holiday img { width: 18px; height: 18px; }
+.m-holiday > div { flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.m-holiday b { font-size: 14px; font-weight: 600; }
+.m-holiday span { font-size: 13px; }
+.m-holiday .btn { height: 32px; padding: 0 12px; font-size: 13px; }
+
+/* Reschedule modal */
+.rs-modal { max-width: 650px; padding: 35px; border: 3px solid var(--border); }
+.rs-modal .m-head h2 { font-size: 32px; line-height: 32px; }
+.rs-modal .m-head p { margin-top: 12px; }
+.rs-form { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+.rs-h { font-weight: 600; font-size: 20px; margin-bottom: -8px; }
+.rs-info { display: flex; align-items: center; gap: 10px; background: var(--brand-tint); color: var(--brand); border-radius: 10px; padding: 8px 16px; font-size: 14px; margin-bottom: -8px; }
+.rs-form .input, .rs-form .select { height: 56px; }
+.rs-notify { background: var(--card); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--text-2); }
+.rs-btns { display: flex; gap: 12px; }
+.rs-btns .btn { flex: 1; }
+
+@media (max-width: 1100px) { .m-fee { margin-right: 24px; } }
+@media (max-width: 720px) {
+  .ss-bar .search { width: 100%; }
+  .ss-right { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .overlay { padding: 16px 8px; }
+  .session-modal, .rs-modal { padding: 20px; }
+  .m-head h2 { font-size: 26px; line-height: 30px; }
+  .m-head p { font-size: 18px; margin-top: 8px; }
+  .m-stats > div { padding-left: 12px; min-height: 0; padding-bottom: 12px; }
+  .m-stats b { font-size: 28px; }
+  .m-row { flex-wrap: wrap; }
+  .m-fee { margin-right: 0; }
+  .m-req { flex-direction: column; align-items: flex-start; }
+}

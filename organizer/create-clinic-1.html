@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Set up your clinic · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/create-clinic.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wz-main">
+    <div class="wz-head">
+      <h1>Set up your clinic</h1>
+      <p>Start with the basics. You can update your clinic details later.</p>
+    </div>
+    <form class="wz-form" id="step-form" novalidate>
+      <div class="wz-field">
+        <label for="clinic-name">Clinic name</label>
+        <input class="wz-input" id="clinic-name" name="name" value="Saturday Tennis" autocomplete="off" required>
+      </div>
+      <div class="wz-field" data-listbox>
+        <label id="sport-label">Sport</label>
+        <input type="hidden" name="sport" value="Tennis">
+        <button class="wz-input" type="button" data-menu="#sport-menu" aria-haspopup="listbox" aria-labelledby="sport-label"><span class="val">Tennis</span><img src="assets/icons/caret-down.svg" alt=""></button>
+        <div class="menu" id="sport-menu" role="listbox" hidden>
+          <button type="button" data-value="Tennis">Tennis</button>
+          <button type="button" data-value="Pickleball">Pickleball</button>
+          <button type="button" data-value="Padel">Padel</button>
+          <button type="button" data-value="Badminton">Badminton</button>
+        </div>
+      </div>
+      <section class="wz-section">
+        <h2 class="wz-h2">Clinic Location</h2>
+        <div class="wz-field" data-listbox id="location-field">
+          <label id="loc-label">Location</label>
+          <input type="hidden" name="location">
+          <button class="wz-input" type="button" data-menu="#loc-menu" aria-haspopup="listbox" aria-labelledby="loc-label"><span class="val ph">Choose location</span><img src="assets/icons/map-pin-24.svg" alt=""></button>
+          <div class="menu" id="loc-menu" role="listbox" hidden>
+            <button type="button" data-value="Riverside Tennis Center">Riverside Tennis Center</button>
+            <button type="button" data-value="Central Park Courts">Central Park Courts</button>
+            <button type="button" data-value="Lakeside Racquet Club">Lakeside Racquet Club</button>
+            <button type="button" data-value="Westfield Sports Complex">Westfield Sports Complex</button>
+          </div>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer class="stepbar">
+    <a class="btn btn-soft wz-back" href="setup-clinic.html">Back</a>
+    <div class="progress"><div class="bars" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div><small>Create Clinic • Step 1 of 5</small></div>
+    <div class="right"><button class="btn btn-primary wz-next" type="submit" form="step-form">Continue</button></div>
+  </footer>
+  <script src="js/organizer.js"></script>
+  <script src="js/create-clinic.js"></script>
+  <script>
+    const form = document.getElementById('step-form');
+    const s = wz.get();
+    if (s.name) document.getElementById('clinic-name').value = s.name;
+    if (s.sport) { form.sport.value = s.sport; form.querySelector('[data-listbox] .val').textContent = s.sport; }
+    if (s.location) { const v = document.querySelector('#location-field .val'); v.textContent = s.location; v.classList.remove('ph'); form.location.value = s.location; }
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let ok = true;
+      if (!document.getElementById('clinic-name').value.trim()) { wzError(document.getElementById('clinic-name').closest('.wz-field'), 'Enter a clinic name'); ok = false; }
+      if (!form.location.value) { wzError(document.getElementById('location-field'), 'Choose a location'); ok = false; }
+      if (!ok) return;
+      wz.set({ name: document.getElementById('clinic-name').value.trim(), sport: form.sport.value, location: form.location.value });
+      location.href = 'create-clinic-2.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invite your players · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/create-clinic.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wz-main">
+    <div class="wz-head">
+      <h1>Invite your players</h1>
+      <p>Enter email addresses of the players you want to invite and assign their clinic shares.</p>
+    </div>
+    <div class="wz-cards">
+      <section class="wz-card">
+        <h2 class="wz-h2">No of Players per Session</h2>
+        <select class="wz-input wz-select" id="per-session" aria-label="Players per session">
+          <option value="1">1 Player</option><option value="2">2 Players</option><option value="3">3 Players</option>
+          <option value="4" selected>4 Players</option><option value="5">5 Players</option><option value="6">6 Players</option>
+          <option value="7">7 Players</option><option value="8">8 Players</option>
+        </select>
+      </section>
+
+      <section class="wz-card">
+        <h2 class="wz-h2">Will you also play in this clinic?</h2>
+        <div class="wz-toggle" id="play-toggle" role="group" aria-label="Will you also play">
+          <button type="button" data-play="yes"><img src="assets/icons/check-16.svg" alt="">Yes I will Play</button>
+          <button type="button" data-play="no" class="on"><img src="assets/icons/check-16.svg" alt="">No I am organizing only</button>
+        </div>
+      </section>
+
+      <section class="wz-card gap-top">
+        <div class="cap-head">
+          <div>
+            <h2 class="wz-h2">Clinic Capacity</h2>
+            <small id="cap-sub">16 sessions · 4 players per session</small>
+          </div>
+          <span class="chip" id="cap-chip">0 of 64 allocated</span>
+        </div>
+        <div class="cap-bar" role="progressbar" aria-label="Capacity allocated" aria-valuemin="0" aria-valuemax="100" id="cap-bar"><i></i></div>
+        <hr class="wz-divider">
+
+        <form id="invite-form" class="wz-stack" novalidate>
+          <h2 class="wz-h2">Invite Player</h2>
+          <div class="wz-invite-grid">
+            <div class="wz-field" id="email-field">
+              <label for="email">Email</label>
+              <input class="wz-input" id="email" type="email" placeholder="player@email.com" autocomplete="off">
+            </div>
+            <div class="wz-field">
+              <label for="share">Share type</label>
+              <select class="wz-input wz-select" id="share"></select>
+            </div>
+          </div>
+          <button class="wz-add" type="submit"><span>Add another player</span></button>
+        </form>
+
+        <div>
+          <div class="wz-list-head"><b id="added-count">0 players added</b><span id="added-sessions">16 clinic sessions</span></div>
+          <ul class="wz-list" id="player-list"></ul>
+        </div>
+      </section>
+    </div>
+    <div class="wz-info"><img src="assets/icons/info-circle.svg" alt=""><p>Players can RSVP only for the number of sessions allowed by their assigned share. You can invite more players later.</p></div>
+  </main>
+
+  <footer class="stepbar">
+    <a class="btn btn-soft wz-back" href="create-clinic-2.html">Back</a>
+    <div class="progress"><div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><small>Create Clinic • Step 3 of 5</small></div>
+    <div class="right"><a class="btn btn-soft wz-skip" href="create-clinic-4.html" id="skip">Skip for now</a><button class="btn btn-primary wz-next" type="button" id="send">Send &amp; Continue</button></div>
+  </footer>
+  <script src="js/organizer.js"></script>
+  <script src="js/create-clinic.js"></script>
+  <script>
+    const N = parseInt(wz.get().sessions, 10) || 16;      // total sessions from step 2 (the design shows 16)
+    const SHARES = { full: ['Full Share', N], half: ['Half Share', Math.max(Math.round(N / 2), 1)], quarter: ['Quarter Share', Math.max(Math.round(N / 4), 1)] };
+    const shareLabel = k => `${SHARES[k][0]} • ${SHARES[k][1]} Sessions`;
+    const $ = id => document.getElementById(id);
+    const shareOpts = sel => Object.keys(SHARES).map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${shareLabel(k)}</option>`).join('');
+    const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    const saved = wz.get();
+    let players = saved.players || ['cameron', 'robert', 'jessica', 'monica', 'alexa'].map(n => ({ email: n + '@gmail.com', share: 'half' }));
+    let perSession = saved.perSession || 4, plays = !!saved.organizerPlays;
+    $('per-session').value = perSession;
+    document.querySelectorAll('#play-toggle button').forEach(b => b.classList.toggle('on', (b.dataset.play === 'yes') === plays));
+    $('share').innerHTML = shareOpts('half');
+
+    function render() {
+      const total = perSession * N;
+      const used = players.reduce((a, p) => a + SHARES[p.share][1], 0) + (plays ? N : 0);
+      const over = used > total;
+      $('cap-sub').textContent = `${N} sessions · ${perSession} player${perSession > 1 ? 's' : ''} per session`;
+      $('cap-chip').textContent = `${used} of ${total} allocated`;
+      $('cap-chip').classList.toggle('over', over);
+      $('cap-bar').classList.toggle('over', over);
+      $('cap-bar').firstElementChild.style.width = Math.min(used / total * 100, 100) + '%';
+      $('cap-bar').setAttribute('aria-valuenow', Math.round(Math.min(used / total, 1) * 100));
+      $('added-count').textContent = `${players.length} player${players.length === 1 ? '' : 's'} added`;
+      $('added-sessions').textContent = `${N} clinic sessions`;
+      $('player-list').innerHTML = players.length ? players.map((p, i) => `
+        <li><span class="em">${esc(p.email)}</span>
+          <select class="wz-input wz-select sm" data-i="${i}" aria-label="Share type for ${esc(p.email)}">${shareOpts(p.share)}</select>
+          <button class="rm" type="button" data-i="${i}" aria-label="Remove ${esc(p.email)}"><img src="assets/icons/x-red.svg" alt=""></button></li>`).join('')
+        : '<li class="wz-empty">No players added yet.</li>';
+      wz.set({ players, perSession, organizerPlays: plays });
+      return { used, total, over };
+    }
+
+    $('per-session').addEventListener('change', e => { perSession = +e.target.value; render(); });
+    $('play-toggle').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; plays = b.dataset.play === 'yes'; document.querySelectorAll('#play-toggle button').forEach(x => x.classList.toggle('on', x === b)); render(); });
+    $('player-list').addEventListener('click', e => { const b = e.target.closest('.rm'); if (b) { players.splice(+b.dataset.i, 1); render(); } });
+    $('player-list').addEventListener('change', e => { const s = e.target.closest('select'); if (s) { players[+s.dataset.i].share = s.value; render(); } });
+
+    const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    function addPlayer() {
+      const v = $('email').value.trim();
+      if (!emailOk(v)) { wzError($('email-field'), 'Enter a valid email address'); return false; }
+      if (players.some(p => p.email.toLowerCase() === v.toLowerCase())) { wzError($('email-field'), 'This player is already added'); return false; }
+      players.push({ email: v, share: $('share').value });
+      $('email').value = '';
+      render();
+      return true;
+    }
+    $('invite-form').addEventListener('submit', e => { e.preventDefault(); addPlayer(); });
+    $('skip').addEventListener('click', () => wz.set({ players: [], organizerPlays: false }));
+    $('send').addEventListener('click', () => {
+      if ($('email').value.trim() && !addPlayer()) return;
+      const { over } = render();
+      if (over) { window.toast('Allocated shares exceed the clinic capacity. Remove a player or raise players per session.'); return; }
+      location.href = 'create-clinic-4.html';
+    });
+    render();
+</script>
+</body>
+</html>

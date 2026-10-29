@@ -1,0 +1,32 @@
+/* Shared clinic header (all clinic-*.html pages): back link, title + chips, meta, Messages, more button, underline tabs.
+   Also defines a few status colours used on the clinic screens (green/yellow/red 100 + 700). */
+:root {
+  --g100: #d3f8df; --g700: #087443;
+  --y100: #fef7c3; --y700: #a15c07;
+  --r100: #fee4e2; --r700: #b42318;
+  --b100: #dbeafe; --b700: #1d4ed8;
+  --meta: #4d5761;
+}
+.page { padding-top: 22px; }
+.page .back { line-height: 20px; }
+.page .back .icon { width: 16px; height: 16px; }
+.clinic-head { margin-top: 24px; align-items: center; }
+.clinic-title { gap: 16px; }
+.clinic-title .title-wrap { display: inline-flex; align-items: center; gap: 8px; }
+.clinic-title .chip, .clinic-title .badge { font-size: 14px; line-height: normal; padding: 4px 12px; }
+.clinic-title .badge-ok { background: var(--g100); color: var(--g700); }
+.clinic-meta { gap: 8px 12px; margin-top: 12px; font-size: 18px; color: var(--meta); }
+.clinic-meta span { gap: 10px; }
+.clinic-actions { display: flex; align-items: center; gap: 16px; flex: none; position: relative; }
+.btn-messages { height: 44px; padding: 0 16px 0 14px; gap: 8px; border: 1px solid var(--line); color: var(--ink); font-size: 15px; background: #fff; border-radius: 22px; }
+.btn-messages:hover { background: var(--field); }
+.msg-count { background: var(--brand); color: #fff; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 99px; line-height: 16px; }
+.clinic-actions .menu { top: calc(100% + 8px); }
+.tabs { margin-top: 24px; height: 60px; gap: 43px; border-bottom: 1px solid var(--border); align-items: stretch; }
+.tabs a, .tabs button { display: flex; align-items: center; padding: 0; margin-bottom: -1px; letter-spacing: -.16px; line-height: 20px; border-bottom: 2px solid transparent; }
+.tabs .on { border-bottom-color: var(--brand); }
+@media (max-width: 720px) {
+  .clinic-actions { width: 100%; }
+  .tabs { gap: 28px; }
+  .clinic-title h1 { font-size: 26px; }
+}

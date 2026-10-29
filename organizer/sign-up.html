@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+</head>
+<body class="auth">
+  <div class="auth-shell">
+    <aside class="auth-photo shade signup" style="background-image:url(assets/img/auth-sign-up.png)">
+      <div class="cap">
+        <div class="dashes" aria-hidden="true"><i class="sm"></i><i></i><i></i><i></i></div>
+        <h2>Plan sessions. Keep players <em>connected.</em></h2>
+      </div>
+    </aside>
+    <main class="auth-main">
+      <div class="auth-form">
+        <div class="auth-head">
+          <h1>Create your account</h1>
+          <p>Already have an account<a href="sign-in.html">Sign in</a></p>
+        </div>
+        <form id="f" novalidate>
+          <div class="auth-fields">
+            <div class="a-field">
+              <label for="name">Full name<span class="req">*</span></label>
+              <div class="a-box" id="nb"><input id="name" type="text" placeholder="Enter your full name" autocomplete="name"></div>
+            </div>
+            <div class="a-field">
+              <label for="email">Email<span class="req">*</span></label>
+              <div class="a-box" id="eb"><input id="email" type="email" placeholder="Enter your email" autocomplete="email"></div>
+            </div>
+            <div class="a-field">
+              <label for="pw">Password<span class="req">*</span></label>
+              <div class="a-box" id="pb"><input id="pw" type="password" placeholder="Enter your password" autocomplete="new-password">
+                <button type="button" id="eye" aria-label="Show password"><img class="icon-24" src="assets/icons/eye.svg" alt=""></button></div>
+            </div>
+          </div>
+          <div class="terms-wrap">
+            <button class="auth-btn" type="submit">Sign up</button>
+            <p class="terms">By continuing, you agree to our <a href="#" data-toast="Terms &amp; Conditions aren't part of this prototype">Terms &amp; Conditions</a> and <a href="#" data-toast="Privacy Policy isn't part of this prototype">Privacy Policy</a></p>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="js/organizer.js"></script>
+  <script>
+    const pw = document.getElementById('pw');
+    document.getElementById('eye').onclick = () => { pw.type = pw.type === 'password' ? 'text' : 'password'; };
+    document.getElementById('f').addEventListener('submit', e => {
+      e.preventDefault();
+      const nm = document.getElementById('name'), em = document.getElementById('email');
+      const ok = [[nm.value.trim().length > 0, 'nb'], [em.value.includes('@'), 'eb'], [pw.value.length >= 8, 'pb']];
+      ok.forEach(([v, id]) => document.getElementById(id).classList.toggle('err', !v));
+      if (!ok.every(o => o[0])) return;
+      sessionStorage.setItem('cs_email', em.value.trim());
+      sessionStorage.setItem('cs_name', nm.value.trim());
+      location.href = 'verify-code.html?from=signup';
+    });
+  </script>
+</body>
+</html>

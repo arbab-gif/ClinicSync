@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/dashboard.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash-wrap">
+    <div class="stripe-banner">
+      <div class="sb-left">
+        <span class="sb-logo"><img src="assets/icons/stripe-wordmark.svg" alt="Stripe"></span>
+        <div>
+          <h2>Connect Stripe to Receive Payments</h2>
+          <p>Securely connect your Stripe account to collect facility fees from players and track payments in ClinicSync.</p>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-outline" type="button" data-open="#connect-stripe">Connect Stripe</button>
+    </div>
+
+    <div class="dash">
+      <div class="dash-main">
+        <section class="dash-summary">
+          <div class="section-head">
+            <h1 class="h1">My clinics</h1>
+            <a class="btn btn-md btn-dark" href="setup-clinic.html"><img class="icon" src="assets/icons/plus.svg" alt="">Create clinic</a>
+          </div>
+          <div class="stats">
+            <div><span>Active clinics</span><b>06</b></div>
+            <div><span>Completed clinics</span><b>12</b></div>
+            <div><span>Sessions played</span><b>48</b></div>
+            <div><span>Upcoming sessions</span><b>04</b></div>
+          </div>
+        </section>
+
+        <section class="dash-clinics">
+          <div class="section-head">
+            <h2 class="h2">Your clinics</h2>
+            <div class="seg" data-group role="tablist" aria-label="Clinic status">
+              <button class="on" type="button" role="tab">Active (6)</button>
+              <button type="button" role="tab">Completed (12)</button>
+            </div>
+          </div>
+          <div class="pills" data-group aria-label="Filter by role">
+            <button class="on" type="button">All (6)</button>
+            <button type="button">Organizer (3)</button>
+            <button type="button">Player (2)</button>
+            <button type="button" disabled>Substitute (0)</button>
+            <button type="button">Coach (1)</button>
+          </div>
+          <div class="clinic-list">
+            <article class="card clinic-card">
+              <div class="cc-body">
+                <div class="cc-title"><h3 class="h3">Tuesday Tennis Club</h3><div class="chips"><span class="chip">Organizer</span></div></div>
+                <div class="meta-list">
+                  <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Tuesday • 6:00 PM • 90 minutes</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players • 8 sessions</span>
+                </div>
+              </div>
+              <a class="link" href="clinic-overview.html">View Clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></a>
+            </article>
+            <article class="card clinic-card">
+              <div class="cc-body">
+                <div class="cc-title"><h3 class="h3">Tuesday Tennis Club</h3><div class="chips"><span class="chip">Player</span></div></div>
+                <div class="meta-list">
+                  <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Tuesday • 6:00 PM • 90 minutes</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players • 8 sessions</span>
+                </div>
+              </div>
+              <a class="link" href="clinic-overview.html">View Clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></a>
+            </article>
+            <article class="card clinic-card">
+              <div class="cc-body">
+                <div class="cc-title"><h3 class="h3">Tuesday Tennis Club</h3><div class="chips"><span class="chip">Coach</span></div></div>
+                <div class="meta-list">
+                  <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Tuesday • 6:00 PM • 90 minutes</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players • 8 sessions</span>
+                </div>
+              </div>
+              <a class="link" href="clinic-overview.html">View Clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></a>
+            </article>
+            <article class="card clinic-card">
+              <div class="cc-body">
+                <div class="cc-title"><h3 class="h3">Tuesday Tennis Club</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Player</span></div></div>
+                <div class="meta-list">
+                  <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Tuesday • 6:00 PM • 90 minutes</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+                  <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players • 8 sessions</span>
+                </div>
+              </div>
+              <a class="link" href="clinic-overview.html">View Clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></a>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <aside class="dash-side">
+        <section>
+          <h2 class="h2 with-count">Needs your attention <span class="count">2</span></h2>
+          <div class="attn-list">
+            <div class="attn">
+              <span class="attn-ic warn"><img class="icon-20" src="assets/icons/attention-users.svg" alt=""></span>
+              <div class="attn-body">
+                <b>Confirm attendance</b>
+                <span>Thursday Rally · Thu, Oct 15 · 7:00 PM</span>
+                <div class="attn-actions" data-group>
+                  <button class="btn btn-sm btn-outline" type="button" data-toast="Marked as going: Thursday Rally, Oct 15">Going</button>
+                  <button class="btn btn-sm btn-soft" type="button" data-toast="We'll let the organizer know you can't make it">Can’t make it</button>
+                </div>
+              </div>
+            </div>
+            <div class="attn">
+              <span class="attn-ic danger"><img class="icon-20" src="assets/icons/attention-card.svg" alt=""></span>
+              <div class="attn-body">
+                <b>Pay your share</b>
+                <span>Thursday Rally · $60.00 · due Oct 20</span>
+                <div class="attn-actions">
+                  <button class="btn btn-sm btn-outline" type="button" data-toast="Opens payment for Thursday Rally">Pay $60.00</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2 class="h2">Upcoming sessions</h2>
+            <a class="link" href="clinic-sessions.html">View schedule<img class="icon-16" src="assets/icons/arrow-right.svg" alt=""></a>
+          </div>
+          <div class="up-list">
+            <a class="up" href="clinic-sessions.html">
+              <span class="datebox"><small>Oct</small><b>10</b></span>
+              <span class="up-body"><b>Thursday Rally</b><span>7:00–8:30 PM · Riverside Tennis Center</span></span>
+              <span class="badge badge-ok">Player</span>
+              <img class="icon" src="assets/icons/chevron-right.svg" alt="">
+            </a>
+            <a class="up" href="clinic-sessions.html">
+              <span class="datebox"><small>Oct</small><b>10</b></span>
+              <span class="up-body"><b>Weekend Beginners</b><span>9:00–10:30 AM · Maple Grove Tennis Club</span></span>
+              <span class="badge badge-purple">Coach</span>
+              <img class="icon" src="assets/icons/chevron-right.svg" alt="">
+            </a>
+          </div>
+        </section>
+
+        <section>
+          <div class="card card-lg pay-card">
+            <h2 class="h2">Payments</h2>
+            <div class="pay-row">
+              <div><b>My Payments Due</b><strong class="due">$60.00</strong><span>Your Coach fees · 1 clinic</span></div>
+              <span class="chip">Player</span>
+            </div>
+            <div class="pay-row">
+              <div><b>Coaching Earnings</b><strong>$150.00</strong><span>Outstanding payments from <em>Weekend Beginners</em></span></div>
+              <span class="chip">Coach</span>
+            </div>
+            <div class="pay-row">
+              <div><b>Outstanding Facility Fees</b><strong>$240.00</strong><span>Unpaid facility fees from 5 players across 2 clinics</span></div>
+              <span class="chip">Organizer</span>
+            </div>
+            <a class="btn btn-lg btn-primary btn-block" href="clinic-payments.html">Review payments</a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Connect Stripe (Figma 640:27764) -->
+  <div class="overlay" id="connect-stripe" hidden>
+    <div class="modal stripe-modal" role="dialog" aria-modal="true" aria-labelledby="cs-title">
+      <button class="cs-close" type="button" data-close aria-label="Close"><img class="icon-24" src="assets/icons/close.svg" alt=""></button>
+      <div class="cs-head">
+        <img class="cs-logo" src="assets/icons/stripe-logo.svg" alt="Stripe">
+        <h2 id="cs-title">Connect Stripe to Receive Payments</h2>
+        <p>Securely connect your Stripe account to collect facility fees from players and track payments in ClinicSync.</p>
+      </div>
+      <ul class="cs-list">
+        <li><img class="icon-24" src="assets/icons/check-circle.svg" alt="">Accept Clinic/Coaching fee payments online</li>
+        <li><img class="icon-24" src="assets/icons/check-circle.svg" alt="">Track paid and outstanding amounts</li>
+        <li><img class="icon-24" src="assets/icons/check-circle.svg" alt="">Keep payment records organized</li>
+      </ul>
+      <div class="cs-actions">
+        <button class="btn btn-lg btn-soft" type="button" data-close>Maybe Later</button>
+        <button class="btn btn-lg btn-primary" type="button" data-toast="Redirecting to Stripe Connect onboarding…">Connect Stripe</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/organizer.js"></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Group chat · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+  <link rel="stylesheet" href="css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="css/pages/messages.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page behind the drawer: simplified clinic sessions list -->
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1>Saturday</h1><img class="icon-24" src="assets/icons/caret-down.svg" alt=""></span><span class="chip">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 on Every Monday at 9:00 AM</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+        </div>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+        <button class="icon-btn" type="button" aria-label="More actions"><img class="icon-20" src="assets/icons/dots-three.svg" alt=""></button>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic">
+      <a href="clinic-overview.html">Overview</a>
+      <a href="clinic-sessions.html" class="on" aria-current="page">Sessions</a>
+      <a href="clinic-players.html">Players</a>
+      <a href="clinic-substitutes.html">Substitutes</a>
+      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-payments.html">Payments</a>
+    </nav>
+    <section class="mm-list">
+      <h2 class="h2">All clinic sessions</h2>
+      <div class="search mm-search"><img src="assets/icons/search.svg" alt=""><input class="input" type="search" placeholder="Search Session" aria-label="Search session"></div>
+      <article class="s-card"><div class="s-top"><div class="datebox"><small>OCT</small><b>10</b></div><div class="s-main"><div class="s-info"><div class="s-title"><h3>Session 3</h3><span class="st st-green">Confirmed</span></div><div class="s-cols"><div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 2</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div></div></div></div></div><div class="s-players"><button type="button">Players</button></div></article>
+      <article class="s-card"><div class="s-top"><div class="datebox"><small>OCT</small><b>17</b></div><div class="s-main"><div class="s-info"><div class="s-title"><h3>Session 3</h3><span class="st st-yellow">2 Pending</span></div><div class="s-cols"><div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 2</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div></div></div></div></div><div class="s-players"><button type="button">Players</button></div></article>
+      <article class="s-card"><div class="s-top"><div class="datebox"><small>OCT</small><b>24</b></div><div class="s-main"><div class="s-info"><div class="s-title"><h3>Session 3</h3><span class="st st-red">1 Replacement Needed</span></div><div class="s-cols"><div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 2</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div></div></div></div></div><div class="s-players"><button type="button">Players</button></div></article>
+      <article class="s-card"><div class="s-top"><div class="datebox"><small>OCT</small><b>31</b></div><div class="s-main"><div class="s-info"><div class="s-title"><h3>Session 3</h3><span class="st st-green">Confirmed • 1 Subs</span></div><div class="s-cols"><div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 2</span></div><div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div></div></div></div></div><div class="s-players"><button type="button">Players</button></div></article>
+    </section>
+  </main>
+
+  <!-- Group chat drawer (Figma 698:25546) -->
+  <div class="chat-scrim" id="chat-scrim">
+    <aside class="chat" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+      <header class="chat-head">
+        <h2 id="chat-title">Saturday Tennis</h2>
+        <button class="chat-players" type="button" data-toast="Player list isn't part of this prototype"><img class="icon-16" src="assets/icons/users-16.svg" alt="">9 Players</button>
+        <a class="chat-close" href="clinic-sessions.html" aria-label="Close chat"><img class="icon-20" src="assets/icons/x-circle.svg" alt=""></a>
+      </header>
+      <div class="chat-list" id="chat-list" aria-live="polite">
+        <div class="divider"><span>Yesterday</span></div>
+        <div class="msg me"><div class="body"><div class="meta"><b>You</b><i>6:10 PM</i></div><p class="bubble">Please arrive 10 minutes early for Saturday’s session.</p></div></div>
+        <div class="divider"><span>Today</span></div>
+        <div class="msg"><span class="av av-pink">JL</span><div class="body"><div class="meta"><b>Jessica Lee</b><em>Player</em><i>8:20 AM</i></div><p class="bubble">I’m running about 15 minutes late today.</p></div></div>
+        <div class="msg"><span class="av av-green">RW</span><div class="body"><div class="meta"><b>Robert Wilson</b><em>Player</em><i>8:22 AM</i></div><p class="bubble">Thanks for letting us know!</p></div></div>
+        <div class="msg me"><div class="body"><div class="meta"><b>You</b><i>8:30 AM</i></div><p class="bubble">We may need more substitutes for upcoming sessions.</p></div></div>
+        <div class="msg" id="typing"><span class="av av-green">RW</span><div class="body"><div class="meta"><b>Robert Wilson</b><em>Player</em><i>8:22 AM</i></div><p class="bubble dots">• • •</p></div></div>
+      </div>
+      <form class="composer" id="composer" autocomplete="off">
+        <div class="c-row">
+          <input class="c-input" id="c-input" type="text" value="See everyone at 9!" placeholder="Type a message" aria-label="Message">
+          <button class="c-send" type="submit"><img class="icon-18" src="assets/icons/paper-plane-right.svg" alt="">Send</button>
+        </div>
+        <div class="c-actions">
+          <button class="c-chip" type="button" id="act-late"><img class="icon-16" src="assets/icons/clock-16.svg" alt="">Reaching Late</button>
+          <button class="c-chip" type="button" id="act-repl"><img class="icon-16" src="assets/icons/user-switch.svg" alt="">Request Replacement</button>
+        </div>
+      </form>
+    </aside>
+  </div>
+
+  <!-- Reaching Late (Figma 698:29501) -->
+  <div class="overlay" id="late-modal" hidden>
+    <div class="modal fm" role="dialog" aria-modal="true" aria-labelledby="late-title">
+      <div class="fm-head"><div><h2 id="late-title">Reaching Late?</h2><p>Let your clinic know when you’ll arrive.</p></div><button class="fm-x" type="button" data-close aria-label="Close"><img class="icon-20" src="assets/icons/x.svg" alt=""></button></div>
+      <div class="fm-block">
+        <span class="lbl" id="late-lbl">How late will you be?</span>
+        <div class="delay" data-group role="radiogroup" aria-labelledby="late-lbl" id="delay">
+          <button type="button" role="radio" data-min="5">5 min</button>
+          <button type="button" role="radio" data-min="10">10 min</button>
+          <button type="button" role="radio" class="on" data-min="15">15 min</button>
+          <button type="button" role="radio" data-min="20">20 min</button>
+          <button type="button" role="radio" data-min="30">30 min</button>
+          <button type="button" role="radio" data-min="custom">Custom</button>
+        </div>
+        <div class="field" id="custom-wrap" hidden><label for="custom-min">Minutes late</label><input class="input" id="custom-min" type="number" min="1" max="120" placeholder="e.g. 45"></div>
+      </div>
+      <div class="field"><label for="late-note">Additional Message <span class="opt">(optional)</span></label><input class="input" id="late-note" type="text" value="Traffic is heavier than expected."></div>
+      <div class="fm-actions"><button class="btn btn-lg btn-soft" type="button" data-close>Cancel</button><button class="btn btn-lg btn-primary" type="button" id="late-go">Notify Clinic</button></div>
+    </div>
+  </div>
+
+  <!-- Request a Replacement: step 1 (698:30261) -->
+  <div class="overlay" id="repl-1" hidden>
+    <div class="modal fm" role="dialog" aria-modal="true" aria-labelledby="r1-title">
+      <div class="fm-head"><div><h2 id="r1-title">Request a Replacement</h2><p>Select the session you cannot attend.</p></div><button class="fm-x" type="button" data-close aria-label="Close"><img class="icon-20" src="assets/icons/x.svg" alt=""></button></div>
+      <div class="steps"><i class="on"></i><i></i></div>
+      <div class="opts" id="sess-opts" role="radiogroup" aria-label="Session">
+        <button class="opt on" type="button" role="radio" aria-checked="true" data-sess="Session 5" data-date="Monday, November 2 • 9:00 AM" data-short="Mon, Nov 2 · 9:00 AM" data-card="Monday, November 2 • 9:00 AM">
+          <span class="o-main"><b>Session 5</b><span class="o-meta"><img class="icon-16" src="assets/icons/calendar-blank-16.svg" alt="">Monday, November 2 • 9:00 AM</span><span class="o-meta"><img class="icon-16" src="assets/icons/map-pin-16.svg" alt="">Riverside Tennis Center</span></span><img class="radio icon-20" src="assets/icons/radio-on.svg" alt="">
+        </button>
+        <button class="opt" type="button" role="radio" aria-checked="false" data-sess="Session 6" data-date="Monday, November 9 • 9:00 AM" data-short="Mon, Nov 9 · 9:00 AM">
+          <span class="o-main"><b>Session 6</b><span class="o-meta"><img class="icon-16" src="assets/icons/calendar-blank-16.svg" alt="">Monday, November 9 • 9:00 AM</span><span class="o-meta"><img class="icon-16" src="assets/icons/map-pin-16.svg" alt="">Riverside Tennis Center</span></span><img class="radio icon-20" src="assets/icons/radio-off.svg" alt="">
+        </button>
+        <div class="opt disabled" aria-disabled="true">
+          <span class="o-main"><b>Session 4 • Today <i class="pill-soft">Too close to start</i></b><span class="o-meta">Starts in under 2 hours — use Reaching Late, or contact your organizer.</span></span><img class="radio icon-20" src="assets/icons/radio-off.svg" alt="">
+        </div>
+      </div>
+      <div class="fm-actions"><button class="btn btn-lg btn-soft" type="button" data-close>Cancel</button><button class="btn btn-lg btn-primary" type="button" id="r1-next">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- Find a Replacement: step 2 (698:30755) -->
+  <div class="overlay" id="repl-2" hidden>
+    <div class="modal fm" role="dialog" aria-modal="true" aria-labelledby="r2-title">
+      <div class="fm-head"><div><h2 id="r2-title">Find a Replacement</h2><p>Choose how you’d like to find someone to cover your session.</p></div><button class="fm-x" type="button" data-close aria-label="Close"><img class="icon-20" src="assets/icons/x.svg" alt=""></button></div>
+      <div class="steps"><i class="on"></i><i class="on"></i></div>
+      <div class="sess-sum">
+        <span class="ico"><img class="icon-20" src="assets/icons/calendar-blank-brand-20.svg" alt=""></span>
+        <div><b id="r2-sess">Session 5</b><span class="o-meta"><img class="icon-16" src="assets/icons/calendar-blank-16.svg" alt=""><span id="r2-date">Monday, November 2 • 9:00 AM</span></span><span class="o-meta"><img class="icon-16" src="assets/icons/map-pin-16.svg" alt="">Riverside Tennis Center</span></div>
+      </div>
+      <div class="opts" id="how-opts" role="radiogroup" aria-label="How to find a replacement">
+        <button class="opt on" type="button" role="radio" aria-checked="true" data-how="player">
+          <span class="o-ico"><img class="icon-20" src="assets/icons/users-brand-20.svg" alt=""></span><span class="o-main"><b>Invite a Player</b><span class="o-desc">Invite a clinic player. If no one accepts, substitutes are notified automatically.</span></span><img class="radio icon-20" src="assets/icons/radio-on.svg" alt="">
+        </button>
+        <button class="opt" type="button" role="radio" aria-checked="false" data-how="sub">
+          <span class="o-ico warn"><img class="icon-20" src="assets/icons/user-plus.svg" alt=""></span><span class="o-main"><b>Invite a Substitute</b><span class="o-desc">Already discussed in chat? Invite an approved substitute directly.</span></span><img class="radio icon-20" src="assets/icons/radio-off.svg" alt="">
+        </button>
+        <button class="opt" type="button" role="radio" aria-checked="false" data-how="email">
+          <span class="o-ico purple"><img class="icon-20" src="assets/icons/envelope.svg" alt=""></span><span class="o-main"><b>Invite by Email</b><span class="o-desc">Invite someone who is not currently registered in your clinic.</span></span><img class="radio icon-20" src="assets/icons/radio-off.svg" alt="">
+        </button>
+      </div>
+      <div class="field" id="how-sub" hidden><label for="sub-pick">Approved substitute</label><select class="select" id="sub-pick"><option>Daniel Kim</option><option>Emma Ribert</option><option>Noah Williams</option></select></div>
+      <div class="field" id="how-email" hidden><label for="email-pick">Email address</label><input class="input" id="email-pick" type="email" placeholder="name@example.com"><span class="hint err" id="email-err" hidden>Enter a valid email address.</span></div>
+      <div class="note"><img class="icon-18" src="assets/icons/info.svg" alt=""><p>Regular players are offered your spot first. A direct invitation holds the spot for 24 hours — the substitute list is only notified if it’s declined or expires.</p></div>
+      <div class="fm-actions"><button class="btn btn-lg btn-soft" type="button" data-close>Cancel</button><button class="btn btn-lg btn-primary" type="button" id="r2-go">Submit Request</button></div>
+    </div>
+  </div>
+
+  <!-- Replacement Request Sent (698:30896) -->
+  <div class="overlay" id="repl-3" hidden>
+    <div class="modal fm fm-sent" role="dialog" aria-modal="true" aria-labelledby="r3-title">
+      <div class="check3d"><img src="assets/img/replacement-sent-check.png" alt=""></div>
+      <h2 id="r3-title">Replacement Request Sent</h2>
+      <div class="sum">
+        <div><span>Session</span><b id="r3-sess">Mon, Nov 2 · 9:00 AM</b></div>
+        <div><span>Invited</span><b id="r3-who">Clinic players</b></div>
+        <div><span>Respond by</span><b id="r3-by">—</b></div>
+        <div><span>Status</span><i class="pill-y">Awaiting response</i></div>
+      </div>
+      <div class="note grey"><img class="icon-18" src="assets/icons/info-grey.svg" alt=""><p id="r3-note">You remain responsible for Session 5 until a replacement is confirmed.</p></div>
+      <div class="fm-actions"><button class="btn btn-lg btn-primary" type="button" id="r3-done">Done</button></div>
+    </div>
+  </div>
+
+  <script src="js/organizer.js"></script>
+  <script>
+  (() => {
+    const $ = (s, el = document) => el.querySelector(s);
+    const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+    const list = $('#chat-list');
+    const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const clock = (d = new Date()) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    const open = el => { el.hidden = false; document.body.style.overflow = 'hidden'; };
+    const closeModals = () => { $$('.overlay').forEach(o => o.hidden = true); };
+    const modalOpen = () => $$('.overlay').some(o => !o.hidden);
+
+    function push(html) {
+      const el = document.createElement('div');
+      el.innerHTML = html.trim();
+      const node = el.firstElementChild;
+      $('#typing')?.remove();
+      list.append(node);
+      list.scrollTop = list.scrollHeight;
+      return node;
+    }
+
+    // Close the drawer = back to the sessions list
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modalOpen()) location.href = 'clinic-sessions.html'; });
+    $('#chat-scrim').addEventListener('click', e => { if (e.target.id === 'chat-scrim') location.href = 'clinic-sessions.html'; });
+
+    // Send a message
+    $('#composer').addEventListener('submit', e => {
+      e.preventDefault();
+      const inp = $('#c-input'), t = inp.value.trim();
+      if (!t) { inp.focus(); return; }
+      push(`<div class="msg me"><div class="body"><div class="meta"><b>You</b><i>${clock()}</i></div><p class="bubble">${esc(t)}</p></div></div>`);
+      inp.value = '';
+    });
+
+    // ---- Reaching Late ----
+    $('#act-late').addEventListener('click', () => { open($('#late-modal')); });
+    $('#delay').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      $('#custom-wrap').hidden = b.dataset.min !== 'custom';
+      if (b.dataset.min === 'custom') $('#custom-min').focus();
+    });
+    $('#late-go').addEventListener('click', () => {
+      let m = $('#delay .on')?.dataset.min;
+      if (m === 'custom') {
+        m = parseInt($('#custom-min').value, 10);
+        if (!(m > 0)) { $('#custom-min').classList.add('err'); $('#custom-min').focus(); return; }
+      }
+      const note = $('#late-note').value.trim();
+      closeModals();
+      push(`<div class="card-msg"><div class="cm-top"><div><p class="cm-title">Jessica Lee is reaching late <em class="you">You</em></p><p class="cm-sub">Session 4 • Today, 9:00 AM</p></div><i class="cm-time">${clock()}</i></div>
+        <div class="cm-box"><p class="cm-line">Arriving approximately ${m} minutes late</p>${note ? `<p class="cm-quote">“${esc(note)}”</p>` : ''}</div></div>`);
+      setTimeout(() => {
+        push(`<div class="msg"><span class="av av-green">RW</span><div class="body"><div class="meta"><b>Robert Wilson</b><em class="org">Organizer</em><i>${clock()}</i></div><p class="bubble">Thanks Jessica, we’ll start warm-ups and pair you in when you arrive.</p></div></div>`);
+      }, 1200);
+    });
+    $('#custom-min').addEventListener('input', e => e.target.classList.remove('err'));
+
+    // ---- Request Replacement ----
+    function radioGroup(sel) {
+      $(sel).addEventListener('click', e => {
+        const b = e.target.closest('.opt:not(.disabled)'); if (!b) return;
+        $$('.opt', $(sel)).forEach(o => {
+          const on = o === b;
+          o.classList.toggle('on', on); o.setAttribute('aria-checked', on);
+          $('.radio', o).src = `assets/icons/radio-${on ? 'on' : 'off'}.svg`;
+        });
+      });
+    }
+    radioGroup('#sess-opts'); radioGroup('#how-opts');
+    $('#how-opts').addEventListener('click', () => {
+      const how = $('#how-opts .on').dataset.how;
+      $('#how-sub').hidden = how !== 'sub'; $('#how-email').hidden = how !== 'email';
+    });
+    $('#act-repl').addEventListener('click', () => open($('#repl-1')));
+    $('#r1-next').addEventListener('click', () => {
+      const s = $('#sess-opts .on');
+      $('#r2-sess').textContent = s.dataset.sess; $('#r2-date').textContent = s.dataset.date;
+      $('#repl-1').hidden = true; open($('#repl-2'));
+    });
+
+    let req = null;
+    $('#r2-go').addEventListener('click', () => {
+      const s = $('#sess-opts .on'), how = $('#how-opts .on').dataset.how;
+      let who = 'Fellow players';
+      if (how === 'sub') who = $('#sub-pick').value;
+      if (how === 'email') {
+        const v = $('#email-pick').value.trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { $('#email-pick').classList.add('err'); $('#email-err').hidden = false; $('#email-pick').focus(); return; }
+        who = v;
+      }
+      const by = new Date(Date.now() + 24 * 3600e3);
+      req = { how, who, sess: s.dataset.sess, date: s.dataset.date, short: s.dataset.short };
+      $('#r3-sess').textContent = req.short;
+      $('#r3-who').textContent = how === 'player' ? 'Clinic players' : who;
+      $('#r3-by').textContent = by.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ' · ' + clock(by);
+      $('#r3-note').textContent = `You remain responsible for ${req.sess} until a replacement is confirmed.`;
+      $('#repl-2').hidden = true; open($('#repl-3'));
+    });
+    $('#email-pick').addEventListener('input', e => { e.target.classList.remove('err'); $('#email-err').hidden = true; });
+
+    $('#r3-done').addEventListener('click', () => { closeModals(); document.body.style.overflow = 'hidden'; postRequest(); });
+
+    function postRequest() {
+      const r = req, time = clock();
+      const status = r.how === 'player' ? ['Finding Fellow players'] : r.how === 'sub' ? ['Finding Substitute'] : ['Invited by email'];
+      const card = push(`<div class="card-msg" data-card><div class="cm-top"><div><p class="cm-title">Robert Wilson needs a replacement. <em class="you">You</em></p><p class="cm-sub">${r.sess} • ${r.date}</p></div><i class="cm-time">${time}</i></div>
+        <div class="cm-box"><p class="cm-line">Looking for an available ${r.how === 'player' ? 'player' : r.how === 'sub' ? 'substitute' : 'person'}</p><i class="pill-purple" data-status>${status[0]}</i></div>
+        <div class="cm-act" hidden><button class="btn-ok" type="button" data-accept>Accept to Play</button><button class="btn-no" type="button" data-decline>Decline</button></div></div>`);
+      const setStatus = (t, cls) => { const p = $('[data-status]', card); p.textContent = t; if (cls) p.className = cls; };
+      const confirmed = who => {
+        setStatus('Replacement confirmed', 'pill-green');
+        $('.cm-act', card).hidden = true;
+        push(`<div class="sys"><img class="icon-16" src="assets/icons/check-circle.svg" alt=""><span><b>${esc(who)}</b> will replace <b>Robert Wilson (you)</b> for ${r.sess} • ${r.short.replace(' · ', ', ')}.</span></div>`);
+      };
+      if (r.how === 'player') {
+        // a fellow player picks up the request: show approve / reject
+        setTimeout(() => { $('.cm-act', card).hidden = false; $('.you', card)?.remove(); list.scrollTop = list.scrollHeight; }, 1600);
+        $('[data-accept]', card).addEventListener('click', () => confirmed('Daniel Kim'));
+        $('[data-decline]', card).addEventListener('click', () => {
+          $('.cm-act', card).hidden = true; setStatus('Finding Substitute');
+          window.toast('Declined — substitutes are being notified');
+          setTimeout(() => confirmed('Daniel Kim'), 2500);
+        });
+      } else if (r.how === 'sub') {
+        setTimeout(() => confirmed(r.who), 2500);
+      }
+    }
+  })();
+  </script>
+</body>
+</html>

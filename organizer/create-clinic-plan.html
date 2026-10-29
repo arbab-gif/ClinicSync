@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose your plan · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/create-clinic.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="plan-main">
+    <a class="back plan-back" href="create-clinic-5.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">Back</a>
+    <div class="wz-head">
+      <h1>Choose your plan</h1>
+      <p>Find the right plan for your clinic.</p>
+    </div>
+    <div class="plan-billing">
+      <div class="seg" id="billing" data-group role="group" aria-label="Billing period">
+        <button type="button" class="on" data-period="month">Monthly</button>
+        <button type="button" data-period="year">Yearly</button>
+      </div>
+      <span class="save">Save 20%</span>
+    </div>
+
+    <div class="plan-grid">
+      <section class="plan off" aria-disabled="true">
+        <div class="plan-body">
+          <div class="plan-head"><h2>Starter</h2><p>For players &amp; substitutes</p>
+            <div class="plan-price"><b data-price="9">$9</b><span>/month</span></div></div>
+          <ul>
+            <li><img src="assets/icons/check-20.svg" alt="">Unlimited clinic participation</li>
+            <li><img src="assets/icons/check-20.svg" alt="">RSVP &amp; scheduling</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Substitute requests</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Payment tracking</li>
+          </ul>
+        </div>
+        <div class="plan-cta"><button type="button" disabled title="Starter is for players and substitutes, not clinic organizers"><span>Choose Starter</span></button></div>
+      </section>
+
+      <div class="plan-pop">
+        <b>MOST POPULAR</b>
+        <section class="plan">
+          <div class="plan-body">
+            <div class="plan-head"><h2>Plus</h2><p>For organizers &amp; coaches</p>
+              <div class="plan-price"><b data-price="19">$19</b><span>/month</span></div></div>
+            <ul>
+              <li><img src="assets/icons/check-20.svg" alt="">Everything in Starter</li>
+              <li><img src="assets/icons/check-20.svg" alt="">Up to 5 active clinics</li>
+              <li><img src="assets/icons/check-20.svg" alt="">Player &amp; sub management</li>
+              <li><img src="assets/icons/check-20.svg" alt="">Attendance &amp; payment reports</li>
+            </ul>
+          </div>
+          <div class="plan-cta"><button type="button" class="solid" data-plan="Plus">Choose Plus</button></div>
+        </section>
+      </div>
+
+      <section class="plan">
+        <div class="plan-body">
+          <div class="plan-head"><h2>Pro</h2><p>For clubs &amp; academies</p>
+            <div class="plan-price"><b data-price="39">$39</b><span>/month</span></div></div>
+          <ul>
+            <li><img src="assets/icons/check-20.svg" alt="">Everything in Plus</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Unlimited active clinics</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Unlimited players</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Advanced analytics</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Priority support</li>
+            <li><img src="assets/icons/check-20.svg" alt="">Coach dashboard</li>
+          </ul>
+        </div>
+        <div class="plan-cta"><button type="button" data-plan="Pro"><span>Choose Pro</span></button></div>
+      </section>
+    </div>
+
+    <p class="plan-note">Your subscription renews automatically. Cancel anytime to stop the next renewal. Access continues until your current billing period ends. Facility and coach fees are separate.</p>
+  </main>
+
+  <script src="js/organizer.js"></script>
+  <script src="js/create-clinic.js"></script>
+  <script>
+    let period = 'month';
+    // Yearly billing is 20% cheaper per month
+    document.getElementById('billing').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      period = b.dataset.period;
+      document.querySelectorAll('[data-price]').forEach(p => {
+        const base = +p.dataset.price;
+        p.textContent = '$' + (period === 'year' ? Math.round(base * 0.8) : base);
+        p.nextElementSibling.textContent = period === 'year' ? '/month, billed yearly' : '/month';
+      });
+    });
+    document.querySelectorAll('[data-plan]').forEach(btn => btn.addEventListener('click', () => {
+      const price = +document.querySelector(btn.dataset.plan === 'Plus' ? '[data-price="19"]' : '[data-price="39"]').dataset.price;
+      wz.set({ plan: btn.dataset.plan, period, planPrice: period === 'year' ? Math.round(price * 0.8) : price });
+      document.querySelectorAll('[data-plan]').forEach(x => x.disabled = true);
+      window.toast('Redirecting to Stripe checkout…');
+      // The real app hands off to Stripe Checkout here; the prototype goes straight to the success page.
+      setTimeout(() => { location.href = 'create-clinic-success.html'; }, 1600);
+    }));
+</script>
+</body>
+</html>

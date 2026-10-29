@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Organizer portal · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <style>
+    .map { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 24px 72px; display: flex; flex-direction: column; gap: 36px; }
+    .map header p { color: var(--muted); margin-top: 8px; max-width: 640px; }
+    .flow h2 { font-weight: 600; font-size: 20px; margin-bottom: 14px; }
+    .flow ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .flow a { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-radius: 14px; background: var(--card); text-decoration: none; color: var(--ink); border: 1px solid transparent; height: 100%; }
+    .flow a:hover { border-color: var(--brand); background: #fff; }
+    .flow a b { font-weight: 500; }
+    .flow a small { color: var(--muted); font-size: 13px; }
+    .flow a.missing { opacity: .5; pointer-events: none; }
+    .links { display: flex; gap: 12px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="index.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <a class="btn btn-sm btn-primary" href="sign-in.html">Start prototype</a>
+  </header>
+  <main class="map">
+    <header>
+      <h1 class="h1">Organizer portal</h1>
+      <p>Coded from the Figma “Organizer Flow”. Start at sign in and click through, or jump to any screen.</p>
+    </header>
+    <section class="flow"><h2>Account</h2><ol>
+      <li><a href="sign-in.html"><b>Sign in</b><small>Welcome back</small></a></li>
+      <li><a href="forgot-password.html"><b>Forgot password</b><small>Wrong email state</small></a></li>
+      <li><a href="verify-code.html"><b>Verification code</b><small>Loading + error states</small></a></li>
+      <li><a href="create-password.html"><b>Create new password</b><small>Mismatch state</small></a></li>
+      <li><a href="password-updated.html"><b>Password updated</b></a></li>
+      <li><a href="sign-up.html"><b>Sign up</b><small>Create your account</small></a></li>
+    </ol></section>
+    <section class="flow"><h2>Onboarding &amp; create clinic</h2><ol>
+      <li><a href="complete-profile.html"><b>Complete profile</b><small>Tennis / Padel / other sports</small></a></li>
+      <li><a href="setup-clinic.html"><b>Create your first clinic</b></a></li>
+      <li><a href="create-clinic-1.html"><b>Create clinic · Step 1</b></a></li>
+      <li><a href="create-clinic-2.html"><b>Create clinic · Step 2</b></a></li>
+      <li><a href="create-clinic-3.html"><b>Create clinic · Step 3</b></a></li>
+      <li><a href="create-clinic-4.html"><b>Create clinic · Step 4</b></a></li>
+      <li><a href="create-clinic-5.html"><b>Create clinic · Step 5</b></a></li>
+      <li><a href="create-clinic-plan.html"><b>Choose your plan</b></a></li>
+      <li><a href="create-clinic-success.html"><b>Clinic created</b></a></li>
+    </ol></section>
+    <section class="flow"><h2>Dashboard &amp; clinic</h2><ol>
+      <li><a href="dashboard.html"><b>Dashboard</b><small>My clinics, attention, payments</small></a></li>
+      <li><a href="dashboard.html?open=connect-stripe"><b>Connect Stripe</b><small>Pop-up on the dashboard</small></a></li>
+      <li><a href="clinic-overview.html"><b>Clinic overview</b></a></li>
+      <li><a href="clinic-sessions.html"><b>Sessions · list</b><small>Session detail pop-up</small></a></li>
+      <li><a href="clinic-calendar.html"><b>Sessions · calendar</b></a></li>
+      <li><a href="clinic-players.html"><b>Players</b><small>Status filter</small></a></li>
+      <li><a href="clinic-substitutes.html"><b>Substitutes</b></a></li>
+      <li><a href="clinic-payments.html"><b>Payments</b><small>Fees breakdown, confirm payment, detail</small></a></li>
+      <li><a href="clinic-messages.html"><b>Group chat</b><small>Reaching late, request replacement</small></a></li>
+    </ol></section>
+  </main>
+  <script>
+    // Dim links to pages that haven't been built yet
+    document.querySelectorAll('.flow a').forEach(a => {
+      fetch(a.getAttribute('href').split('?')[0], { method: 'HEAD' }).then(r => { if (!r.ok) a.classList.add('missing'); });
+    });
+  </script>
+</body>
+</html>

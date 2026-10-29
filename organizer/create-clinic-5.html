@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invite your coach · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/create-clinic.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wz-main wide">
+    <div class="wz-head">
+      <h1>Invite Your Coach</h1>
+      <p>Add the coach you've arranged for this clinic series.</p>
+    </div>
+
+    <div class="wz-tabs" role="tablist" aria-label="How to add a coach">
+      <button type="button" role="tab" class="on" data-tab="find" aria-selected="true">Find Coach</button>
+      <button type="button" role="tab" data-tab="email" aria-selected="false">Invite by email</button>
+    </div>
+
+    <section id="panel-find" role="tabpanel" class="wz-stack" style="gap:32px">
+      <div class="coach-tools">
+        <label class="coach-search"><img src="assets/icons/search.svg" alt=""><input id="coach-q" type="search" placeholder="Search by coach name or speciality" autocomplete="off" aria-label="Search coaches"></label>
+        <div class="coach-filters">
+          <div class="f"><button type="button" data-menu="#m-sport" aria-haspopup="menu"><span id="f-sport">Tennis</span><img src="assets/icons/filter-arrow-16.svg" alt=""></button>
+            <div class="menu" id="m-sport" role="menu" hidden><button type="button" data-f="sport" data-v="Tennis">Tennis</button><button type="button" data-f="sport" data-v="Pickleball">Pickleball</button><button type="button" data-f="sport" data-v="Padel">Padel</button></div></div>
+          <div class="f"><button type="button" data-menu="#m-loc" aria-haspopup="menu"><span id="f-loc">Location</span><img src="assets/icons/filter-arrow-16.svg" alt=""></button>
+            <div class="menu" id="m-loc" role="menu" hidden><button type="button" data-f="loc" data-v="">Any location</button><button type="button" data-f="loc" data-v="Riverside, CA, USA">Riverside, CA, USA</button><button type="button" data-f="loc" data-v="Austin, TX, USA">Austin, TX, USA</button></div></div>
+          <div class="f"><button type="button" data-menu="#m-av" aria-haspopup="menu"><span id="f-av">Availability</span><img src="assets/icons/filter-arrow-16.svg" alt=""></button>
+            <div class="menu" id="m-av" role="menu" hidden><button type="button" data-f="av" data-v="">Any availability</button><button type="button" data-f="av" data-v="Available">Available</button><button type="button" data-f="av" data-v="Busy">Busy</button></div></div>
+        </div>
+      </div>
+      <div class="coach-grid" id="coach-grid"></div>
+    </section>
+
+    <form id="email-panel" class="wz-form" role="tabpanel" hidden novalidate>
+      <div class="wz-field" id="coach-email-field">
+        <label for="coach-email">Coach Email Address <span style="color:var(--danger)">*</span></label>
+        <input class="wz-input" id="coach-email" type="email" placeholder="robert@gmail.com" autocomplete="off">
+      </div>
+      <div class="wz-field" id="coach-fee-field">
+        <label for="coach-fee">Coach Fee per Player, per Session</label>
+        <div class="wz-input wz-prefixed"><span class="pre">$</span><input id="coach-fee" placeholder="e.g 50" inputmode="decimal" autocomplete="off"></div>
+        <p class="wz-hint-line">Enter the amount each attending player pays the coach for one session, as agreed with your coach.</p>
+      </div>
+    </form>
+  </main>
+
+  <div class="overlay drawer-overlay" id="coach-drawer" hidden>
+    <aside class="drawer coach-drawer" role="dialog" aria-modal="true" aria-label="Coach profile">
+      <div class="cd-body">
+        <div class="cd-head">
+          <img id="cd-photo" src="assets/img/coach-sophia-martinez.png" alt="">
+          <div class="cd-info">
+            <div class="coach-row">
+              <div>
+                <h2 id="cd-name">Sophia Martinez</h2>
+                <p class="cd-role">Tennis Coach · Group Clinics</p>
+                <div class="cd-stats14"><span>NTRP :<b>4.5</b></span><span>Level :<b>Advanced</b></span></div>
+              </div>
+              <span class="badge-green" style="font-size:14px">Available</span>
+            </div>
+            <div class="cd-loc"><img src="assets/icons/map-pin-18.svg" alt="">Riverside, CA, USA</div>
+          </div>
+        </div>
+        <div class="cd-nums">
+          <div><span>Experience in years</span><b>08</b></div>
+          <div><span>Completed Clinic Coached</span><b>12</b></div>
+        </div>
+        <div class="cd-sec"><h3>About</h3><p>Experienced tennis coach focused on recreational clinics, skill development, and helping players improve through structured group training.</p></div>
+        <div class="cd-sec"><h3>Coaching Expertise</h3><div class="chips"><span>Group Clinics</span><span>Intermediate Players</span><span>Advanced Players</span><span>Technique &amp; Drills</span></div></div>
+        <div class="cd-sec"><div class="row"><h3>Availability</h3><span class="badge-green">No Conflict Found</span></div></div>
+      </div>
+      <div class="cd-bar">
+        <div class="p"><b>$50</b><span>/ player / session</span></div>
+        <button class="btn btn-primary btn-lg" style="height:48px;font-size:18px" type="button" id="cd-select" data-close>Select Coach</button>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="stepbar">
+    <a class="btn btn-soft wz-back" href="create-clinic-4.html">Back</a>
+    <div class="progress"><div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><small>Create Clinic • Step 5 of 5</small></div>
+    <div class="right"><button class="btn btn-primary wz-next" type="button" id="go">Create Clinic</button></div>
+  </footer>
+  <script src="js/organizer.js"></script>
+  <script src="js/create-clinic.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const COACHES = [
+      { id: 'c1', name: 'Sophia Martinez', photo: 'assets/img/coach-sophia-martinez.png' },
+      { id: 'c2', name: 'Olivia Davis', photo: 'assets/img/coach-olivia-davis.png' },
+      { id: 'c3', name: 'Sophia Martinez', photo: 'assets/img/coach-sophia-martinez.png' },
+      { id: 'c4', name: 'Olivia Davis', photo: 'assets/img/coach-olivia-davis.png' },
+      { id: 'c5', name: 'Sophia Martinez', photo: 'assets/img/coach-sophia-martinez.png' },
+      { id: 'c6', name: 'Olivia Davis', photo: 'assets/img/coach-olivia-davis.png' }
+    ].map(c => ({ ...c, ntrp: '4.5', level: 'Advanced', status: 'Available', loc: 'Riverside, CA, USA', years: '4 years Experiance', fee: 50, sport: 'Tennis' }));
+
+    let selected = wz.get().coach?.id || null;
+    let openId = null;
+    const filt = { q: '', sport: 'Tennis', loc: '', av: '' };
+
+    function card(c) {
+      return `<article class="coach-card${selected === c.id ? ' sel' : ''}" data-id="${c.id}">
+        <div class="coach-top"><img src="${c.photo}" alt="">
+          <div class="coach-info">
+            <div class="coach-row"><div><div class="coach-name">${c.name}</div>
+              <div class="coach-stats"><span>NTRP :<b>${c.ntrp}</b></span><span>Level :<b>${c.level}</b></span></div></div>
+              <span class="badge-green">${c.status}</span></div>
+            <div class="coach-meta"><span><img src="assets/icons/map-pin-16.svg" alt="">${c.loc}</span><span><img src="assets/icons/identification-badge.svg" alt="">${c.years}</span></div>
+          </div></div>
+        <hr>
+        <div class="coach-foot"><div class="coach-price">$${c.fee}<small>/player-session</small></div>
+          <div class="coach-btns"><button type="button" class="vp" data-open="#coach-drawer" data-profile="${c.id}">View Profile</button><button type="button" class="sl" data-select="${c.id}">${selected === c.id ? 'Selected' : 'Select'}</button></div></div>
+      </article>`;
+    }
+    function render() {
+      const q = filt.q.toLowerCase();
+      const list = COACHES.filter(c => (!q || (c.name + ' ' + c.sport + ' coach').toLowerCase().includes(q)) && c.sport === filt.sport && (!filt.loc || c.loc === filt.loc) && (!filt.av || c.status === filt.av));
+      $('coach-grid').innerHTML = list.length ? list.map(card).join('') : '<p class="coach-empty">No coaches match your filters.</p>';
+    }
+    function select(id) { selected = id; render(); }
+
+    $('coach-q').addEventListener('input', e => { filt.q = e.target.value.trim(); render(); });
+    document.querySelectorAll('.coach-filters .menu button').forEach(b => b.addEventListener('click', () => {
+      filt[b.dataset.f] = b.dataset.v;
+      const lbl = { sport: 'f-sport', loc: 'f-loc', av: 'f-av' }[b.dataset.f], def = { sport: 'Tennis', loc: 'Location', av: 'Availability' }[b.dataset.f];
+      $(lbl).textContent = b.dataset.v || def; render();
+    }));
+    $('coach-grid').addEventListener('click', e => {
+      const p = e.target.closest('[data-profile]');
+      if (p) {
+        const c = COACHES.find(x => x.id === p.dataset.profile); openId = c.id;
+        $('cd-name').textContent = c.name; $('cd-photo').src = c.photo;
+        $('cd-select').textContent = selected === c.id ? 'Selected' : 'Select Coach';
+        return;
+      }
+      const s = e.target.closest('[data-select]');
+      if (s) select(selected === s.dataset.select ? null : s.dataset.select);
+    });
+    $('cd-select').addEventListener('click', () => { if (openId) select(openId); });
+
+    // Tabs
+    let tab = 'find';
+    document.querySelectorAll('.wz-tabs button').forEach(b => b.addEventListener('click', () => {
+      tab = b.dataset.tab;
+      document.querySelectorAll('.wz-tabs button').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+      $('panel-find').hidden = tab !== 'find'; $('email-panel').hidden = tab !== 'email';
+    }));
+
+    const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    function go() {
+      if (tab === 'find') {
+        const c = COACHES.find(x => x.id === selected);
+        if (!c) { window.toast('Select a coach, or invite one by email'); return; }
+        wz.set({ coach: { id: c.id, name: c.name, fee: c.fee, email: '' } });
+      } else {
+        let ok = true;
+        const em = $('coach-email').value.trim(), fee = $('coach-fee').value.trim();
+        if (!emailOk(em)) { wzError($('coach-email-field'), 'Enter a valid email address'); ok = false; }
+        if (!(parseFloat(fee) > 0)) { wzError($('coach-fee-field'), 'Enter the coach fee per player, per session'); ok = false; }
+        if (!ok) return;
+        wz.set({ coach: { id: 'email', name: em, fee: parseFloat(fee), email: em } });
+      }
+      location.href = 'create-clinic-plan.html';
+    }
+    $('go').addEventListener('click', go);
+    $('email-panel').addEventListener('submit', e => { e.preventDefault(); go(); });
+    render();
+</script>
+</body>
+</html>

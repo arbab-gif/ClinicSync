@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClinicSync · Design Screens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600&display=swap">
+  <link rel="icon" href="../assets/logo-mark.png">
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="brand" href="./"><img src="../assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <span class="crumb">Design screens · <a id="figma-file" target="_blank" rel="noopener">Final Design</a></span>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Flow"></nav>
+    <input class="search" id="search" type="search" placeholder="Search screens" aria-label="Search screens">
+  </header>
+  <div class="layout">
+    <aside class="side" id="side" aria-label="Sections"></aside>
+    <main class="main" id="main" tabindex="-1"></main>
+  </div>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="v-title" hidden>
+    <div class="v-top">
+      <div class="v-meta"><small id="v-path"></small><b id="v-title"></b></div>
+      <span class="v-count" id="v-count"></span>
+      <a class="v-btn" id="v-figma" target="_blank" rel="noopener">Open in Figma ↗</a>
+      <button class="v-btn icon" id="v-close" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="v-stage" id="v-stage">
+      <button class="v-nav prev" id="v-prev" type="button" aria-label="Previous screen">‹</button>
+      <img id="v-img" alt="">
+      <button class="v-nav next" id="v-next" type="button" aria-label="Next screen">›</button>
+    </div>
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+</html>

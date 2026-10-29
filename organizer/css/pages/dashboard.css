@@ -1,0 +1,83 @@
+/* Dashboard (Figma 270:19578) + Connect Stripe modal (640:27764) */
+
+.dash-wrap { flex: 1; display: flex; flex-direction: column; }
+
+.stripe-banner { margin: 24px var(--page-x) 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px; border-radius: 15px; background: var(--stripe-tint); }
+.sb-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.sb-logo { width: 49px; height: 49px; flex: none; border-radius: 50%; background: #fff; display: grid; place-items: center; }
+.sb-logo img { width: 36px; height: 15px; }
+.stripe-banner h2 { font-weight: 600; font-size: 20px; line-height: 23px; color: var(--ink); }
+.stripe-banner p { margin-top: 6px; color: var(--muted); font-size: 16px; line-height: 20px; }
+
+/* Two columns: main (clinics) | aside, split by a full-height divider */
+.dash { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) calc(421px + var(--page-x)); margin-top: 8px; }
+.dash-main { padding-left: var(--page-x); }
+.dash-main > section { padding-right: 27px; }
+.dash-summary { padding-top: 48px; padding-bottom: 86px; border-bottom: 1px solid var(--line); margin-left: calc(-1 * var(--page-x)); padding-left: var(--page-x); display: flex; flex-direction: column; gap: 32px; }
+.dash-summary .stats { height: 102px; grid-template-columns: .8fr 1.07fr 1.07fr 1.07fr; }
+.dash-summary .stats > div { justify-content: center; }
+.dash-clinics { padding-top: 56px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 16px; }
+.clinic-list { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
+.clinic-card { display: flex; align-items: flex-start; gap: 24px; }
+.cc-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.cc-title { display: flex; flex-direction: column; gap: 6px; }
+
+.dash-side { border-left: 1px solid var(--divider); }
+.dash-side > section { padding: 48px var(--page-x) 57px 26px; border-bottom: 1px solid var(--divider); display: flex; flex-direction: column; gap: 20px; }
+.dash-side > section:nth-child(2) { padding-top: 56px; padding-bottom: 41px; gap: 16px; }
+.dash-side > section:last-child { border-bottom: 0; padding-top: 56px; padding-bottom: 40px; }
+.with-count { display: flex; align-items: center; gap: 12px; }
+
+.attn-list { display: flex; flex-direction: column; gap: 16px; }
+.attn { display: flex; gap: 14px; align-items: flex-start; }
+.attn-ic { width: 40px; height: 40px; flex: none; border-radius: 20px; display: grid; place-items: center; }
+.attn-ic.warn { background: var(--warn-bg); }
+.attn-ic.danger { background: var(--danger-bg); }
+.attn-body { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.attn-body b { font-weight: 500; font-size: 16px; line-height: 20px; }
+.attn-body > span { color: var(--muted); font-size: 14px; line-height: 18px; }
+.attn-actions { display: flex; gap: 12px; padding-top: 8px; }
+.attn-actions .on.btn-outline { background: var(--brand); color: #fff; }
+
+.up-list { display: flex; flex-direction: column; gap: 12px; }
+.up { display: flex; align-items: center; gap: 14px; height: 72px; text-decoration: none; color: inherit; border-radius: 12px; }
+.up:hover .up-body b { color: var(--brand); }
+.up-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.up-body b { font-weight: 500; font-size: 16px; line-height: 20px; }
+.up-body span { color: var(--muted); font-size: 14px; line-height: 18px; }
+
+.pay-card { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 396px; }
+.pay-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.pay-row > div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pay-row b { font-weight: 500; font-size: 14px; line-height: 18px; }
+.pay-row strong { font-weight: 600; font-size: 24px; line-height: 32px; color: var(--ink); }
+.pay-row strong.due { color: var(--warn); }
+.pay-row span { color: var(--muted); font-size: 14px; line-height: 18px; }
+.pay-row em { font-style: normal; font-weight: 500; color: var(--ink); }
+.pay-card .btn { margin-top: 4px; }
+
+/* Connect Stripe modal */
+.overlay#connect-stripe { align-items: center; }
+.stripe-modal { max-width: 528px; padding: 35px; border: 3px solid var(--border); box-shadow: 0 12px 20px rgba(0,0,0,.15); display: flex; flex-direction: column; gap: 32px; }
+.cs-close { position: absolute; top: 32px; right: 32px; border: 0; background: none; padding: 0; cursor: pointer; }
+.cs-head { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.cs-logo { width: 80px; height: auto; margin: 23px 0; }
+.cs-head h2 { font-weight: 600; font-size: 28px; line-height: 32px; color: var(--ink); }
+.cs-head p { color: #4d5761; font-size: 18px; }
+.cs-list { list-style: none; margin: 0; padding: 16px; border-radius: 12px; background: var(--card); display: flex; flex-direction: column; gap: 14px; }
+.cs-list li { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+.cs-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+@media (max-width: 1100px) {
+  .dash { grid-template-columns: 1fr; }
+  .dash-side { border-left: 0; border-top: 1px solid var(--divider); }
+  .dash-side > section { padding-left: var(--page-x); }
+}
+@media (max-width: 720px) {
+  .stripe-banner { flex-direction: column; align-items: flex-start; }
+  .dash-summary { padding-top: 32px; padding-bottom: 40px; }
+  .dash-summary .stats { height: auto; grid-template-columns: 1fr 1fr; }
+  .clinic-card { flex-direction: column; gap: 12px; }
+  .cs-actions { grid-template-columns: 1fr; }
+  .stripe-modal { padding: 24px; }
+}

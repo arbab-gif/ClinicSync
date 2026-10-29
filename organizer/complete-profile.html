@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete profile · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+  <link rel="stylesheet" href="css/pages/complete-profile.css">
+</head>
+<body class="cp">
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <div class="o-account">
+        <button type="button" disabled style="cursor:default">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name" id="hname">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="cp-main">
+    <div class="cp-head">
+      <h1>Tell us a little about yourself</h1>
+      <p>Add your details for a more complete profile. You can do this later.</p>
+    </div>
+
+    <form class="cp-form" id="f" novalidate>
+      <section class="cp-sec">
+        <h2>Basics</h2>
+        <div class="cp-basics">
+          <div class="cp-photo">
+            <span class="cp-avatar" id="av"><img class="ph" src="assets/icons/user.svg" alt=""></span>
+            <div class="lbl">Profile photo
+              <button class="cp-upload" type="button" id="up">Upload photo</button>
+              <input type="file" id="file" accept="image/*" hidden>
+            </div>
+          </div>
+          <div class="cp-field">
+            <label for="dn">Display name <span class="opt">(optional)</span></label>
+            <input class="cp-input" id="dn" type="text" value="Albert John" autocomplete="nickname">
+          </div>
+        </div>
+      </section>
+
+      <hr class="cp-rule">
+
+      <section class="cp-sec">
+        <div class="row-h"><h2>Your game</h2><button type="button" id="plus" aria-label="Add a sport" style="border:0;background:none;padding:0;cursor:pointer;display:grid"><img class="icon-24" src="assets/icons/plus-dark.svg" alt=""></button></div>
+        <div class="cp-game" id="game">
+          <div class="cp-field">
+            <label id="sl">Sports you play</label>
+            <div class="chips" role="group" aria-labelledby="sl" id="chips">
+              <button class="cp-chip" type="button" data-sport="Tennis"><img src="assets/icons/check-brand.svg" alt="">Tennis</button>
+              <button class="cp-chip on" type="button" data-sport="Padel"><img src="assets/icons/check-brand.svg" alt="">Padel</button>
+              <button class="cp-chip" type="button" data-sport="Pickleball"><img src="assets/icons/check-brand.svg" alt="">Pickleball</button>
+              <button class="cp-chip" type="button" data-sport="Other"><img src="assets/icons/check-brand.svg" alt="">Other</button>
+            </div>
+          </div>
+          <!-- Tennis only (Figma 305:1987): rating select -->
+          <div class="cp-field" id="ntrpF" hidden>
+            <label for="ntrp">USTA/NTRP rating</label>
+            <select class="cp-select" id="ntrp">
+              <option>2.5</option><option>3.0</option><option selected>3.5</option><option>4.0</option><option>4.5</option><option>5.0</option>
+            </select>
+          </div>
+          <!-- Other only (Figma 305:2128): free-text sport name, skill level becomes optional -->
+          <div class="cp-field" id="otherF" hidden>
+            <input class="cp-input" id="other" type="text" placeholder="e.g Futsal" aria-label="Other sport name">
+          </div>
+          <div class="cp-field">
+            <label for="skill">Skill Level<span class="opt" id="skOpt" hidden> (optional)</span></label>
+            <select class="cp-select" id="skill">
+              <option>Beginner</option><option selected>Intermediate</option><option>Advanced</option>
+            </select>
+          </div>
+          <div class="cp-game-foot"><button class="btn btn-sm btn-primary" type="button" id="add">Add Sports</button></div>
+        </div>
+        <div class="cp-added" id="added"></div>
+      </section>
+
+      <hr class="cp-rule">
+
+      <section class="cp-sec">
+        <h2>Your Location</h2>
+        <div class="cp-loc">
+          <div class="cp-field">
+            <label for="st">State <span class="opt">(optional)</span></label>
+            <select class="cp-select empty" id="st"><option value="" selected>Select state</option><option>California</option><option>Florida</option><option>New York</option><option>Texas</option></select>
+          </div>
+          <div class="cp-field">
+            <label for="ct">City <span class="opt">(optional)</span></label>
+            <select class="cp-select empty" id="ct" disabled><option value="" selected>Select city</option></select>
+          </div>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer class="cp-foot">
+    <a class="btn btn-soft" href="setup-clinic.html">Back</a>
+    <div class="right">
+      <a class="btn btn-soft" href="setup-clinic.html">Skip for now</a>
+      <a class="btn btn-primary" href="setup-clinic.html">Save and continue</a>
+    </div>
+  </footer>
+
+  <script src="js/organizer.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const chips = [...document.querySelectorAll('.cp-chip')];
+    const cities = { California: ['Los Angeles', 'San Diego', 'San Francisco'], Florida: ['Miami', 'Orlando', 'Tampa'], 'New York': ['Brooklyn', 'Buffalo', 'New York'], Texas: ['Austin', 'Dallas', 'Houston'] };
+    const added = [];
+    const nm = sessionStorage.getItem('cs_name');
+    if (nm) { $('hname').textContent = nm; $('dn').value = nm; }
+
+    const current = () => chips.find(c => c.classList.contains('on'));
+    function sync() {
+      const s = current() && current().dataset.sport;
+      $('ntrpF').hidden = s !== 'Tennis';
+      $('otherF').hidden = s !== 'Other';
+      $('skOpt').hidden = s !== 'Other';
+      chips.forEach(c => { c.disabled = added.some(a => a.key === c.dataset.sport); });
+    }
+    chips.forEach(c => c.addEventListener('click', () => {
+      if (c.disabled) return;
+      chips.forEach(x => x.classList.toggle('on', x === c));
+      sync();
+      if (c.dataset.sport === 'Other') $('other').focus();
+    }));
+    $('add').addEventListener('click', () => {
+      const c = current(); if (!c) return window.toast('Pick a sport first');
+      let sport = c.dataset.sport;
+      if (sport === 'Other') { sport = $('other').value.trim(); if (!sport) { $('other').focus(); return window.toast('Enter the sport name'); } }
+      const tags = [$('skill').value];
+      if (c.dataset.sport === 'Tennis') tags.unshift('NTRP ' + $('ntrp').value);
+      const item = { key: c.dataset.sport === 'Other' ? null : c.dataset.sport };
+      added.push(item);
+      const card = document.createElement('div'); card.className = 'cp-card';
+      card.innerHTML = '<div><b></b><div class="tags"></div></div><button type="button" aria-label="Remove sport"><img class="icon-20" src="assets/icons/trash-red.svg" alt=""></button>';
+      card.querySelector('b').textContent = sport;
+      tags.forEach(t => { const s = document.createElement('span'); s.className = 'chip'; s.textContent = t; card.querySelector('.tags').append(s); });
+      card.querySelector('button').onclick = () => { added.splice(added.indexOf(item), 1); card.remove(); sync(); };
+      $('added').append(card);
+      chips.forEach(x => x.classList.remove('on')); $('other').value = '';
+      sync();
+    });
+    $('plus').onclick = () => (current() || chips.find(c => !c.disabled) || chips[0]).focus();
+    $('up').onclick = () => $('file').click();
+    $('file').onchange = e => { const f = e.target.files[0]; if (!f) return; const img = Object.assign(document.createElement('img'), { className: 'up', alt: 'Profile photo', src: URL.createObjectURL(f) }); $('av').replaceChildren(img); };
+    $('st').addEventListener('change', e => {
+      const ct = $('ct'), list = cities[e.target.value] || [];
+      ct.innerHTML = '<option value="" selected>Select city</option>' + list.map(c => '<option>' + c + '</option>').join('');
+      ct.disabled = !list.length; ct.classList.add('empty'); e.target.classList.toggle('empty', !e.target.value);
+    });
+    $('ct').addEventListener('change', e => e.target.classList.toggle('empty', !e.target.value));
+    sync();
+  </script>
+</body>
+</html>

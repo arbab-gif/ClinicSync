@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic Calendar · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+  <link rel="stylesheet" href="css/pages/clinic-sessions.css">
+  <link rel="stylesheet" href="css/pages/clinic-calendar.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1>Saturday</h1><img class="icon-24" src="assets/icons/caret-down.svg" alt=""></span><span class="chip">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 on Every Monday at 9:00 AM</span>
+          <span><img class="icon-20" src="assets/icons/users.svg" alt="">12 Players</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+        </div>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+        <button class="icon-btn" type="button" aria-label="More actions" aria-haspopup="menu" data-menu="#clinic-more"><img class="icon-20" src="assets/icons/dots-three.svg" alt=""></button>
+        <div class="menu" id="clinic-more" role="menu" hidden>
+          <button role="menuitem" type="button" data-toast="Edit clinic isn't part of this prototype">Edit clinic</button>
+          <button role="menuitem" type="button" data-toast="Duplicate clinic isn't part of this prototype">Duplicate clinic</button>
+          <button role="menuitem" type="button" data-toast="End clinic isn't part of this prototype">End clinic</button>
+        </div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic">
+      <a href="clinic-overview.html">Overview</a>
+      <a href="clinic-sessions.html" class="on" aria-current="page">Sessions</a>
+      <a href="clinic-players.html">Players</a>
+      <a href="clinic-substitutes.html">Substitutes</a>
+      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-payments.html">Payments</a>
+    </nav>
+
+    <section class="cal">
+      <div class="section-head cal-title">
+        <h2 class="h2">All clinic sessions</h2>
+        <button class="link" type="button" data-open="#sync-modal"><img class="icon-20" src="assets/icons/arrows-clockwise.svg" alt="">Sync Calendar</button>
+      </div>
+      <div class="cal-bar">
+        <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="cal-q" type="search" placeholder="Search Session" aria-label="Search session"></div>
+        <div class="cal-right">
+          <div class="dd">
+            <button class="dd-btn" type="button" data-menu="#month-menu" aria-haspopup="menu" aria-expanded="false"><span id="month-label">October</span><img src="assets/icons/arrow-right-16.svg" alt=""></button>
+            <div class="menu" id="month-menu" role="menu" hidden>
+              <button type="button" role="menuitem" data-m="2026-8">September 2026</button>
+              <button type="button" role="menuitem" data-m="2026-9">October 2026</button>
+              <button type="button" role="menuitem" data-m="2026-10">November 2026</button>
+            </div>
+          </div>
+          <div class="dd">
+            <button class="dd-btn" type="button" data-menu="#cstatus-menu" aria-haspopup="menu" aria-expanded="false"><span id="cstatus-label">Status</span><img src="assets/icons/arrow-right-16.svg" alt=""></button>
+            <div class="menu" id="cstatus-menu" role="menu" hidden>
+              <button type="button" role="menuitem" data-f="all">All statuses</button>
+              <button type="button" role="menuitem" data-f="ok">Confirmed</button>
+              <button type="button" role="menuitem" data-f="pending">Pending</button>
+              <button type="button" role="menuitem" data-f="repl">Replacement Needed</button>
+              <button type="button" role="menuitem" data-f="done">Completed</button>
+            </div>
+          </div>
+          <div class="view-seg" role="tablist" aria-label="View">
+            <a href="clinic-sessions.html"><img src="assets/icons/list-dashes-grey.svg" alt="">List View</a>
+            <a class="on" href="clinic-calendar.html" aria-current="page"><img class="dark" src="assets/icons/calendar-blank-20.svg" alt="">Calendar View</a>
+          </div>
+        </div>
+      </div>
+      <h3 class="cal-month" id="cal-month" aria-live="polite">October 2026</h3>
+      <div class="cal-card">
+        <div class="cal-dow" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="cal-grid" id="cal-grid" role="grid" aria-label="Sessions calendar"></div>
+      </div>
+    </section>
+
+  <div class="overlay" id="sync-modal" hidden role="dialog" aria-modal="true" aria-labelledby="sync-title">
+    <div class="modal sync-modal">
+      <div class="sy-head">
+        <div><h2 id="sync-title">Sync Calendar</h2><p>Keep your clinic sessions updated in your preferred calendar.</p></div>
+        <button class="sy-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button>
+      </div>
+      <div class="sy-list">
+        <div class="sy-row"><div class="sy-id"><img src="assets/img/google-calendar.png" alt=""><div><b>Google Calendar</b><span>Connect your Google account</span></div></div><span class="st st-green" data-connected>Connected</span></div>
+        <div class="sy-row"><div class="sy-id"><img src="assets/img/icloud-calendar.png" alt=""><div><b>iCloud Calendar</b><span>Connect your Apple account</span></div></div><button class="btn btn-sm btn-outline" type="button" id="icloud-btn">Connect</button></div>
+      </div>
+    </div>
+  </div>
+  </main>
+  <script>
+    // Sessions on Saturdays, Sep 26 - Nov 14 2026 (Sep 26 = Session 1). kind: ok | pending | repl | done
+    const kinds = { '2026-9-3': 'done', '2026-9-17': 'pending', '2026-9-24': 'repl' };
+    const sessions = {};
+    [[2026, 8, 26], [2026, 9, 3], [2026, 9, 10], [2026, 9, 17], [2026, 9, 24], [2026, 9, 31], [2026, 10, 7], [2026, 10, 14]].forEach((a, i) => {
+      const key = a.join('-'), done = i < 2;
+      sessions[key] = { n: 'Session ' + (i + 1), kind: done ? 'done' : (kinds[key] || 'ok'), court: ['Court 2', 'Court 2', 'Court 2', 'Court 1', 'Court 3', 'Court 2', 'Court 1', 'Court 2'][i] };
+    });
+    // Oct 3 is Session 2 and Oct 10 is Session 3, matching the sessions list
+    const names = { '2026-8-26': 'Session 1', '2026-9-3': 'Session 2' };
+    let year = 2026, month = 9, status = 'all';
+    const grid = document.getElementById('cal-grid'), q = document.getElementById('cal-q');
+    const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    function render() {
+      document.getElementById('cal-month').textContent = MN[month] + ' ' + year;
+      document.getElementById('month-label').textContent = MN[month];
+      const first = new Date(year, month, 1).getDay(), days = new Date(year, month + 1, 0).getDate();
+      const prevDays = new Date(year, month, 0).getDate(), cells = Math.ceil((first + days) / 7) * 7, t = q.value.trim().toLowerCase();
+      let out = '';
+      for (let c = 0; c < cells; c++) {
+        let d = c - first + 1, y = year, m = month, other = false;
+        if (d < 1) { d += prevDays; m--; other = true; } else if (d > days) { d -= days; m++; other = true; }
+        if (m < 0) { m = 11; y--; } if (m > 11) { m = 0; y++; }
+        const s = sessions[y + '-' + m + '-' + d];
+        let chip = '';
+        if (s && (status === 'all' || s.kind === status) && (!t || (s.n + ' maria lopez riverside ' + s.court).toLowerCase().includes(t))) {
+          const href = (y === 2026 && m === 9 && d >= 10) ? 'clinic-sessions.html?open=session-' + d : '';
+          chip = '<' + (href ? 'a href="' + href + '"' : 'button type="button" data-toast="Past sessions aren\'t part of this prototype"') + ' class="chip-s ' + s.kind + '"><b>' + s.n + '</b><span><img src="assets/icons/calendar-blank-sm.svg" alt="">9:00 AM</span><span><img src="assets/icons/map-pin-sm.svg" alt="">Riverside Courts, ' + s.court + '</span><span><img class="av" src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></' + (href ? 'a' : 'button') + '>';
+        }
+        out += '<div class="cal-cell' + (other ? ' other' : '') + '" role="gridcell"><span class="dnum">' + d + '</span>' + chip + '</div>';
+      }
+      grid.innerHTML = out;
+    }
+    Object.keys(names).forEach(k => sessions[k].n = names[k]);
+    // Sessions list numbering: Oct 10 = Session 3 ... Nov 14 = Session 8
+    ['2026-9-10','2026-9-17','2026-9-24','2026-9-31','2026-10-7','2026-10-14'].forEach((k, i) => sessions[k].n = 'Session ' + (i + 3));
+    document.querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => { [year, month] = b.dataset.m.split('-').map(Number); render(); }));
+    document.querySelectorAll('#cstatus-menu [data-f]').forEach(b => b.addEventListener('click', () => { status = b.dataset.f; document.getElementById('cstatus-label').textContent = status === 'all' ? 'Status' : b.textContent; render(); }));
+    q.addEventListener('input', render);
+    document.getElementById('icloud-btn').addEventListener('click', e => { const b = e.currentTarget; b.outerHTML = '<span class="st st-green">Connected</span>'; window.toast('iCloud Calendar connected'); });
+    render();
+  </script>
+  <script src="js/organizer.js"></script>
+</body>
+</html>

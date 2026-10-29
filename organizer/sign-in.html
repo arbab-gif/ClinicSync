@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+</head>
+<body class="auth">
+  <div class="auth-shell">
+    <aside class="auth-photo" style="background-image:url(assets/img/auth-sign-in.jpg)">
+      <span class="ring"></span>
+      <div class="cap">
+        <div class="dashes" aria-hidden="true"><i class="on"></i><i class="half"></i><i></i><i></i></div>
+        <h2>Manage players. Keep your clinic <em>organized</em>.</h2>
+      </div>
+    </aside>
+    <main class="auth-main">
+      <div class="auth-form">
+        <div class="auth-head">
+          <h1>Welcome back</h1>
+          <p>Don't have an account<a href="sign-up.html">Sign up</a></p>
+        </div>
+        <form id="f" novalidate>
+          <div class="auth-fields">
+            <div class="a-field">
+              <label for="email">Email<span class="req">*</span></label>
+              <div class="a-box" id="eb"><input id="email" type="email" placeholder="Enter your email" autocomplete="email"></div>
+            </div>
+            <div class="a-field">
+              <div class="stack">
+                <label for="pw">Password<span class="req">*</span></label>
+                <div class="a-box" id="pb"><input id="pw" type="password" placeholder="Enter your password" autocomplete="current-password">
+                  <button type="button" id="eye" aria-label="Show password"><img class="icon-24" src="assets/icons/eye.svg" alt=""></button></div>
+                <a class="a-link" href="forgot-password.html">Forgot password</a>
+              </div>
+            </div>
+          </div>
+          <button class="auth-btn" type="submit">Sign in</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="js/organizer.js"></script>
+  <script>
+    const pw = document.getElementById('pw');
+    document.getElementById('eye').onclick = () => { pw.type = pw.type === 'password' ? 'text' : 'password'; };
+    document.getElementById('f').addEventListener('submit', e => {
+      e.preventDefault();
+      const okE = document.getElementById('email').value.includes('@'), okP = pw.value.length > 0;
+      document.getElementById('eb').classList.toggle('err', !okE);
+      document.getElementById('pb').classList.toggle('err', !okP);
+      if (okE && okP) location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>

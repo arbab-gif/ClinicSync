@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic created · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/create-clinic.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="ok-main">
+    <div class="ok-top">
+      <div class="ok-badge"><img src="assets/img/clinic-created-check.png" alt=""></div>
+      <div class="wz-head">
+        <h1>Clinic Created Successfully!</h1>
+        <p>Your clinic is ready, and invitations have been sent. You can manage everything from your dashboard.</p>
+      </div>
+    </div>
+
+    <section class="ok-card" aria-label="Clinic summary">
+      <div>
+        <h2 id="s-name">Monday Morning Tennis</h2>
+        <p class="sub" id="s-when">8 sessions · Mondays, 9:00–10:30 AM</p>
+      </div>
+      <div class="ok-counts">
+        <div><span>Players invited</span><b id="s-players">08</b></div>
+        <i></i>
+        <div><span>Subs invited</span><b id="s-subs">03</b></div>
+        <i></i>
+        <div><span>Coach invited</span><b id="s-coach-n">01</b></div>
+      </div>
+      <div class="ok-line"><span>Total Facility Fee</span><b id="s-fee">$1,000.00</b></div>
+      <div class="ok-line"><span>Coach</span>
+        <span class="ok-coach" id="s-coach"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div>
+      <div class="ok-line"><span>Coach Fee</span><b id="s-cfee">$50 / player / session</b></div>
+    </section>
+
+    <a class="btn btn-primary btn-lg" href="dashboard.html">Go to dashboard</a>
+  </main>
+
+  <script src="js/organizer.js"></script>
+  <script src="js/create-clinic.js"></script>
+  <script>
+    // Fill the summary from what was entered in the wizard; fall back to the design's sample values.
+    const s = wz.get(), $ = id => document.getElementById(id);
+    const pad = n => String(n).padStart(2, '0');
+    const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    if (s.name) $('s-name').textContent = s.name;
+    if (s.day || s.sessions) {
+      let when = `${s.sessions || 8} sessions`;
+      if (s.day) {
+        when += ` · ${s.day}s`;
+        if (s.time) {
+          const m = /^(\d+):(\d+) (AM|PM)$/.exec(s.time), mins = parseInt((s.length || '').replace(/\D/g, ''), 10);
+          if (m && mins) {
+            const t = (+m[1] % 12 + (m[3] === 'PM' ? 12 : 0)) * 60 + +m[2] + mins, h = Math.floor(t / 60) % 24;
+            const endAp = h >= 12 ? 'PM' : 'AM', end = `${(h % 12) || 12}:${pad(t % 60)}`;
+            when += `, ${endAp === m[3] ? m[1] + ':' + m[2] : s.time}–${end} ${endAp}`;
+          } else when += ', ' + s.time;
+        }
+      }
+      $('s-when').textContent = when;
+    }
+    if (s.players) $('s-players').textContent = pad(s.players.length);
+    if (s.subs) $('s-subs').textContent = pad(s.subs.length);
+    if (s.fee) { const n = parseFloat(String(s.fee).replace(/,/g, '')); if (n >= 0) $('s-fee').textContent = '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    if (s.coach) {
+      const c = s.coach;
+      $('s-coach').innerHTML = c.id === 'email'
+        ? `<span class="initials">${esc(c.name.slice(0, 2).toUpperCase())}</span>${esc(c.name)}`
+        : `<img src="${c.id === 'c2' || c.id === 'c4' || c.id === 'c6' ? 'assets/img/coach-olivia-davis.png' : 'assets/img/coach-sophia-martinez.png'}" alt="">${esc(c.name)}`;
+      $('s-cfee').textContent = `$${c.fee} / player / session`;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "file": "https://www.figma.com/design/4R2TuyfOKdZLUY4c2QXWIc/ClinicSync?node-id=101-190",
+  "page": "Final Design",
+  "exported": "2026-10-29",
+  "groups": [
+    { "flow": "Organizer", "name": "Sign in & forgot password", "screens": [
+      ["202:9293", "Sign in", 1442, 1026], ["202:9347", "Forgot Password", 1442, 1026], ["202:9608", "Forgot Password – Disabled Button", 1442, 1026], ["202:9565", "Wrong Email", 1442, 1026],
+      ["202:9387", "OTP Verification", 1442, 1026], ["202:9753", "Verification Code – Button Loading", 1442, 1026], ["202:9648", "Verification Code Error", 1442, 1026],
+      ["202:9462", "Create Password", 1442, 1026], ["202:9823", "Create Password – Password Not Match", 1442, 1026], ["202:9535", "Password Updated", 1442, 1026] ] },
+    { "flow": "Organizer", "name": "Sign up", "screens": [
+      ["101:1440", "Sign up", 1440, 1024], ["305:179", "OTP Verification", 1442, 1026] ] },
+    { "flow": "Organizer", "name": "Create profile", "screens": [
+      ["226:2565", "Complete Profile", 1440, 1316], ["305:1987", "Complete Profile / Padel", 1440, 1220], ["305:2128", "Complete Profile / Others", 1440, 1220], ["228:3176", "Set up Clinic (Optional)", 1440, 1024] ] },
+    { "flow": "Organizer", "name": "Create clinic", "screens": [
+      ["228:3224", "Set up your clinic", 1440, 1024], ["436:5551", "Clinic schedule", 1440, 1024], ["228:3333", "Invite players – organizing only", 1440, 1514], ["711:36107", "Invite players – organizing only (alt)", 1440, 1181],
+      ["228:3429", "Invite Substitute Players", 1440, 1024], ["436:5732", "Clinic step", 1440, 1152], ["593:6784", "Clinic step (alt)", 1440, 1024], ["593:6336", "Clinic step", 1440, 1024],
+      ["236:7692", "Subscription – Disabled Button", 1440, 1220], ["325:1295", "Stripe checkout", 1440, 900], ["236:7974", "Clinic Created Successfully", 1440, 1024] ] },
+    { "flow": "Organizer", "name": "Connect Stripe", "screens": [ ["640:27764", "Connect Stripe", 1440, 1080] ] },
+    { "flow": "Organizer", "name": "Dashboard", "screens": [ ["270:19578", "Dashboard", 1440, 1405], ["640:27805", "Dashboard (no Stripe banner)", 1440, 1305] ] },
+    { "flow": "Organizer", "name": "Clinic: overview & sessions", "screens": [
+      ["593:14397", "Clinic Details", 1440, 1500], ["370:1737", "Sessions – List View", 1440, 1360], ["611:11606", "Sessions – All States", 1440, 1737],
+      ["385:1041", "Sessions – Calendar View", 1440, 1481], ["638:24707", "Sessions – Calendar View (alt)", 1440, 1024],
+      ["626:19573", "Sessions – List View 2", 1440, 1024], ["626:20428", "Sessions – List View 3", 1440, 1024], ["626:22304", "Sessions – List View 4", 1440, 1024],
+      ["384:374", "Session detail (Nov 2, 2026)", 1440, 1080], ["593:4858", "Session detail (Nov 2, 2028)", 1440, 1080], ["611:12306", "Session detail (Nov 2, 2031)", 1440, 1215],
+      ["611:12469", "Session detail (Nov 2, 2032)", 1440, 1215], ["613:12733", "Session detail (Nov 2, 2033)", 1440, 1215], ["614:13012", "Session detail (Nov 2, 2034)", 1440, 1215],
+      ["626:21801", "Session detail (Nov 2, 2036)", 1440, 1024], ["638:23600", "Session detail (Nov 2, 2037)", 1440, 1024], ["638:23964", "Session detail (Nov 2, 2038)", 1440, 1024],
+      ["638:24129", "Session detail (Nov 2, 2039)", 1440, 1024], ["638:24412", "Session detail (Nov 2, 2040)", 1440, 1215] ] },
+    { "flow": "Organizer", "name": "Clinic: payments", "screens": [
+      ["653:9301", "Payments", 1440, 1151], ["653:9479", "Payments (alt)", 1440, 1151], ["653:9657", "Confirm Payment Received", 1440, 1080],
+      ["653:9700", "Payment detail", 1440, 1080], ["653:9740", "Payment detail (alt)", 1440, 1080], ["659:12580", "Payments – Fees Breakdown", 1440, 1446], ["802:5314", "Payments – Fees Breakdown (alt)", 1440, 1446] ] },
+    { "flow": "Organizer", "name": "Messages: reaching late", "screens": [
+      ["698:25546", "Group chat 1", 1440, 1215], ["698:29501", "Group chat 2", 1440, 1215], ["698:29713", "Group chat 3", 1440, 1215], ["698:29976", "Group chat 4", 1440, 1215] ] },
+    { "flow": "Organizer", "name": "Messages: request replacement", "screens": [
+      ["698:30097", "Group chat 1", 1440, 1215], ["698:30261", "Group chat 2", 1440, 1215], ["698:30755", "Group chat 3", 1440, 1215], ["698:30896", "Group chat 4", 1440, 1215],
+      ["698:31139", "Group chat 5", 1440, 1215], ["698:35253", "Group chat 6", 1440, 1215], ["698:35348", "Group chat 7", 1440, 1215], ["708:35496", "Replacement approve or reject", 1440, 1215] ] },
+
+    { "flow": "Player", "name": "Invitation & sign up", "screens": [
+      ["799:8800", "Invitation email", 1440, 1024], ["790:5055", "Sign up", 1440, 1024], ["790:5121", "OTP Verification", 1442, 1026] ] },
+    { "flow": "Player", "name": "Sign in & forgot password", "screens": [
+      ["799:7492", "Sign in", 1442, 1026], ["799:7541", "Forgot Password", 1442, 1026], ["799:7759", "Forgot Password – Disabled Button", 1442, 1026], ["799:7717", "Wrong Email", 1442, 1026],
+      ["799:7580", "OTP Verification", 1442, 1026], ["799:7851", "Verification Code – Button Loading", 1442, 1026], ["799:7798", "Verification Code Error", 1442, 1026],
+      ["799:7625", "Create Password", 1442, 1026], ["799:7901", "Create Password – Password Not Match", 1442, 1026], ["799:7690", "Password Updated", 1442, 1026] ] },
+    { "flow": "Player", "name": "Review invitation", "screens": [
+      ["799:7004", "04 — Review Clinic Invitation", 1440, 1214], ["799:7040", "04b — Decline Confirmation", 1440, 1214], ["799:7086", "04c — Invitation Declined", 1440, 1024] ] },
+    { "flow": "Player", "name": "Create profile", "screens": [
+      ["790:5667", "Complete Profile", 1440, 1316], ["790:5776", "Complete Profile / Padel", 1440, 1316], ["790:5901", "Complete Profile / Others", 1440, 1220],
+      ["799:6226", "Subscription – Disabled Button", 1440, 1220], ["799:6529", "Stripe checkout", 1440, 900], ["799:6946", "Success Onboarding", 1440, 1024] ] },
+    { "flow": "Player", "name": "Sessions & facility fee", "screens": [
+      ["496:2008", "06 — Select Sessions", 1440, 1052], ["496:2164", "06b — Sessions Selected (4 of 4)", 1440, 1056], ["496:2327", "06c — Share Limit Reached", 1440, 1154],
+      ["807:26394", "06d — Pay Facility Fee · Card (Stripe)", 1440, 1024], ["807:27310", "Stripe checkout", 1440, 900], ["807:27219", "06d — Pay Facility Fee · Others", 1440, 1024],
+      ["807:26756", "06d — Pay Facility Fee · Cash", 1440, 1024], ["807:26935", "07 — Onboarding Success", 1440, 1024] ] },
+    { "flow": "Player", "name": "Dashboard", "screens": [
+      ["496:2545", "08 — Player Dashboard", 1440, 1080], ["807:27531", "Dashboard", 1440, 1405], ["807:28218", "Clinic Details", 1440, 1500], ["807:28608", "Clinic Details (alt)", 1440, 1500] ] },
+
+    { "flow": "Drafts", "name": "Earlier frames outside sections", "screens": [
+      ["101:1551", "Create Clinic 1", 1440, 1024], ["101:1860", "Create Clinic 2", 1440, 1024], ["101:1598", "Create Clinic 3", 1440, 1024], ["101:1670", "Create Clinic 4", 1440, 1024], ["101:1725", "Home", 1440, 1024],
+      ["305:1009", "Complete Profile", 1440, 1220], ["305:1150", "Set up Clinic (Optional)", 1440, 1024], ["305:1187", "Background", 1440, 1031], ["305:1309", "Invite Player", 1440, 1024],
+      ["305:1404", "Invite Substitute Player", 1440, 1024], ["305:1699", "Subscription – Disabled Button", 1440, 1220], ["305:1477", "Subscription – Select Plan", 1440, 1220], ["305:1916", "Success Onboarding", 1440, 1024],
+      ["270:20262", "Level-2 Dashboard Clinic Detail", 1440, 1125], ["591:2578", "Yes I will play", 1440, 1514], ["466:7861", "Success Onboarding", 1440, 1024],
+      ["466:7913", "Frame 2147263326", 1199, 908], ["653:10730", "Frame 2147263388", 1199, 797],
+      ["856:5764", "Global Dashboard", 1440, 1405], ["856:5994", "Global Dashboard (alt)", 1440, 1305] ] }
+  ]
+}

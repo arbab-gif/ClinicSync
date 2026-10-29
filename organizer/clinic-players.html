@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic Players · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+  <link rel="stylesheet" href="css/pages/clinic-players.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1>Saturday</h1><img class="icon-24" src="assets/icons/caret-down.svg" alt=""></span><span class="chip">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 on Every Monday at 9:00 AM</span>
+          <span><img class="icon-20" src="assets/icons/users.svg" alt="">12 Players</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+        </div>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+        <button class="icon-btn" type="button" aria-label="More actions" aria-haspopup="menu" data-menu="#clinic-more"><img class="icon-20" src="assets/icons/dots-three.svg" alt=""></button>
+        <div class="menu" id="clinic-more" role="menu" hidden>
+          <button role="menuitem" type="button" data-toast="Edit clinic isn't part of this prototype">Edit clinic</button>
+          <button role="menuitem" type="button" data-toast="Duplicate clinic isn't part of this prototype">Duplicate clinic</button>
+          <button role="menuitem" type="button" data-toast="End clinic isn't part of this prototype">End clinic</button>
+        </div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic">
+      <a href="clinic-overview.html">Overview</a>
+      <a href="clinic-sessions.html">Sessions</a>
+      <a href="clinic-players.html" class="on" aria-current="page">Players</a>
+      <a href="clinic-substitutes.html">Substitutes</a>
+      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-payments.html">Payments</a>
+    </nav>
+
+    <section class="pl">
+      <div class="section-head"><h2 class="h2">Players</h2></div>
+      <div class="pl-bar">
+        <div class="pl-search"><img src="assets/icons/magnifying-glass.svg" alt=""><input id="pl-q" type="search" placeholder="Search players" aria-label="Search players"></div>
+        <div class="dd">
+          <button class="pl-filter" type="button" data-menu="#pl-menu" aria-haspopup="menu" aria-expanded="false"><span id="pl-label">All Players</span><img src="assets/icons/caret-down-16.svg" alt=""></button>
+          <div class="menu pl-menu" id="pl-menu" role="menu" hidden><button type="button" role="menuitem" data-f="all" class="on">All Players<i>8</i></button><button type="button" role="menuitem" data-f="invited">Invited<i>2</i></button><button type="button" role="menuitem" data-f="awaiting">Awaiting Payment<i>2</i></button><button type="button" role="menuitem" data-f="reported">Payment Reported<i>1</i></button><button type="button" role="menuitem" data-f="confirmed">Confirmed<i>2</i></button><button type="button" role="menuitem" data-f="declined">Declined<i>1</i></button></div>
+        </div>
+      </div>
+      <div class="pr-list" id="pl-list">
+        <div class="pr-row" data-status="awaiting" data-name="maya patel" data-player="Maya Patel" data-share="Half" data-ses="4/4" data-fee="$125.00" data-rating="NTRP 3.5">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/player-maya-patel.png" alt=""><div><b>Maya Patel</b><span class="rating">NTRP 3.5</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Half</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>4/4</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$125.00</b></div>
+          <div class="pr-status"><span class="st st-yellow" data-badge>Pending</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="reported" data-name="ethan brown" data-player="Ethan Brown" data-share="Quarter" data-ses="2/2" data-fee="$62.50" data-rating="NTRP 3.0">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/player-ethan-brown.png" alt=""><div><b>Ethan Brown</b><span class="rating">NTRP 3.0</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Quarter</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>2/2</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$62.50</b></div>
+          <div class="pr-status"><span class="st st-blue" data-badge>Payment Reported</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="confirmed" data-name="sofia lee" data-player="Sofia Lee" data-share="Quarter" data-ses="0/2" data-fee="$62.50" data-rating="NTRP 4.0">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/player-sofia-lee.png" alt=""><div><b>Sofia Lee</b><span class="rating">NTRP 4.0</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Quarter</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>0/2</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$62.50</b></div>
+          <div class="pr-status"><span class="st st-green" data-badge>Confirmed</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="confirmed" data-name="olivia chen" data-player="Olivia Chen" data-share="Quarter" data-ses="2/2" data-fee="$62.50" data-rating="NTRP 3.5">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/avatar-olivia-chen.png" alt=""><div><b>Olivia Chen</b><span class="rating">NTRP 3.5</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Quarter</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>2/2</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$62.50</b></div>
+          <div class="pr-status"><span class="st st-green" data-badge>Confirmed</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="invited" data-name="noah williams" data-player="Noah Williams" data-share="Half" data-ses="0/4" data-fee="$125.00" data-rating="NTRP 3.5">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/avatar-noah-williams.png" alt=""><div><b>Noah Williams</b><span class="rating">NTRP 3.5</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Half</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>0/4</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$125.00</b></div>
+          <div class="pr-status"><span class="st st-gray" data-badge>Invited</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="declined" data-name="sophia martinez" data-player="Sophia Martinez" data-share="Full" data-ses="4/4" data-fee="$250.00" data-rating="NTRP 4.0">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/avatar-sophia-martinez.png" alt=""><div><b>Sophia Martinez</b><span class="rating">NTRP 4.0</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Full</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>4/4</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$250.00</b></div>
+          <div class="pr-status"><span class="st st-red" data-badge>Declined</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="invited" data-name="ethan patel" data-player="Ethan Patel" data-share="Quarter" data-ses="0/2" data-fee="$62.50" data-rating="NTRP 3.0">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/avatar-ethan-patel.png" alt=""><div><b>Ethan Patel</b><span class="rating">NTRP 3.0</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Quarter</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>0/2</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$62.50</b></div>
+          <div class="pr-status"><span class="st st-gray" data-badge>Invited</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+        <div class="pr-row" data-status="awaiting" data-name="marcus reed" data-player="Marcus Reed" data-share="Half" data-ses="2/4" data-fee="$125.00" data-rating="NTRP 4.5">
+          <div class="pr-player"><img class="avatar-img" src="assets/img/avatar-liam-johnson.png" alt=""><div><b>Marcus Reed</b><span class="rating">NTRP 4.5</span></div></div>
+          <div class="pr-col" style="width:120px"><span>Share</span><b>Half</b></div><div class="pr-col" style="width:120px"><span>Sessions</span><b>2/4</b></div><div class="pr-col" style="width:200px"><span>Clinic Fee</span><b>$125.00</b></div>
+          <div class="pr-status"><span class="st st-yellow" data-badge>Pending</span></div>
+          <span class="pr-spacer"></span>
+          <span class="pr-act" data-act></span>
+        </div>
+      </div>
+      <p class="muted pl-empty" id="pl-empty" hidden>No matches found.</p>
+    </section>
+
+  <div class="overlay" id="confirm-pay" hidden role="dialog" aria-modal="true" aria-labelledby="cp-title">
+    <div class="modal cp-modal">
+      <div class="pm-head"><div><h2 id="cp-title">Confirm Payment Received</h2><p>Review the details before marking this payment as received.</p></div>
+        <button class="pm-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button></div>
+      <div class="cp-box">
+        <div><span>Player</span><b id="cp-player">Ethan Brown</b></div>
+        <div><span>Clinic</span><b>Saturday</b></div>
+        <div><span>Share Type</span><b id="cp-share">Quarter Share</b></div>
+        <div><span>Total Facility Fee</span><b id="cp-fee">$62.50</b></div>
+      </div>
+      <div class="cp-amt"><span>Payment received</span><b id="cp-amount">$62.50</b></div>
+      <div class="field"><label>Payment Method</label>
+        <div class="cp-methods" id="cp-methods"><button type="button" class="on">Venmo</button><button type="button">Cash</button></div></div>
+      <div class="cp-note"><img class="icon" src="assets/icons/info-circle.svg" alt=""><span id="cp-note"></span></div>
+      <div class="pm-btns"><button class="btn btn-lg btn-soft" type="button" data-close>Cancel</button><button class="btn btn-lg btn-primary" type="button" id="cp-submit">Confirm Payment</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="pd-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="pd-title">
+    <div class="modal modal-lg pd-modal" id="pd">
+      <div class="pm-head"><h2 id="pd-title">Player detail</h2><button class="pm-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button></div>
+      <div class="pd-banner"><img class="icon" src="assets/icons/check-circle-green.svg" alt=""><span data-pd="banner"></span></div>
+      <div class="pd-who">
+        <div class="pd-id"><span class="initials pd-av">P</span>
+          <div><b data-pd="name"></b><span data-pd="email"></span><div class="pd-tags"><i data-pd="rating"></i><i>Intermediate</i></div></div></div>
+        <span class="st st-green" style="font-size:14px">Confirmed</span>
+      </div>
+      <dl class="pd-meta"><div><dt>Clinic</dt><dd>Saturday</dd></div><div><dt>Season</dt><dd>Oct 3 – Nov 21, 2026</dd></div></dl>
+      <div class="pd-stats">
+        <div><span>Share Type</span><b data-pd="share"></b></div>
+        <div><span>Allowed Sessions</span><b data-pd="allowed"></b></div>
+        <div><span>Sessions Attended</span><b data-pd="attended"></b></div>
+      </div>
+      <hr class="m-hr">
+      <div class="pd-cols">
+        <section>
+          <div class="pd-h"><h3>Session Allocation</h3><span>4 of 4 selected</span></div>
+          <div class="pd-table">
+            <div class="pd-tr head"><span>Sessions</span><span>RSVP</span><span>Attendance</span><span>Replacement</span></div>
+            <div class="pd-tr"><span><b>Oct 3, 2026</b><small>Session 2</small></span><span><i class="st st-green">Going</i></span><span><i class="st st-green">Attended</i></span><span class="dim">—</span></div>
+            <div class="pd-tr"><span><b>Oct 10, 2026</b><small>Session 3</small></span><span><i class="st st-green">Going</i></span><span><i class="st st-green">Attended</i></span><span class="dim">—</span></div>
+            <div class="pd-tr"><span><b>Oct 17, 2026</b><small>Session 4</small></span><span><i class="st st-blue">Replace</i></span><span><i class="st st-red">Absent</i></span><span>Priya Nair</span></div>
+            <div class="pd-tr"><span><b>Oct 24, 2026</b><small>Session 5</small></span><span><i class="st st-green">Going</i></span><span><i class="st st-gray">Upcoming</i></span><span class="dim">—</span></div>
+          </div>
+        </section>
+        <section>
+          <div class="pd-h"><h3>Payment Overview</h3></div>
+          <div class="pd-card"><div><small>Facility Fees</small><b>$250</b></div><span class="st st-green">Cash Paid</span></div>
+          <div class="pd-card col"><div class="pd-cf"><div><small>Coach Fees</small><b>4 x $50 = $200</b></div><span class="st st-gray">2 Paid</span></div>
+            <div class="pd-fee"><div><b>Session 2 — Oct 3</b><small>Attended</small></div><em>$50.00</em><span class="st st-green">Paid</span></div>
+            <div class="pd-fee"><div><b>Session 3 — Oct 10</b><small>Attended</small></div><em>$50.00</em><span class="st st-green">Paid</span></div>
+            <div class="pd-fee"><div><b>Session 4 — Oct 17</b><small>Absent</small></div><em>$50.00</em><span class="st st-red">Unpaid</span></div></div>
+        </section>
+      </div>
+    </div>
+  </div>
+  </main>
+  <script>
+
+    const rows = [...document.querySelectorAll('.pr-row')];
+    let f = 'all'; const q = document.getElementById('pl-q');
+    function apply() {
+      const t = q.value.trim().toLowerCase(); let n = 0;
+      rows.forEach(r => { const show = (f === 'all' || r.dataset.status === f) && (!t || r.dataset.name.includes(t)); r.hidden = !show; if (show) n++; });
+      document.getElementById('pl-empty').hidden = n > 0;
+      const counts = {}; rows.forEach(r => counts[r.dataset.status] = (counts[r.dataset.status] || 0) + 1);
+      document.querySelectorAll('#pl-menu [data-f]').forEach(b => { b.querySelector('i').textContent = b.dataset.f === 'all' ? rows.length : (counts[b.dataset.f] || 0); b.classList.toggle('on', b.dataset.f === f); });
+    }
+    q.addEventListener('input', apply);
+    document.querySelectorAll('#pl-menu [data-f]').forEach(b => b.addEventListener('click', () => { f = b.dataset.f; document.getElementById('pl-label').firstChild.textContent = b.firstChild.textContent; apply(); }));
+    
+    const ST = {"invited":["gray","Invited","Invited"],"awaiting":["yellow","Pending","Awaiting Payment"],"reported":["blue","Payment Reported","Payment Reported"],"confirmed":["green","Confirmed","Confirmed"],"declined":["red","Declined","Declined"]};
+    function setStatus(r, s) { r.dataset.status = s; const b = r.querySelector('[data-badge]'); b.className = 'st st-' + ST[s][0]; b.textContent = ST[s][1]; paint(r); }
+    function paint(r) {
+      const a = r.querySelector('[data-act]'), s = r.dataset.status;
+      if (s === 'reported') a.innerHTML = '<button class="btn btn-sm btn-outline" type="button" data-confirm>Confirmed Payment</button>';
+      else if (s === 'confirmed') a.innerHTML = '<button class="btn btn-sm btn-outline" type="button" data-profile>View Profile</button>';
+      else a.innerHTML = '';
+    }
+    rows.forEach(paint);
+    let cur = null;
+    document.getElementById('pl-list').addEventListener('click', e => {
+      const r = e.target.closest('.pr-row'); if (!r) return; cur = r;
+      if (e.target.closest('[data-confirm]')) {
+        document.getElementById('cp-player').textContent = r.dataset.player;
+        document.getElementById('cp-share').textContent = r.dataset.share + ' Share';
+        document.getElementById('cp-fee').textContent = r.dataset.fee;
+        document.getElementById('cp-amount').textContent = r.dataset.fee;
+        document.getElementById('cp-note').textContent = 'Confirming marks the facility fee as paid and ' + r.dataset.player.split(' ')[0] + ' becomes a Confirmed participant.';
+        document.getElementById('confirm-pay').hidden = false; document.body.style.overflow = 'hidden';
+      }
+      if (e.target.closest('[data-profile]')) {
+        const d = document.getElementById('pd'); const g = k => r.dataset[k];
+        d.querySelector('[data-pd=name]').textContent = g('player');
+        d.querySelector('[data-pd=email]').textContent = g('player').toLowerCase().replace(' ', '.') + '@example.com';
+        d.querySelector('[data-pd=rating]').textContent = g('rating');
+        d.querySelector('[data-pd=share]').textContent = g('share');
+        d.querySelector('[data-pd=banner]').textContent = 'Payment verified · ' + g('player').split(' ')[0] + ' is now a confirmed participant';
+        d.querySelector('[data-pd=attended]').textContent = String(g('ses').split('/')[0]).padStart(2, '0');
+        d.querySelector('[data-pd=allowed]').textContent = String(g('ses').split('/')[1]).padStart(2, '0');
+        document.getElementById('pd-overlay').hidden = false; document.body.style.overflow = 'hidden';
+      }
+    });
+    document.getElementById('cp-methods').addEventListener('click', e => { const b = e.target.closest('button'); if (b) [...b.parentElement.children].forEach(c => c.classList.toggle('on', c === b)); });
+    document.getElementById('cp-submit').addEventListener('click', () => {
+      setStatus(cur, 'confirmed'); document.getElementById('confirm-pay').hidden = true; document.body.style.overflow = ''; apply();
+      window.toast('Payment confirmed for ' + cur.dataset.player);
+    });
+    apply();
+  </script>
+  <script src="js/organizer.js"></script>
+</body>
+</html>

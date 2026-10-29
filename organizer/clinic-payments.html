@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payments · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+  <link rel="stylesheet" href="css/pages/payments.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1>Saturday</h1><img class="icon-24" src="assets/icons/caret-down.svg" alt=""></span><span class="chip">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 on Every Monday at 9:00 AM</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+        </div>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+        <button class="icon-btn" type="button" aria-label="More actions" aria-haspopup="menu" data-menu="#clinic-more"><img class="icon-20" src="assets/icons/dots-three.svg" alt=""></button>
+        <div class="menu" id="clinic-more" role="menu" hidden>
+          <button role="menuitem" type="button" data-toast="Edit clinic isn't part of this prototype">Edit clinic</button>
+          <button role="menuitem" type="button" data-toast="Duplicate clinic isn't part of this prototype">Duplicate clinic</button>
+          <button role="menuitem" type="button" data-toast="End clinic isn't part of this prototype">End clinic</button>
+        </div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic">
+      <a href="clinic-overview.html">Overview</a>
+      <a href="clinic-sessions.html">Sessions</a>
+      <a href="clinic-players.html">Players</a>
+      <a href="clinic-substitutes.html">Substitutes</a>
+      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-payments.html" class="on" aria-current="page">Payments</a>
+    </nav>
+
+    <div class="pay">
+      <h2 class="h2">Payments</h2>
+
+      <section class="pay-summary" aria-label="Payment summary">
+        <div class="ps-col">
+          <h3 class="ps-title"><img class="icon-18" src="assets/icons/court-basketball.svg" alt="">Facility Fees</h3>
+          <div class="ps-nums">
+            <div><span>Total Fees</span><b id="sum-total">$0.00</b></div>
+            <div><span>Total Received</span><b class="ok" id="sum-received">$0.00</b></div>
+            <div><span>Total Outstanding</span><b class="warn" id="sum-out">$0.00</b></div>
+          </div>
+        </div>
+        <div class="ps-col">
+          <h3 class="ps-title"><img class="icon-18" src="assets/icons/chalkboard-teacher.svg" alt="">Coach Fees</h3>
+          <div class="ps-nums">
+            <div><span>Coach Fees Billed</span><b>$400.00</b></div>
+            <div><span>Total Paid</span><b class="ok">$200.00</b></div>
+            <div><span>Total Outstanding</span><b class="warn">$200.00</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pay-coach" id="coach-card" hidden>
+        <h2 class="h2">Coach</h2>
+        <div class="coach-card">
+          <div><small>Coach</small><span class="who"><img src="assets/img/avatar-coach-maria.png" alt="">Maria Lopez</span></div>
+          <div><small>Rate</small><b>$50 per attending player per session</b></div>
+          <div><small>Completed Sessions</small><b>2</b></div>
+          <div><small>Upcoming Sessions</small><b>2</b></div>
+          <div><small>Coach Fees Billed</small><b>$400.00</b></div>
+        </div>
+      </section>
+
+      <section class="pay-breakdown">
+        <div class="section-head">
+          <h2 class="h2" id="bd-title">Facility Fee Breakdown</h2>
+          <div class="pb-tools">
+            <div class="status-filter" id="status-wrap">
+              <button class="pill-select" type="button" data-menu="#status-menu" aria-haspopup="menu" aria-expanded="false"><span id="status-label">Status</span><img class="icon-16 rot" src="assets/icons/chevron-down-16.svg" alt=""></button>
+              <div class="menu" id="status-menu" role="menu" hidden>
+                <button type="button" role="menuitem" data-status="all">All statuses</button>
+                <button type="button" role="menuitem" data-status="paid">Paid</button>
+                <button type="button" role="menuitem" data-status="pending">Pending</button>
+                <button type="button" role="menuitem" data-status="reported">Payment Reported</button>
+              </div>
+            </div>
+            <div class="mode" role="tablist" aria-label="Fee type">
+              <button class="on" type="button" role="tab" data-mode="court"><img class="icon-20" src="assets/icons/court-basketball.svg" alt="">Court</button>
+              <button type="button" role="tab" data-mode="coach"><img class="icon-20" src="assets/icons/chalkboard-teacher.svg" alt="">Coach</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Facility fee (per player) table -->
+        <div class="ledger" id="tbl-court">
+          <div class="ledger-scroll">
+            <div class="lg lg-court lg-head" role="row"><span>Player</span><span>Share Type</span><span>Total Fee</span><span>Paid</span><span>Outstanding</span><span>Status</span><span class="r">Action</span></div>
+            <div id="court-rows"></div>
+            <div class="lg lg-court lg-foot"><span id="foot-label">Totals · 7 players</span><span></span><span id="foot-total">$0.00</span><span id="foot-paid">$0.00</span><span id="foot-out">$0.00</span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <!-- Coach fee (per session) table -->
+        <div class="ledger" id="tbl-coach" hidden>
+          <div class="ledger-scroll">
+            <div class="lg lg-coach lg-head"><span class="ind">Session / Attendee</span><span>Attendance</span><span>Coach fees</span><span>Paid</span><span>Outstanding</span><span>Status</span><span></span></div>
+            <div class="sess" data-sess>
+              <button class="lg lg-coach sess-row" type="button" aria-expanded="false">
+                <span class="s-name"><img class="icon-20 car" src="assets/icons/caret-right-20.svg" alt=""><span><b>Session 1 — Oct 10</b><small>Sat • 9:00–10:30 AM • 1 substitute</small></span></span>
+                <span>4</span><span>$200.00</span><span>$100.00</span><span>$100.00</span><span><i class="pill p-g">Paid</i></span><span></span>
+              </button>
+              <div class="att" hidden></div>
+            </div>
+            <div class="sess open" data-sess>
+              <button class="lg lg-coach sess-row" type="button" aria-expanded="true">
+                <span class="s-name"><img class="icon-20 car" src="assets/icons/caret-right-20.svg" alt=""><span><b>Session 2 — Oct 10</b><small>Sat • 9:00–10:30 AM • 1 substitute</small></span></span>
+                <span>4</span><span>$200.00</span><span>$100.00</span><span>$100.00</span><span><i class="pill p-y">Partially Paid</i></span><span></span>
+              </button>
+              <div class="att">
+                <div class="att-in">
+                  <div class="lg lg-att"><span class="who"><img src="assets/img/avatar-player-liam.png" alt="">Liam Johnson <i class="pill p-gray">Regular</i></span><span></span><span>$50.00</span><span>$50.00</span><span>$0.00</span><span><i class="pill p-g">Paid</i></span><span></span></div>
+                  <div class="lg lg-att"><span class="who"><img src="assets/img/avatar-player-liam.png" alt="">Liam Johnson <i class="pill p-gray">Regular</i></span><span></span><span>$50.00</span><span>$50.00</span><span>$0.00</span><span><i class="pill p-b">Payment Reported</i></span><span></span></div>
+                  <div class="lg lg-att"><span class="who"><img src="assets/img/avatar-player-liam.png" alt="">Emma Ribert <i class="pill p-purple">Substitute</i></span><span></span><span>$50.00</span><span>$50.00</span><span>$0.00</span><span><i class="pill p-y">Pending</i></span><span></span></div>
+                  <div class="lg lg-att"><span class="who"><img src="assets/img/avatar-player-liam.png" alt="">Liam Johnson <i class="pill p-gray">Regular</i></span><span></span><span>$50.00</span><span>$50.00</span><span>$0.00</span><span><i class="pill p-g">Paid</i></span><span></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="sess" data-sess><button class="lg lg-coach sess-row" type="button" aria-expanded="false"><span class="s-name"><img class="icon-20 car" src="assets/icons/caret-right-20.svg" alt=""><span><b>Session 3 — Oct 10</b><small>Sat • 9:00–10:30 AM • 1 substitute</small></span></span><span>-</span><span>$200.00</span><span>-</span><span>-</span><span><i class="pill p-gray">Not Yet Due</i></span><span></span></button><div class="att att-empty" hidden><p>Attendee fees are calculated once the session is completed.</p></div></div>
+            <div class="sess" data-sess><button class="lg lg-coach sess-row" type="button" aria-expanded="false"><span class="s-name"><img class="icon-20 car" src="assets/icons/caret-right-20.svg" alt=""><span><b>Session 4 — Oct 10</b><small>Sat • 9:00–10:30 AM • 1 substitute</small></span></span><span>-</span><span>$200.00</span><span>-</span><span>-</span><span><i class="pill p-gray">Not Yet Due</i></span><span></span></button><div class="att att-empty" hidden><p>Attendee fees are calculated once the session is completed.</p></div></div>
+            <div class="sess" data-sess><button class="lg lg-coach sess-row" type="button" aria-expanded="false"><span class="s-name"><img class="icon-20 car" src="assets/icons/caret-right-20.svg" alt=""><span><b>Session 5 — Oct 10</b><small>Sat • 9:00–10:30 AM • 1 substitute</small></span></span><span>-</span><span>$200.00</span><span>-</span><span>-</span><span><i class="pill p-gray">Not Yet Due</i></span><span></span></button><div class="att att-empty" hidden><p>Attendee fees are calculated once the session is completed.</p></div></div>
+            <div class="sess" data-sess><button class="lg lg-coach sess-row" type="button" aria-expanded="false"><span class="s-name"><img class="icon-20 car" src="assets/icons/caret-right-20.svg" alt=""><span><b>Session 6 — Oct 10</b><small>Sat • 9:00–10:30 AM • 1 substitute</small></span></span><span>-</span><span>$200.00</span><span>-</span><span>-</span><span><i class="pill p-gray">Not Yet Due</i></span><span></span></button><div class="att att-empty" hidden><p>Attendee fees are calculated once the session is completed.</p></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Confirm Payment Received (Figma 653:9657) -->
+  <div class="overlay" id="confirm-modal" hidden>
+    <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+      <div class="cm-head">
+        <div>
+          <h2 id="cm-title">Confirm Payment Received</h2>
+          <p>Record a payment you received outside ClinicSync.</p>
+        </div>
+        <button class="cm-x" type="button" data-close aria-label="Close"><img class="icon-20" src="assets/icons/x.svg" alt=""></button>
+      </div>
+      <div class="cm-sum">
+        <div><span>Player</span><b id="cm-player">Ethan Brown</b></div>
+        <div><span>Clinic</span><b>Saturday</b></div>
+        <div><span>Share Type</span><b id="cm-share">Full</b></div>
+        <div><span>Total Facility Fee</span><b id="cm-fee">$250.00</b></div>
+      </div>
+      <div class="cm-amount"><span>Payment received</span><b id="cm-amount">$250.00</b></div>
+      <div class="cm-method">
+        <span class="lbl" id="cm-method-lbl">Payment Method</span>
+        <div class="choice" data-group role="radiogroup" aria-labelledby="cm-method-lbl">
+          <button class="on" type="button" role="radio" data-method="Others">Others</button>
+          <button type="button" role="radio" data-method="Cash">Cash</button>
+        </div>
+        <p class="hint">Card payments are recorded automatically.</p>
+      </div>
+      <div class="cm-note"><img class="icon-18" src="assets/icons/info.svg" alt=""><p>Confirming marks the facility fee Paid and <span id="cm-note-name">the player</span> becomes a Confirmed participant.</p></div>
+      <div class="cm-actions">
+        <button class="btn btn-md btn-soft" type="button" data-close>Cancel</button>
+        <button class="btn btn-md btn-primary" type="button" id="cm-confirm">Confirm Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clinic Payment detail drawer (Figma 653:9700 paid via Stripe, 653:9740 payment reported) -->
+  <div class="overlay drawer-overlay" id="pay-drawer" hidden>
+    <aside class="drawer pd" role="dialog" aria-modal="true" aria-labelledby="pd-title">
+      <div class="pd-head">
+        <div><h2 id="pd-title">Clinic Payment</h2><p>Saturday Tennis • facility fee</p></div>
+        <button class="pd-x" type="button" data-close aria-label="Close"><img class="icon-20" src="assets/icons/x-circle.svg" alt=""></button>
+      </div>
+      <div class="pd-who">
+        <span class="pd-av" id="pd-init">LJ</span>
+        <div><b id="pd-name">Liam Johnson</b><i class="pill p-gray" id="pd-share">Full share</i></div>
+        <i class="pill pill-lg p-g" id="pd-status">Paid</i>
+      </div>
+      <div class="pd-report" id="pd-report" hidden><img class="icon-18" src="assets/icons/hourglass.svg" alt=""><div><p id="pd-report-text">Olivia reported a $125.00 Venmo payment</p><small id="pd-report-date">Oct 9 · 6:02 PM</small></div></div>
+      <dl class="pd-rows" id="pd-rows"></dl>
+      <div class="pd-note" id="pd-note"><img class="icon-18" src="assets/icons/info.svg" alt=""><p id="pd-note-text"></p></div>
+      <div class="pd-foot" id="pd-foot" hidden><button class="btn btn-md btn-primary btn-block" type="button" id="pd-action">Confirm Reported Payment</button></div>
+    </aside>
+  </div>
+
+  <script src="js/organizer.js"></script>
+  <script>
+  (() => {
+    const $ = (s, el = document) => el.querySelector(s);
+    const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+    const money = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const PILL = { paid: ['p-g', 'Paid'], pending: ['p-y', 'Pending'], reported: ['p-b', 'Payment Reported'] };
+
+    // Facility fee rows. via: how a paid row was settled.
+    const rows = [
+      { name: 'Liam Johnson', share: 'Full', fee: 250, paid: 250, status: 'paid', via: 'stripe' },
+      { name: 'Liam Johnson', share: 'Full', fee: 250, paid: 0, status: 'pending' },
+      { name: 'Liam Johnson', share: 'Full', fee: 250, paid: 0, status: 'reported', via: 'Venmo', reportedAmt: 250, date: 'Fri, Oct 9, 2026', time: 'Oct 9 · 6:02 PM', by: 'Liam' },
+      { name: 'Liam Johnson', share: 'Full', fee: 250, paid: 250, status: 'paid', via: 'stripe' },
+      { name: 'Liam Johnson (you)', tag: 'Organizer + Player', share: 'Full', fee: 250, paid: 250, status: 'paid', via: 'stripe' },
+      { name: 'Liam Johnson', share: 'Full', fee: 250, paid: 250, status: 'paid', via: 'Cash' },
+      { name: 'Liam Johnson', share: 'Full', fee: 250, paid: 250, status: 'paid', via: 'stripe' },
+    ];
+    let filter = 'all', current = null;
+
+    function render() {
+      const host = $('#court-rows');
+      host.innerHTML = '';
+      rows.forEach((r, i) => {
+        if (filter !== 'all' && r.status !== filter) return;
+        const [cls, label] = PILL[r.status];
+        const row = document.createElement('div');
+        row.className = 'lg lg-court lg-row';
+        row.innerHTML =
+          `<span class="who-c">${r.name}${r.tag ? ` <i class="pill p-gray">${r.tag}</i>` : ''}</span>` +
+          `<span>${r.share}</span><span>${money(r.fee)}</span><span>${money(r.paid)}</span><span>${money(r.fee - r.paid)}</span>` +
+          `<span><i class="pill ${cls}">${label}</i></span>` +
+          `<span class="act">${r.status !== 'paid' ? `<button class="btn btn-sm btn-outline" type="button" data-rec="${i}">Record Payment</button>` : ''}<button class="view" type="button" data-view="${i}">View<img class="icon-16" src="assets/icons/arrow-right-16.svg" alt=""></button></span>`;
+        host.append(row);
+      });
+      const tot = rows.reduce((a, r) => (a.fee += r.fee, a.paid += r.paid, a), { fee: 0, paid: 0 });
+      $('#sum-total').textContent = $('#foot-total').textContent = money(tot.fee);
+      $('#sum-received').textContent = $('#foot-paid').textContent = money(tot.paid);
+      $('#sum-out').textContent = $('#foot-out').textContent = money(tot.fee - tot.paid);
+      $('#foot-label').textContent = `Totals · ${rows.length} players`;
+    }
+
+    // Court / Coach toggle
+    $$('.mode button').forEach(b => b.addEventListener('click', () => {
+      const coach = b.dataset.mode === 'coach';
+      $$('.mode button').forEach(x => x.classList.toggle('on', x === b));
+      $('#tbl-court').hidden = coach; $('#tbl-coach').hidden = !coach;
+      $('#coach-card').hidden = !coach;
+      $('#bd-title').textContent = coach ? 'Fees Breakdown' : 'Facility Fee Breakdown';
+      $('#status-wrap').hidden = coach;
+    }));
+
+    // Status filter
+    $$('#status-menu [data-status]').forEach(b => b.addEventListener('click', () => {
+      filter = b.dataset.status;
+      $('#status-label').textContent = filter === 'all' ? 'Status' : b.textContent;
+      render();
+    }));
+
+    // Expandable coach sessions
+    $$('[data-sess]').forEach(s => $('.sess-row', s).addEventListener('click', e => {
+      const open = !s.classList.contains('open');
+      s.classList.toggle('open', open);
+      e.currentTarget.setAttribute('aria-expanded', open);
+      $('.att', s).hidden = !open;
+    }));
+
+    // Record Payment modal
+    function openConfirm(i) {
+      current = i; const r = rows[i], out = r.fee - r.paid;
+      $('#cm-player').textContent = r.name.replace(' (you)', '');
+      $('#cm-share').textContent = r.share; $('#cm-fee').textContent = money(r.fee);
+      $('#cm-amount').textContent = money(out);
+      $('#cm-note-name').textContent = r.name.split(' ')[0];
+      $$('#confirm-modal [data-method]').forEach((b, k) => b.classList.toggle('on', r.via ? b.dataset.method === (r.via === 'Cash' ? 'Cash' : 'Others') : k === 0));
+      $('#confirm-modal').hidden = false; document.body.style.overflow = 'hidden';
+    }
+    function closeAll() { $$('.overlay').forEach(o => o.hidden = true); document.body.style.overflow = ''; }
+    function markPaid(i, method) {
+      const r = rows[i]; r.paid = r.fee; r.status = 'paid'; r.via = method;
+      closeAll(); render(); window.toast(`${r.name.replace(' (you)', '')} marked as Paid`);
+    }
+    $('#cm-confirm').addEventListener('click', () => {
+      const m = $('#confirm-modal .choice .on')?.dataset.method || 'Others';
+      markPaid(current, m);
+    });
+
+    // Detail drawer
+    function row(l, v, c) { return `<div><dt>${l}</dt><dd${c ? ` class="${c}"` : ''}>${v}</dd></div>`; }
+    function openDrawer(i) {
+      current = i; const r = rows[i], name = r.name.replace(' (you)', '');
+      const out = r.fee - r.paid, [cls, label] = PILL[r.status];
+      $('#pd-name').textContent = name;
+      $('#pd-init').textContent = name.split(' ').map(w => w[0]).join('');
+      $('#pd-share').textContent = r.share + ' share';
+      const st = $('#pd-status'); st.className = 'pill pill-lg ' + cls; st.textContent = label;
+      const rep = r.status === 'reported';
+      $('#pd-report').hidden = !rep;
+      let h = '', note = '', icon = 'info', tone = '';
+      if (rep) {
+        $('#pd-report-text').textContent = `${r.by} reported a ${money(r.reportedAmt)} ${r.via} payment`;
+        $('#pd-report-date').textContent = r.time;
+        h = row('Total Facility Fee', money(r.fee)) + row('Reported by ' + r.by, money(r.reportedAmt), 'blue') + row('Confirmed Received', money(r.paid)) +
+            row('Outstanding', money(out), 'warn') + row('Reported Method', r.via) + row('Reported Date', r.date);
+        note = 'A reported payment isn’t counted as received until you confirm the money reached you.'; icon = 'warning-circle'; tone = 'warn';
+      } else if (r.status === 'paid') {
+        const stripe = r.via === 'stripe';
+        h = row('Total Facility Fee', money(r.fee)) + row('Amount Paid', money(r.paid), 'ok') + row('Outstanding', money(out)) +
+            row('Payment Method', stripe ? 'Stripe · Visa •••• 4242' : r.via + ' · recorded by organizer') + row('Payment Date', 'Tue, Sep 22, 2026') +
+            row(stripe ? 'Transaction Ref.' : 'Recorded by', stripe ? 'pi_3Q7hL2…a81' : 'Albert John');
+        note = stripe ? 'Stripe payments are recorded automatically once verified — no organizer action needed.' : 'This payment was recorded manually by the organizer.';
+      } else {
+        h = row('Total Facility Fee', money(r.fee)) + row('Amount Paid', money(r.paid)) + row('Outstanding', money(out), 'warn') + row('Payment Method', '—');
+        note = 'No payment received yet. Record a payment if the player paid you outside ClinicSync.';
+      }
+      $('#pd-rows').innerHTML = h;
+      $('#pd-note').className = 'pd-note ' + tone; $('#pd-note img').src = `assets/icons/${icon}.svg`; $('#pd-note-text').textContent = note;
+      $('#pd-foot').hidden = r.status === 'paid';
+      $('#pd-action').textContent = rep ? 'Confirm Reported Payment' : 'Record Payment';
+      $('#pay-drawer').hidden = false; document.body.style.overflow = 'hidden';
+    }
+    $('#pd-action').addEventListener('click', () => {
+      const r = rows[current];
+      if (r.status === 'reported') markPaid(current, r.via); else { closeAll(); openConfirm(current); }
+    });
+
+    document.addEventListener('click', e => {
+      const rec = e.target.closest('[data-rec]'); if (rec) return openConfirm(+rec.dataset.rec);
+      const v = e.target.closest('[data-view]'); if (v) return openDrawer(+v.dataset.view);
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>

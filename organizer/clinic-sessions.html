@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic Sessions · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+  <link rel="stylesheet" href="css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="css/pages/clinic-sessions.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1>Saturday</h1><img class="icon-24" src="assets/icons/caret-down.svg" alt=""></span><span class="chip">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 on Every Monday at 9:00 AM</span>
+          <span><img class="icon-20" src="assets/icons/users.svg" alt="">12 Players</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+        </div>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+        <button class="icon-btn" type="button" aria-label="More actions" aria-haspopup="menu" data-menu="#clinic-more"><img class="icon-20" src="assets/icons/dots-three.svg" alt=""></button>
+        <div class="menu" id="clinic-more" role="menu" hidden>
+          <button role="menuitem" type="button" data-toast="Edit clinic isn't part of this prototype">Edit clinic</button>
+          <button role="menuitem" type="button" data-toast="Duplicate clinic isn't part of this prototype">Duplicate clinic</button>
+          <button role="menuitem" type="button" data-toast="End clinic isn't part of this prototype">End clinic</button>
+        </div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic">
+      <a href="clinic-overview.html">Overview</a>
+      <a href="clinic-sessions.html" class="on" aria-current="page">Sessions</a>
+      <a href="clinic-players.html">Players</a>
+      <a href="clinic-substitutes.html">Substitutes</a>
+      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-payments.html">Payments</a>
+    </nav>
+
+    <section class="ss">
+      <div class="section-head"><h2 class="h2">All clinic sessions</h2></div>
+      <div class="ss-bar">
+        <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="ss-q" type="search" placeholder="Search Session" aria-label="Search session"></div>
+        <div class="ss-right">
+          <div class="dd">
+            <button class="dd-btn" type="button" data-menu="#status-menu" aria-haspopup="menu" aria-expanded="false"><span id="status-label">Status</span><img src="assets/icons/arrow-right-16.svg" alt=""></button>
+            <div class="menu" id="status-menu" role="menu" hidden data-filter-menu>
+              <button type="button" role="menuitem" data-f="all">All statuses</button>
+              <button type="button" role="menuitem" data-f="ok">Confirmed</button>
+              <button type="button" role="menuitem" data-f="pending">Pending</button>
+              <button type="button" role="menuitem" data-f="repl">Replacement Needed</button>
+              <button type="button" role="menuitem" data-f="subs">Confirmed • Subs</button>
+            </div>
+          </div>
+          <div class="view-seg" role="tablist" aria-label="View">
+            <a class="on" href="clinic-sessions.html" aria-current="page"><img src="assets/icons/list-dashes.svg" alt="">List View</a>
+            <a href="clinic-calendar.html"><img src="assets/icons/calendar-blank-20.svg" alt="">Calendar View</a>
+          </div>
+        </div>
+      </div>
+      <div class="ss-list" id="ss-list">
+          <article class="s-card" data-status="ok" data-search="session 3 oct 10 court 2 maria lopez olivia chen sophia martinez daniel kim albert john" id="card-10">
+            <div class="s-top">
+              <div class="datebox"><small>OCT</small><b>10</b></div>
+              <div class="s-main">
+                <div class="s-info">
+                  <div class="s-title"><h3>Session 3</h3><span class="st st-green" data-badge>Confirmed</span></div>
+                  <div class="s-cols">
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 2</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div>
+                  </div>
+                </div>
+                <button class="s-view" type="button" data-open="#session-10"><img src="assets/icons/eye.svg" alt="">View session</button>
+              </div>
+            </div>
+            <div class="s-players">
+              <button type="button" aria-expanded="true" aria-controls="pl-10"><span>4/4 Players</span><img src="assets/icons/caret-down-sm.svg" alt=""></button>
+              <div class="s-plist" id="pl-10">
+                <div class="row"><span class="initials">OC</span><span class="nm">Olivia Chen</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">SM</span><span class="nm">Sophia Martinez</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">DK</span><span class="nm">Daniel Kim</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">AJ</span><span class="nm">Albert John</span><span class="st st-green">Confirmed</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="s-card" data-status="pending" data-search="session 4 oct 17 court 1 maria lopez priya nair noah williams marcus reed albert john" id="card-17">
+            <div class="s-top">
+              <div class="datebox"><small>OCT</small><b>17</b></div>
+              <div class="s-main">
+                <div class="s-info">
+                  <div class="s-title"><h3>Session 4</h3><span class="st st-yellow" data-badge>2 Pending</span></div>
+                  <div class="s-cols">
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 1</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div>
+                  </div>
+                </div>
+                <button class="s-view" type="button" data-open="#session-17"><img src="assets/icons/eye.svg" alt="">View session</button>
+              </div>
+            </div>
+            <div class="s-players">
+              <button type="button" aria-expanded="false" aria-controls="pl-17"><span>4/4 Players</span><img src="assets/icons/caret-down-sm.svg" alt=""></button>
+              <div class="s-plist" id="pl-17" hidden>
+                <div class="row"><span class="initials">PN</span><span class="nm">Priya Nair</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">NW</span><span class="nm">Noah Williams</span><span class="st st-yellow">Pending</span></div>
+                <div class="row"><span class="initials">MR</span><span class="nm">Marcus Reed</span><span class="st st-yellow">Pending</span></div>
+                <div class="row"><span class="initials">AJ</span><span class="nm">Albert John</span><span class="st st-green">Confirmed</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="s-card" data-status="repl" data-search="session 5 oct 24 court 3 maria lopez jessica lee olivia chen daniel kim sophia martinez" id="card-24">
+            <div class="s-top">
+              <div class="datebox"><small>OCT</small><b>24</b></div>
+              <div class="s-main">
+                <div class="s-info">
+                  <div class="s-title"><h3>Session 5</h3><span class="st st-red" data-badge>1 Replacement Needed</span></div>
+                  <div class="s-cols">
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 3</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div>
+                  </div>
+                </div>
+                <button class="s-view" type="button" data-open="#session-24"><img src="assets/icons/eye.svg" alt="">View session</button>
+              </div>
+            </div>
+            <div class="s-players">
+              <button type="button" aria-expanded="false" aria-controls="pl-24"><span>4/4 Players</span><img src="assets/icons/caret-down-sm.svg" alt=""></button>
+              <div class="s-plist" id="pl-24" hidden>
+                <div class="row"><span class="initials">JL</span><span class="nm">Jessica Lee</span><span class="st st-red">Need Replacement</span></div>
+                <div class="row"><span class="initials">OC</span><span class="nm">Olivia Chen</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">DK</span><span class="nm">Daniel Kim</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">SM</span><span class="nm">Sophia Martinez</span><span class="st st-green">Confirmed</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="s-card" data-status="subs" data-search="session 6 oct 31 court 2 maria lopez tomas rivera olivia chen marcus reed albert john" id="card-31">
+            <div class="s-top">
+              <div class="datebox"><small>OCT</small><b>31</b></div>
+              <div class="s-main">
+                <div class="s-info">
+                  <div class="s-title"><h3>Session 6</h3><span class="st st-green" data-badge>Confirmed • 1 Subs</span></div>
+                  <div class="s-cols">
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">Sat at 9:00AM</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/map-pin-sm.svg" alt="">Venue</span><span class="val">Riverside Courts, Court 2</span></div>
+                    <div class="s-col"><span class="lbl"><img src="assets/icons/chalkboard-teacher.svg" alt="">Coach</span><span class="val"><img src="assets/img/coach-maria-lopez.png" alt="">Maria Lopez</span></div>
+                  </div>
+                </div>
+                <button class="s-view" type="button" data-open="#session-31"><img src="assets/icons/eye.svg" alt="">View session</button>
+              </div>
+            </div>
+            <div class="s-players">
+              <button type="button" aria-expanded="false" aria-controls="pl-31"><span>4/4 Players</span><img src="assets/icons/caret-down-sm.svg" alt=""></button>
+              <div class="s-plist" id="pl-31" hidden>
+                <div class="row"><span class="initials">TR</span><span class="nm">Tomas Rivera</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">OC</span><span class="nm">Olivia Chen</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">MR</span><span class="nm">Marcus Reed</span><span class="st st-green">Confirmed</span></div>
+                <div class="row"><span class="initials">AJ</span><span class="nm">Albert John</span><span class="st st-green">Confirmed</span></div>
+              </div>
+            </div>
+          </article>
+      </div>
+      <p class="ss-empty muted" id="ss-empty" hidden>No sessions match your search.</p>
+    </section>
+
+  <div class="overlay" id="session-10" hidden role="dialog" aria-modal="true" aria-labelledby="sm-title-10">
+    <div class="modal modal-lg session-modal">
+      <div class="m-head">
+        <div><h2 id="sm-title-10">Saturday, October 10</h2><p>09:00 AM • 90 minutes</p></div>
+        <button class="m-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button>
+      </div>
+      <div class="m-stats">
+        <div><span>Confirmed</span><b data-confirmed>04</b></div>
+        <div><span>Open spots</span><b>00</b></div>
+        <div><span>Capacity</span><b>04</b></div>
+      </div>
+      <hr class="m-hr">
+      <section class="m-sec"><h3>Coach</h3>
+        <div class="m-row coach"><img class="avatar-img" src="assets/img/coach-maria-lopez.png" alt=""><div class="m-who"><b>Maria Lopez</b><span>Tennis Coach</span></div><span class="m-fee">$120<small>/player</small></span><span class="st st-green">Confirmed</span></div>
+      </section>
+      <hr class="m-hr">
+      <section class="m-sec" id="players-10"><h3>Players</h3>
+          <div class="m-row"><span class="initials m-av">OC</span><div class="m-who"><b>Olivia Chen</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">SM</span><div class="m-who"><b>Sophia Martinez</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">DK</span><div class="m-who"><b>Daniel Kim</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b>Albert John</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+      </section>
+    </div>
+  </div>
+  <div class="overlay" id="session-17" hidden role="dialog" aria-modal="true" aria-labelledby="sm-title-17">
+    <div class="modal modal-lg session-modal">
+      <div class="m-head">
+        <div><h2 id="sm-title-17">Saturday, October 17</h2><p>09:00 AM • 90 minutes</p></div>
+        <button class="m-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button>
+      </div>
+      <div class="m-stats">
+        <div><span>Confirmed</span><b data-confirmed>02</b></div>
+        <div><span>Open spots</span><b>01</b></div>
+        <div><span>Capacity</span><b>04</b></div>
+      </div>
+      <hr class="m-hr">
+      <section class="m-sec"><h3>Coach</h3>
+        <div class="m-row coach"><img class="avatar-img" src="assets/img/coach-maria-lopez.png" alt=""><div class="m-who"><b>Maria Lopez</b><span>Tennis Coach</span></div><span class="m-fee">$120<small>/player</small></span><span class="st st-green">Confirmed</span></div>
+      </section>
+      <hr class="m-hr">
+      <section class="m-sec" id="players-17"><h3>Players</h3>
+          <div class="m-row"><span class="initials m-av">PN</span><div class="m-who"><b>Priya Nair</b><span class="rating">NTRP 3.0</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">NW</span><div class="m-who"><b>Noah Williams</b><span class="rating">NTRP 3.5</span></div><span class="st st-yellow">Pending</span></div>
+          <div class="m-row"><span class="initials m-av">MR</span><div class="m-who"><b>Marcus Reed</b><span class="rating">NTRP 4.5</span></div><span class="st st-yellow">Pending</span></div>
+          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b>Albert John</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+      </section>
+    </div>
+  </div>
+  <div class="overlay" id="session-24" hidden role="dialog" aria-modal="true" aria-labelledby="sm-title-24">
+    <div class="modal modal-lg session-modal">
+      <div class="m-head">
+        <div><h2 id="sm-title-24">Saturday, October 24</h2><p>09:00 AM • 90 minutes</p></div>
+        <button class="m-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button>
+      </div>
+      <div class="m-stats">
+        <div><span>Confirmed</span><b data-confirmed>03</b></div>
+        <div><span>Open spots</span><b>01</b></div>
+        <div><span>Capacity</span><b>04</b></div>
+      </div>
+      <hr class="m-hr">
+        <div class="m-req" id="req-24">
+          <div class="m-req-main">
+            <div class="m-req-h"><img src="assets/icons/user-switch.svg" alt=""><b data-req-title>Replacement request</b></div>
+            <div class="m-req-cols" data-req-cols>
+              <div><span>Player</span><b>Jessica Lee</b></div>
+              <div><span>Date &amp; Time</span><b>Sat, Oct 24 · 9:00 AM</b></div>
+              <div><span>Status</span><span class="st st-purple">Fellow Players</span></div>
+            </div>
+            <p class="m-req-done" data-req-done hidden>Priya Nair has been added to the roster and the request is closed.</p>
+          </div>
+          <button class="btn btn-sm btn-primary" type="button" data-approve="24">Approve &amp; Join as subs</button>
+        </div>
+      <section class="m-sec"><h3>Coach</h3>
+        <div class="m-row coach"><img class="avatar-img" src="assets/img/coach-maria-lopez.png" alt=""><div class="m-who"><b>Maria Lopez</b><span>Tennis Coach</span></div><span class="m-fee">$120<small>/player</small></span><span class="st st-green">Confirmed</span></div>
+      </section>
+      <hr class="m-hr">
+      <section class="m-sec" id="players-24"><h3>Players</h3>
+          <div class="m-row"><span class="initials m-av">JL</span><div class="m-who"><b>Jessica Lee</b><span class="rating">NTRP 3.5</span></div><span class="st st-red">Need Replacement</span></div>
+          <div class="m-row"><span class="initials m-av">OC</span><div class="m-who"><b>Olivia Chen</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">DK</span><div class="m-who"><b>Daniel Kim</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">SM</span><div class="m-who"><b>Sophia Martinez</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+      </section>
+    </div>
+  </div>
+  <div class="overlay" id="session-31" hidden role="dialog" aria-modal="true" aria-labelledby="sm-title-31">
+    <div class="modal modal-lg session-modal">
+      <div class="m-head">
+        <div><h2 id="sm-title-31">Saturday, October 31</h2><p>09:00 AM • 90 minutes</p></div>
+        <button class="m-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button>
+      </div>
+      <div class="m-stats">
+        <div><span>Confirmed</span><b data-confirmed>04</b></div>
+        <div><span>Open spots</span><b>00</b></div>
+        <div><span>Capacity</span><b>04</b></div>
+      </div>
+      <hr class="m-hr">
+        <div class="m-holiday">
+          <img src="assets/icons/warning-circle.svg" alt="">
+          <div><b>Holiday Detected</b><span>This session falls on Halloween.</span></div>
+          <button class="btn btn-sm btn-outline" type="button" data-open="#resched-31">Reschedule</button>
+        </div>
+      <section class="m-sec"><h3>Coach</h3>
+        <div class="m-row coach"><img class="avatar-img" src="assets/img/coach-maria-lopez.png" alt=""><div class="m-who"><b>Maria Lopez</b><span>Tennis Coach</span></div><span class="m-fee">$120<small>/player</small></span><span class="st st-green">Confirmed</span></div>
+      </section>
+      <hr class="m-hr">
+        
+        <section class="m-sec"><h3>Substitute</h3>
+          <div class="m-row"><span class="initials m-av">PN</span><div class="m-who"><b>Priya Nair</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
+        </section>
+        <hr class="m-hr">
+      <section class="m-sec" id="players-31"><h3>Players</h3>
+          <div class="m-row"><span class="initials m-av">TR</span><div class="m-who"><b>Tomas Rivera</b><span class="rating">NTRP 4.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">OC</span><div class="m-who"><b>Olivia Chen</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">MR</span><div class="m-who"><b>Marcus Reed</b><span class="rating">NTRP 4.5</span></div><span class="st st-green">Confirmed</span></div>
+          <div class="m-row"><span class="initials m-av">AJ</span><div class="m-who"><b>Albert John</b><span class="rating">NTRP 4.0</span></div><span class="st st-green">Confirmed</span></div>
+      </section>
+    </div>
+  </div>
+  <div class="overlay" id="resched-31" hidden role="dialog" aria-modal="true" aria-labelledby="rs-title-31">
+    <div class="modal rs-modal">
+      <div class="m-head"><div><h2 id="rs-title-31" style="font-size:28px">Reschedule Session 6</h2><p style="font-size:15px;color:var(--muted)">Halloween • Sat, Oct 31</p></div>
+        <button class="m-x" type="button" data-close aria-label="Close"><img src="assets/icons/x-close-sm.svg" alt=""></button></div>
+      <form class="rs-form" data-reschedule="31" novalidate>
+        <div class="field"><label>Current Session Date</label><input class="input" value="Saturday, October 31, 2026" readonly></div>
+        <h3 class="rs-h">Set Next Schedule</h3>
+        <div class="rs-info"><img class="icon" src="assets/icons/info.svg" alt="">You can select the date before next session</div>
+        <div class="field"><label for="rs-date-31">New date <span class="req">*</span></label><input class="input" id="rs-date-31" type="date" min="2026-10-01" max="2026-11-21" value="2026-11-07" required></div>
+        <div class="field"><label for="rs-time-31">Session starts</label><input class="input" id="rs-time-31" type="time" value="18:00"></div>
+        <div class="field"><label for="rs-loc-31">Location</label>
+          <select class="select" id="rs-loc-31"><option value="">Choose location</option><option selected>Riverside Courts, Court 2</option><option>Riverside Courts, Court 1</option><option>Riverside Courts, Court 3</option></select></div>
+        <div class="rs-notify">Notify 4 players and coach Maria Lopez</div>
+        <div class="rs-btns"><button class="btn btn-lg btn-soft" type="button" data-close>Cancel</button><button class="btn btn-lg btn-primary" type="submit">Save Changes</button></div>
+      </form>
+    </div>
+  </div>
+  </main>
+  <script>
+    document.querySelectorAll('.s-players > button').forEach(b => b.addEventListener('click', () => {
+      const open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', String(open));
+      document.getElementById(b.getAttribute('aria-controls')).hidden = !open;
+    }));
+    // search + status filter
+    let status = 'all';
+    const q = document.getElementById('ss-q');
+    function apply() {
+      const t = q.value.trim().toLowerCase(); let n = 0;
+      document.querySelectorAll('#ss-list .s-card').forEach(c => {
+        const show = (status === 'all' || c.dataset.status === status) && (!t || c.dataset.search.includes(t));
+        c.hidden = !show; if (show) n++;
+      });
+      document.getElementById('ss-empty').hidden = n > 0;
+    }
+    q.addEventListener('input', apply);
+    document.querySelectorAll('[data-filter-menu] [data-f]').forEach(b => b.addEventListener('click', () => {
+      status = b.dataset.f; document.getElementById('status-label').textContent = status === 'all' ? 'Status' : b.textContent; apply();
+    }));
+    // Approve & Join as subs (replacement request -> confirmed state)
+    document.querySelectorAll('[data-approve]').forEach(b => b.addEventListener('click', () => {
+      const d = b.dataset.approve, box = document.getElementById('req-' + d);
+      box.classList.add('done');
+      box.querySelector('[data-req-title]').textContent = 'Replacement Confirmed';
+      box.querySelector('[data-req-cols]').hidden = true;
+      box.querySelector('[data-req-done]').hidden = false;
+      b.hidden = true;
+      const pl = document.getElementById('players-' + d);
+      const need = [...pl.querySelectorAll('.st-red')][0]; if (need) { need.className = 'st st-gray'; need.textContent = 'Replaced'; }
+      const sec = document.createElement('section'); sec.className = 'm-sec'; sec.id = 'sub-' + d;
+      sec.innerHTML = '<h3>Substitute</h3><div class="m-row"><span class="initials m-av">PN</span><div class="m-who"><b>Priya Nair</b><span class="rating">NTRP 3.5</span></div><span class="st st-green">Confirmed</span></div>';
+      const hr = document.createElement('hr'); hr.className = 'm-hr';
+      pl.before(sec, hr);
+      const card = document.getElementById('card-' + d); card.dataset.status = 'subs';
+      const bd = card.querySelector('[data-badge]'); bd.className = 'st st-green'; bd.textContent = 'Confirmed • 1 Subs';
+      window.toast('Priya Nair joined as a substitute');
+    }));
+    // Reschedule form
+    document.querySelectorAll('[data-reschedule]').forEach(f => f.addEventListener('submit', e => {
+      e.preventDefault();
+      const d = f.dataset.reschedule, date = f.querySelector('input[type=date]');
+      if (!date.value) { date.classList.add('err'); return; }
+      date.classList.remove('err');
+      const dt = new Date(date.value + 'T12:00:00');
+      const label = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const card = document.getElementById('card-' + d);
+      card.querySelector('.s-col .val').textContent = dt.toLocaleDateString('en-US', { weekday: 'short' }) + ' ' + label + ' at ' + f.querySelector('input[type=time]').value;
+      document.querySelector('#session-' + d + ' .m-holiday')?.remove();
+      document.getElementById('resched-' + d).hidden = true;
+      document.getElementById('session-' + d).hidden = true;
+      document.body.style.overflow = '';
+      window.toast('Session rescheduled to ' + label + '. Players and coach notified.');
+    }));
+  </script>
+  <script src="js/organizer.js"></script>
+</body>
+</html>

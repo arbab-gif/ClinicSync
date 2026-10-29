@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verify code · ClinicSync</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+</head>
+<body class="auth">
+  <div class="auth-shell">
+    <aside class="auth-photo" style="background-image:url(assets/img/auth-sign-in.jpg)">
+      <span class="ring"></span>
+      <div class="cap">
+        <div class="dashes" aria-hidden="true"><i class="on"></i><i class="half"></i><i></i><i></i></div>
+        <h2>Manage players. Keep your clinic <em>organized</em>.</h2>
+      </div>
+    </aside>
+    <main class="auth-main">
+      <div class="auth-form">
+        <div class="auth-head">
+          <h1>Check your email</h1>
+          <p>We sent a 6-digit code to <b id="who">albert@gmail.com</b></p>
+        </div>
+        <form id="f" novalidate>
+          <div class="otp-wrap">
+            <div class="otp" id="otp" role="group" aria-label="6-digit verification code">
+              <input inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1">
+              <input inputmode="numeric" maxlength="1" aria-label="Digit 2">
+              <input inputmode="numeric" maxlength="1" aria-label="Digit 3">
+              <input inputmode="numeric" maxlength="1" aria-label="Digit 4">
+              <input inputmode="numeric" maxlength="1" aria-label="Digit 5">
+              <input inputmode="numeric" maxlength="1" aria-label="Digit 6">
+            </div>
+            <div class="a-err" id="err" role="alert" hidden style="align-self:flex-start;margin-top:-10px">That code is incorrect. Try again.</div>
+            <p class="otp-note" id="note">Didn't receive the code? Resend in <b id="t">00:30</b></p>
+          </div>
+          <div class="auth-actions">
+            <button class="auth-btn" id="go" type="submit">Verify</button>
+            <a class="back-link" id="back" href="sign-in.html"><img src="assets/icons/arrow-left.svg" alt=""><span>Back to sign in</span></a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="js/organizer.js"></script>
+  <script>
+    // Prototype rule: code 000000 is "wrong" (error state); any other 6 digits succeeds.
+    const signup = new URLSearchParams(location.search).get('from') === 'signup';
+    const email = sessionStorage.getItem('cs_email');
+    if (email) document.getElementById('who').textContent = email;
+    if (signup) { // sign-up variant (Figma 305:179): only the back link differs
+      document.querySelector('#back span').textContent = 'Back to sign up';
+      document.getElementById('back').href = 'sign-up.html';
+    }
+    const inputs = [...document.querySelectorAll('#otp input')], otp = document.getElementById('otp'), err = document.getElementById('err'), go = document.getElementById('go');
+    const clearErr = () => { otp.classList.remove('err'); err.hidden = true; };
+    inputs.forEach((el, i) => {
+      el.addEventListener('input', () => {
+        el.value = el.value.replace(/\D/g, '').slice(-1); clearErr();
+        if (el.value && inputs[i + 1]) inputs[i + 1].focus();
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !el.value && inputs[i - 1]) { inputs[i - 1].focus(); inputs[i - 1].value = ''; }
+        if (e.key === 'ArrowLeft' && inputs[i - 1]) inputs[i - 1].focus();
+        if (e.key === 'ArrowRight' && inputs[i + 1]) inputs[i + 1].focus();
+      });
+      el.addEventListener('paste', e => {
+        const d = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+        if (!d) return; e.preventDefault(); clearErr();
+        [...d].forEach((c, k) => inputs[k].value = c);
+        inputs[Math.min(d.length, 5)].focus();
+      });
+    });
+    inputs[0].focus();
+    // resend countdown
+    let s = 30; const t = document.getElementById('t');
+    const tick = setInterval(() => { s--; t.textContent = '00:' + String(Math.max(s, 0)).padStart(2, '0'); if (s <= 0) { clearInterval(tick); document.getElementById('note').innerHTML = 'Didn\'t receive the code? <button type="button" id="rs">Resend</button>'; document.getElementById('rs').onclick = () => window.toast('A new code was sent'); } }, 1000);
+    document.getElementById('f').addEventListener('submit', e => {
+      e.preventDefault();
+      const code = inputs.map(i => i.value).join('');
+      if (code.length < 6) { otp.classList.add('err'); err.textContent = 'Enter all 6 digits.'; err.hidden = false; return; }
+      go.classList.add('loading'); go.innerHTML = '<span class="spinner" role="status" aria-label="Verifying"></span>';
+      setTimeout(() => {
+        if (code === '000000') {
+          go.classList.remove('loading'); go.textContent = 'Verify';
+          otp.classList.add('err'); err.textContent = 'That code is incorrect. Try again.'; err.hidden = false;
+          return;
+        }
+        location.href = signup ? 'complete-profile.html' : 'create-password.html';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
