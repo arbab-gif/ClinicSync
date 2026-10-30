@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinics · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinics.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <nav class="o-nav" aria-label="Main">
+      <a href="dashboard.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/nav-clinics.svg)" aria-hidden="true"></span><span class="o-nav-label">Dashboard</span></a>
+      <a href="clinics.html" class="on" aria-current="page"><span class="o-nav-ico" style="--ico:url(../assets/icons/court-basketball.svg)" aria-hidden="true"></span><span class="o-nav-label">Clinics</span></a>
+      <a href="messages.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/chat-circle.svg)" aria-hidden="true"></span><span class="o-nav-label">Messages</span><span class="o-nav-count" aria-label="3 unread">3</span></a>
+    </nav>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="list-head">
+      <div>
+        <h1 class="h1">Clinics</h1>
+        <p>Every clinic you organize, play in or coach. Open one to manage sessions, players and payments.</p>
+      </div>
+      <a class="btn btn-md btn-dark" href="setup-clinic.html"><img class="icon" src="assets/icons/plus.svg" alt="">Create clinic</a>
+    </div>
+
+    <div class="list-tools">
+      <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="clinic-q" type="search" placeholder="Search clinics" aria-label="Search clinics"></div>
+      <div class="seg" data-group role="tablist" aria-label="Clinic status">
+        <button class="on" type="button" role="tab" data-status="active">Active (6)</button>
+        <button type="button" role="tab" data-status="completed">Completed (12)</button>
+      </div>
+    </div>
+    <div class="list-filters">
+      <div class="pills" data-group aria-label="Filter by role" id="role-pills">
+        <button class="on" type="button" data-role="all">All (6)</button>
+        <button type="button" data-role="organizer">Organizer (4)</button>
+        <button type="button" data-role="player">Player (2)</button>
+        <button type="button" disabled>Substitute (0)</button>
+        <button type="button" data-role="coach">Coach (1)</button>
+      </div>
+    </div>
+
+    <div class="clinics-grid" id="clinics">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer" data-name="Saturday Tennis">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Saturday Tennis</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Tennis</span></div></div>
+          <span class="badge badge-ok">Active</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 · Every Monday · 9:00 AM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players · 8 sessions</span>
+        </div>
+        <div class="cl-next">
+          <span class="datebox"><small>Oct</small><b>10</b></span>
+          <span class="cl-next-body"><small>Next session</small><b>Session 3 · Sat, 9:00 AM</b></span>
+        </div>
+        <div class="cl-foot"><span class="note warn">$240 in facility fees outstanding</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
+      </a>
+
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer" data-name="Tuesday Tennis Club">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Tuesday Tennis Club</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Tennis</span></div></div>
+          <span class="badge badge-ok">Active</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Tuesday · 6:00 PM · 90 minutes</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players · 8 sessions</span>
+        </div>
+        <div class="cl-next">
+          <span class="datebox"><small>Oct</small><b>13</b></span>
+          <span class="cl-next-body"><small>Next session</small><b>Session 4 · Tue, 6:00 PM</b></span>
+        </div>
+        <div class="cl-foot"><span class="note">All fees paid</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
+      </a>
+
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer player" data-name="Monday Morning Tennis">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Monday Morning Tennis</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Player</span></div></div>
+          <span class="badge badge-ok">Active</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Monday · 9:00–10:30 AM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">8 players · 8 sessions</span>
+        </div>
+        <div class="cl-next">
+          <span class="datebox"><small>Oct</small><b>12</b></span>
+          <span class="cl-next-body"><small>Next session</small><b>Session 2 · Mon, 9:00 AM</b></span>
+        </div>
+        <div class="cl-foot"><span class="note warn">2 players haven't responded</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
+      </a>
+
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer" data-name="Friday Padel Night">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Friday Padel Night</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Padel</span></div></div>
+          <span class="badge badge-warn">Starts Oct 23</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Friday · 7:00 PM · 60 minutes</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Northside Padel Club</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">6 of 8 players joined · 6 sessions</span>
+        </div>
+        <div class="cl-next">
+          <span class="datebox"><small>Oct</small><b>23</b></span>
+          <span class="cl-next-body"><small>First session</small><b>Session 1 · Fri, 7:00 PM</b></span>
+        </div>
+        <div class="cl-foot"><span class="note">2 invitations pending</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
+      </a>
+
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="player" data-name="Thursday Rally">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Thursday Rally</h3><div class="chips"><span class="chip">Player</span><span class="chip">Half Share</span></div></div>
+          <span class="badge badge-ok">Active</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Thursday · 7:00–8:30 PM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">Organized by Jenny · 10 players</span>
+        </div>
+        <div class="cl-next">
+          <span class="datebox"><small>Oct</small><b>15</b></span>
+          <span class="cl-next-body"><small>Your next session</small><b>Thu, 7:00 PM · confirm attendance</b></span>
+        </div>
+        <div class="cl-foot"><span class="note warn">Your share: $60.00 due Oct 20</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
+      </a>
+
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="coach" data-name="Weekend Beginners">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Weekend Beginners</h3><div class="chips"><span class="chip">Coach</span><span class="chip">Tennis</span></div></div>
+          <span class="badge badge-ok">Active</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Every Saturday · 9:00–10:30 AM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Maple Grove Tennis Club</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">8 players · $50 / player / session</span>
+        </div>
+        <div class="cl-next">
+          <span class="datebox"><small>Oct</small><b>10</b></span>
+          <span class="cl-next-body"><small>Next session</small><b>Sat, 9:00 AM</b></span>
+        </div>
+        <div class="cl-foot"><span class="note">$150.00 coaching fees outstanding</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
+      </a>
+    </div>
+    <p class="muted" id="clinics-empty" hidden style="margin-top:24px">No clinics match your search.</p>
+  </main>
+
+  <script src="js/organizer.js"></script>
+  <script>
+    // Search + role filter (Completed tab is outside this prototype)
+    (() => {
+      const q = document.getElementById('clinic-q'), cards = [...document.querySelectorAll('#clinics .cl-card')], empty = document.getElementById('clinics-empty');
+      let role = 'all';
+      const apply = () => {
+        const term = q.value.trim().toLowerCase(); let shown = 0;
+        cards.forEach(c => { const ok = (role === 'all' || c.dataset.roles.split(' ').includes(role)) && c.dataset.name.toLowerCase().includes(term); c.hidden = !ok; if (ok) shown++; });
+        empty.hidden = shown > 0;
+      };
+      q.addEventListener('input', apply);
+      document.getElementById('role-pills').addEventListener('click', e => { const b = e.target.closest('[data-role]'); if (b) { role = b.dataset.role; apply(); } });
+      document.querySelector('[data-status="completed"]').addEventListener('click', () => toast('Completed clinics aren’t part of this prototype'));
+    })();
+  </script>
+</body>
+</html>

@@ -34,14 +34,23 @@
   --info-bg: #e0f2fe;  --info: #026aa2;
   --dot: #f14d4d;
 
-  --font: "Clash Grotesk", "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Type: Clash Grotesk for headings & display numbers, DM Sans for body */
+  --font-display: "Clash Grotesk", "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --r-card: 16px;
   --r-pill: 999px;
   --page-x: 120px;           /* content inset at 1440 */
   --content-w: 1200px;
 }
 
+@font-face { font-family: "Clash Grotesk"; src: url("../assets/fonts/ClashGrotesk-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Clash Grotesk"; src: url("../assets/fonts/ClashGrotesk-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Clash Grotesk"; src: url("../assets/fonts/ClashGrotesk-Semibold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Clash Grotesk"; src: url("../assets/fonts/ClashGrotesk-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
 * { box-sizing: border-box; }
+/* Headings, the wordmark and display numbers use Clash Grotesk; everything else inherits DM Sans */
+h1, h2, h3, h4, .h1, .h2, .h3, .o-brand span, .stats b, .datebox b { font-family: var(--font-display); }
 [hidden] { display: none !important; }
 html, body { margin: 0; }
 body { font: 400 16px/1.4 var(--font); color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
@@ -63,6 +72,14 @@ h1, h2, h3, h4, p { margin: 0; }
 .o-brand img { width: 36px; height: 36px; }
 .o-brand span { font-weight: 600; font-size: 28px; }
 .o-header-right { display: flex; align-items: center; gap: 16px; }
+/* Top navigation (signed-in pages) */
+.o-nav { display: flex; align-items: center; gap: 4px; margin: 0 auto 0 56px; }
+.o-nav a { position: relative; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; color: var(--text-2); font-weight: 500; font-size: 17px; white-space: nowrap; }
+.o-nav a:hover { background: var(--field); color: var(--ink); }
+.o-nav a.on { background: var(--brand-tint); color: var(--brand); }
+.o-nav a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.o-nav-ico { width: 20px; height: 20px; flex: none; background: currentColor; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
+.o-nav-count { min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--r-pill); background: var(--dot); color: #fff; font-size: 12px; font-weight: 600; display: grid; place-items: center; }
 .o-bell { position: relative; width: 44px; height: 44px; border-radius: 22px; border: 0; background: none; display: grid; place-items: center; cursor: pointer; }
 .o-bell img { width: 26px; height: 26px; }
 .o-bell .dot { position: absolute; top: 9px; right: 10px; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); border: 2px solid #fff; }
@@ -198,11 +215,20 @@ h1, h2, h3, h4, p { margin: 0; }
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   :root { --page-x: 40px; }
+  .o-nav { margin-left: 24px; }
+  .o-nav a { padding: 0 12px; font-size: 16px; }
+  .o-account .name { display: none; }
+}
+@media (max-width: 900px) {
+  .o-nav-label { display: none; }
+  .o-nav-count { position: absolute; top: 4px; right: 2px; min-width: 16px; height: 16px; font-size: 10px; padding: 0 4px; }
 }
 @media (max-width: 720px) {
   :root { --page-x: 16px; }
   .o-header { padding: 0 16px; height: 72px; }
-  .o-brand span { font-size: 22px; }
+  .o-brand span { display: none; }
+  .o-nav { margin-left: 8px; gap: 2px; }
+  .o-nav a { padding: 0 10px; }
   .o-account .name { display: none; }
   .clinic-head { flex-direction: column; align-items: flex-start; }
   .tabs { gap: 28px; }

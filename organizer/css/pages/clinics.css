@@ -1,0 +1,52 @@
+/* All clinics (clinics.html) and Messages list (messages.html): top-nav list pages */
+
+.list-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.list-head p { color: var(--muted); font-size: 16px; margin-top: 6px; }
+.list-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+.list-tools .search { width: 340px; max-width: 100%; }
+.list-filters { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+
+/* Clinic cards */
+.clinics-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 20px; }
+.cl-card { display: flex; flex-direction: column; gap: 16px; text-decoration: none; color: inherit; border: 1px solid transparent; transition: border-color .15s; }
+.cl-card:hover { border-color: var(--brand-2); }
+.cl-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.cl-top .cc-title { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cl-next { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border); }
+.cl-next .datebox { flex: none; }
+.cl-next-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cl-next-body small { color: var(--muted); font-size: 13px; }
+.cl-next-body b { font-weight: 500; font-size: 15px; }
+.cl-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.cl-foot .note { color: var(--muted); font-size: 14px; }
+.cl-foot .note.warn { color: var(--warn); }
+
+/* Messages list */
+.chat-list { margin-top: 20px; border: 1px solid var(--line); border-radius: var(--r-card); overflow: hidden; background: #fff; }
+.chat-row { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 16px 20px; text-decoration: none; color: inherit; }
+.chat-row + .chat-row { border-top: 1px solid var(--line); }
+.chat-row:hover { background: var(--card); }
+.chat-row.unread .chat-name { font-weight: 600; }
+.chat-av { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-weight: 600; font-size: 16px; color: var(--brand); background: var(--brand-tint); }
+.chat-av.purple { color: var(--purple); background: var(--purple-bg); }
+.chat-av.ok { color: var(--ok); background: var(--ok-bg); }
+.chat-av.warn { color: var(--warn); background: var(--warn-bg); }
+.chat-main { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.chat-line { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.chat-name { font-weight: 500; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-preview { color: var(--muted); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-preview b { color: var(--text-2); font-weight: 500; }
+.chat-side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.chat-time { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.chat-unread { min-width: 22px; height: 22px; padding: 0 7px; border-radius: 11px; background: var(--brand); color: #fff; font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+
+@media (max-width: 1100px) {
+  .clinics-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .list-tools .search { width: 100%; }
+  .chat-row { grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; padding: 14px 16px; }
+  .chat-av { width: 40px; height: 40px; border-radius: 12px; font-size: 14px; }
+}
+
+.cl-card[hidden], .chat-row[hidden] { display: none; }

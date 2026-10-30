@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard · ClinicSync</title>
-  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
   <link rel="icon" href="assets/logo-mark.png">
   <link rel="stylesheet" href="css/organizer.css">
   <link rel="stylesheet" href="css/pages/dashboard.css">
@@ -12,6 +14,11 @@
 <body>
   <header class="o-header">
     <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <nav class="o-nav" aria-label="Main">
+      <a href="dashboard.html" class="on" aria-current="page"><span class="o-nav-ico" style="--ico:url(../assets/icons/nav-clinics.svg)" aria-hidden="true"></span><span class="o-nav-label">Dashboard</span></a>
+      <a href="clinics.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/court-basketball.svg)" aria-hidden="true"></span><span class="o-nav-label">Clinics</span></a>
+      <a href="messages.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/chat-circle.svg)" aria-hidden="true"></span><span class="o-nav-label">Messages</span><span class="o-nav-count" aria-label="3 unread">3</span></a>
+    </nav>
     <div class="o-header-right">
       <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
       <div class="o-account">
