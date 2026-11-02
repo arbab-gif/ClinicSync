@@ -50,3 +50,33 @@
 }
 
 .cl-card[hidden], .chat-row[hidden] { display: none; }
+
+/* Status tabs: Active / Completed / Cancelled (underline tabs, same as the clinic page) */
+.status-tabs { margin-top: 28px; }
+.tab-count { display: inline-grid; place-items: center; min-width: 26px; height: 22px; padding: 0 8px; margin-left: 6px; border-radius: 11px; background: var(--field); color: var(--muted); font-size: 13px; font-weight: 500; vertical-align: 1px; }
+.tabs .on .tab-count { background: var(--brand-soft); color: var(--brand); }
+.status-intro { color: var(--muted); font-size: 15px; margin-top: 14px; }
+.list-tools .pills { flex-wrap: wrap; }
+
+/* Completed / cancelled cards: not clickable as a whole, so no hover outline */
+.cl-past:hover { border-color: transparent; }
+.cl-result { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid var(--border); }
+.cl-result dt { color: var(--muted); font-size: 13px; }
+.cl-result dd { margin: 2px 0 0; font-weight: 500; font-size: 15px; color: var(--ink); }
+.cl-result dd.ok { color: var(--ok); }
+.cl-result dd.warn { color: var(--warn); }
+.cl-reason { display: flex; gap: 8px; font-size: 14px; line-height: 20px; color: var(--text-2); }
+.cl-reason b { flex: none; font-weight: 600; color: var(--danger); }
+.cl-reason b::after { content: ":"; }
+.cl-acts { display: inline-flex; gap: 20px; align-items: center; }
+
+.list-empty { margin-top: 24px; padding: 48px 16px; border: 1px dashed var(--line); border-radius: var(--r-card); display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.list-empty img { width: 36px; height: 36px; opacity: .5; margin-bottom: 6px; }
+.list-empty b { font-weight: 600; font-size: 18px; color: var(--ink); }
+.list-empty p { color: var(--muted); font-size: 15px; }
+.list-empty[hidden] { display: none; }
+
+@media (max-width: 720px) {
+  .cl-result { grid-template-columns: 1fr 1fr; }
+  .tabs.status-tabs { gap: 24px; }
+}

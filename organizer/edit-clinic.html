@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Clinic · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/create-clinic.css">
+  <link rel="stylesheet" href="css/pages/exclude-dates.css">
+  <link rel="stylesheet" href="css/pages/edit-clinic.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <nav class="o-nav" aria-label="Main">
+      <a href="dashboard.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/nav-clinics.svg)" aria-hidden="true"></span><span class="o-nav-label">Dashboard</span></a>
+      <a href="clinics.html" class="on" aria-current="page"><span class="o-nav-ico" style="--ico:url(../assets/icons/court-basketball.svg)" aria-hidden="true"></span><span class="o-nav-label">Clinics</span></a>
+      <a href="messages.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/chat-circle.svg)" aria-hidden="true"></span><span class="o-nav-label">Messages</span><span class="o-nav-count" aria-label="3 unread">3</span></a>
+    </nav>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wz-main">
+    <div class="wz-head">
+      <h1>Edit clinic</h1>
+      <p id="edit-sub">You can update your clinic details until the first session on <b data-first>Sat, Oct 3</b>.</p>
+    </div>
+
+    <div class="lock-banner" id="lock" hidden>
+      <img src="assets/icons/lock-simple.svg" alt="">
+      <div><b>This clinic can no longer be edited</b>The first session has started. You can still change a session's location, reschedule a session or cancel one from the Sessions tab.</div>
+    </div>
+
+    <form class="wz-form" id="edit-form" novalidate>
+      <fieldset id="fields">
+        <div class="wz-field" data-f="name">
+          <label for="f-name">Clinic name <span class="chg">Edited</span></label>
+          <input class="wz-input" id="f-name" maxlength="60" autocomplete="off" required>
+        </div>
+        <div class="wz-field" data-f="description">
+          <label for="f-desc">Description <span class="muted">(Optional)</span> <span class="chg">Edited</span></label>
+          <textarea class="wz-input" id="f-desc" rows="4" maxlength="300" placeholder="Add anything players should know, e.g. court numbers or court location, where to enter or park, and what to bring."></textarea>
+          <div class="wz-count"><span>Players see this on the clinic and every session.</span><span id="desc-count">0 / 300</span></div>
+        </div>
+        <div class="wz-field" data-listbox data-f="sport">
+          <label id="sport-label">Sport <span class="chg">Edited</span></label>
+          <input type="hidden" id="f-sport">
+          <button class="wz-input" type="button" data-menu="#sport-menu" aria-haspopup="listbox" aria-labelledby="sport-label"><span class="val"></span><img src="assets/icons/caret-down.svg" alt=""></button>
+          <div class="menu" id="sport-menu" role="listbox" hidden>
+            <button type="button" role="option" data-value="Tennis">Tennis</button>
+            <button type="button" role="option" data-value="Pickleball">Pickleball</button>
+            <button type="button" role="option" data-value="Padel">Padel</button>
+            <button type="button" role="option" data-value="Badminton">Badminton</button>
+          </div>
+        </div>
+        <section class="wz-section">
+          <h2 class="wz-h2">Clinic Location</h2>
+          <div class="wz-field" data-listbox data-f="location">
+            <label id="loc-label">Location <span class="chg">Edited</span></label>
+            <input type="hidden" id="f-loc">
+            <button class="wz-input" type="button" data-menu="#loc-menu" aria-haspopup="listbox" aria-labelledby="loc-label"><span class="val"></span><img src="assets/icons/map-pin-24.svg" alt=""></button>
+            <div class="menu" id="loc-menu" role="listbox" hidden>
+              <button type="button" role="option" data-value="Riverside Tennis Center">Riverside Tennis Center</button>
+              <button type="button" role="option" data-value="Central Park Courts">Central Park Courts</button>
+              <button type="button" role="option" data-value="Lakeside Racquet Club">Lakeside Racquet Club</button>
+              <button type="button" role="option" data-value="Westfield Sports Complex">Westfield Sports Complex</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="wz-section">
+          <h2 class="wz-h2">Schedule</h2>
+          <div class="wz-row">
+            <div class="wz-field" data-f="startDate">
+              <label for="start-text">Start date <span class="chg">Edited</span></label>
+              <div class="wz-input">
+                <input id="start-text" readonly aria-haspopup="dialog" style="flex:1;min-width:0;border:0;background:none;outline:none;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer">
+                <button type="button" id="start-btn" aria-label="Pick date" style="border:0;background:none;padding:0;display:grid;cursor:pointer"><img src="assets/icons/calendar-24.svg" alt="" width="24" height="24"></button>
+              </div>
+              <input type="date" class="wz-date-native" id="f-start" min="2026-10-01" tabindex="-1" aria-hidden="true">
+            </div>
+            <div class="wz-field" data-listbox data-f="days">
+              <label id="day-label">Recurring Day <span class="chg">Edited</span></label>
+              <input type="hidden" id="f-day">
+              <button class="wz-input" type="button" data-menu="#day-menu" aria-haspopup="listbox" aria-labelledby="day-label"><span class="val"></span><img src="assets/icons/caret-down.svg" alt=""></button>
+              <div class="menu" id="day-menu" role="listbox" hidden></div>
+            </div>
+          </div>
+          <div class="wz-row">
+            <div class="wz-field" data-listbox data-f="startTime">
+              <label id="time-label">Session starts <span class="chg">Edited</span></label>
+              <input type="hidden" id="f-time">
+              <button class="wz-input" type="button" data-menu="#time-menu" aria-haspopup="listbox" aria-labelledby="time-label"><span class="val"></span><img src="assets/icons/clock.svg" alt=""></button>
+              <div class="menu" id="time-menu" role="listbox" hidden></div>
+            </div>
+            <div class="wz-field" data-f="length" id="length-field">
+              <label for="f-len">Length <span class="chg">Edited</span></label>
+              <input class="wz-input" id="f-len" placeholder="e.g, 90 minutes" autocomplete="off">
+            </div>
+          </div>
+          <div class="wz-field" data-f="excluded" id="ex-field">
+            <label id="ex-label">Exclude Specific Dates <span class="muted">(Optional)</span> <span class="chg">Edited</span></label>
+            <p class="ex-help" id="ex-help">Select dates when sessions should not take place, such as holidays or vacations.</p>
+            <button class="wz-input" type="button" data-ex-open aria-haspopup="dialog" aria-expanded="false" aria-labelledby="ex-label" aria-describedby="ex-help"><span class="val ph">Select dates</span><img src="assets/icons/calendar-24.svg" alt=""></button>
+            <div class="ex-pop" data-ex-pop role="dialog" aria-label="Choose dates to exclude" hidden></div>
+            <ul class="ex-chips" data-ex-chips aria-label="Excluded dates" hidden></ul>
+          </div>
+        </section>
+
+        <p class="wz-info" id="preview" aria-live="polite"><img src="assets/icons/calendar-blank-brand-20.svg" alt=""><span id="preview-text"></span></p>
+        <p class="ex-note" id="ex-note" aria-live="polite" hidden><img src="assets/icons/info-circle.svg" alt=""><span></span></p>
+      </fieldset>
+    </form>
+  </main>
+
+  <footer class="stepbar">
+    <button class="btn btn-soft wz-back" type="button" id="cancel">Cancel</button>
+    <span class="status" id="status">No changes yet</span>
+    <div class="right"><button class="btn btn-primary wz-next" type="submit" form="edit-form" id="save" disabled>Save changes</button></div>
+  </footer>
+
+  <!-- Save confirmation -->
+  <div class="overlay" id="confirm-save" hidden role="dialog" aria-modal="true" aria-labelledby="cs-title">
+    <div class="modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <div class="confirm-ic"><img src="assets/icons/bell.svg" alt="" width="26" height="26"></div>
+      <h2 id="cs-title">Save changes?</h2>
+      <p class="lead">Everyone in this clinic gets a notification and an updated invite.</p>
+      <ul class="changes" id="changes"></ul>
+      <p class="notify"><img src="assets/icons/users.svg" alt="" width="18" height="18">12 players, 3 substitutes and coach Maria Lopez will be notified.</p>
+      <div class="m-acts">
+        <button class="btn btn-lg btn-soft" type="button" data-close>Keep editing</button>
+        <button class="btn btn-lg btn-primary" type="button" id="do-save">Save &amp; notify</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Discard changes -->
+  <div class="overlay" id="confirm-discard" hidden role="dialog" aria-modal="true" aria-labelledby="cd-title">
+    <div class="modal">
+      <h2 id="cd-title">Discard changes?</h2>
+      <p class="lead">Your edits to this clinic won't be saved.</p>
+      <div class="m-acts">
+        <button class="btn btn-lg btn-soft" type="button" data-close>Keep editing</button>
+        <a class="btn btn-lg btn-danger" href="clinic-overview.html">Discard</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/organizer.js"></script>
+  <script src="js/create-clinic.js"></script>
+  <script src="js/clinic-data.js"></script>
+  <script src="js/exclude-dates.js"></script>
+  <script>
+    (() => {
+      const D = window.ClinicData, orig = D.load(), $ = s => document.querySelector(s);
+      const DAY_ORDER = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const LABELS = { name: 'Clinic name', description: 'Description', sport: 'Sport', location: 'Location', startDate: 'Start date', days: 'Recurring day', startTime: 'Session starts', length: 'Length', excluded: 'Excluded dates' };
+      let ex; // exclude-dates picker, mounted below
+      const startNative = $('#f-start'), startText = $('#start-text');
+      const fmtDate = iso => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m - 1]} ${y}`; };
+      const dayOf = iso => D.DAY_KEYS[D.parseDate(iso).getDay()];
+
+      // Options: days (with "Matches start date" hint) and start times every 30 min
+      DAY_ORDER.forEach(k => $('#day-menu').insertAdjacentHTML('beforeend', `<button type="button" role="option" data-value="${k}" data-label="Every ${D.DAY_NAMES[k]}">${D.DAY_NAMES[k]}</button>`));
+      for (let m = 6 * 60; m <= 21 * 60 + 30; m += 30) {
+        const v = `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+        $('#time-menu').insertAdjacentHTML('beforeend', `<button type="button" role="option" data-value="${v}">${D.fmtTime(v)}</button>`);
+      }
+
+      // Listbox helper: set hidden value + visible label + selected option
+      const setBox = (hiddenId, value) => {
+        const box = $('#' + hiddenId).closest('[data-listbox]');
+        $('#' + hiddenId).value = value;
+        box.querySelectorAll('.menu [data-value]').forEach(o => o.setAttribute('aria-selected', String(o.dataset.value === value)));
+        const opt = box.querySelector(`.menu [data-value="${value}"]`);
+        box.querySelector('.val').textContent = opt ? (opt.dataset.label || opt.textContent.trim()) : value;
+      };
+
+      // Fill from the saved clinic
+      $('#f-name').value = orig.name;
+      $('#f-desc').value = orig.description;
+      setBox('f-sport', orig.sport);
+      setBox('f-loc', orig.location);
+      startNative.value = orig.startDate; startText.value = fmtDate(orig.startDate);
+      setBox('f-day', orig.days[0]);
+      setBox('f-time', orig.startTime);
+      $('#f-len').value = `${orig.length} minutes`;
+      const first = D.sessionDates(orig)[0];
+      if (first) $('[data-first]').textContent = D.fmtLong(first);
+
+      if (orig.started) {
+        $('#lock').hidden = false; $('#fields').disabled = true; $('#edit-sub').textContent = 'The first session has started, so these details are locked.';
+        $('#save').hidden = true; $('#cancel').textContent = 'Back to clinic'; $('#status').textContent = 'Locked';
+      }
+
+      const minutes = () => { const s = $('#f-len').value.toLowerCase(), n = parseFloat(s); if (!n) return 0; return /h/.test(s) && !/min/.test(s) ? Math.round(n * 60) : Math.round(n); };
+      const current = () => ({ ...orig, name: $('#f-name').value.trim(), description: $('#f-desc').value.trim(), sport: $('#f-sport').value, location: $('#f-loc').value,
+        startDate: startNative.value, days: [$('#f-day').value], startTime: $('#f-time').value, length: minutes(), excluded: ex ? ex.get() : orig.excluded });
+      const fmt = (k, c) => ({ startDate: () => D.fmtLong(D.parseDate(c.startDate)), days: () => D.daysLabel(c.days), startTime: () => D.fmtTime(c.startTime), length: () => `${c.length} minutes`, excluded: () => c.excluded.length ? c.excluded.map(r => ex.label(r)).join(', ') : 'None' }[k] || (() => c[k]))();
+      const changed = c => Object.keys(LABELS).filter(k => k === 'days' ? D.daysLabel(orig.days) !== D.daysLabel(c.days) : k === 'excluded' ? JSON.stringify(c.excluded) !== JSON.stringify(orig.excluded) : String(c[k]) !== String(orig[k]));
+
+      function update() {
+        const c = current(), diff = changed(c);
+        document.querySelectorAll('[data-f]').forEach(el => el.classList.toggle('is-changed', diff.includes(el.dataset.f)));
+        $('#desc-count').textContent = `${$('#f-desc').value.length} / 300`;
+
+        // "Matches start date" hint on the weekday of the chosen start date
+        const sd = c.startDate && dayOf(c.startDate);
+        document.querySelectorAll('#day-menu [data-value]').forEach(o => { o.innerHTML = D.DAY_NAMES[o.dataset.value] + (o.dataset.value === sd ? ' <span class="hint-sm">Matches start date</span>' : ''); });
+
+        const ds = D.sessionDates(c), p = $('#preview');
+        const mismatch = sd && c.days[0] !== sd;
+        p.classList.toggle('warn', !c.length);
+        $('#preview-text').innerHTML = !c.length ? 'Enter the session length, e.g. 90 minutes.'
+          : `<b>${ds.length} sessions</b> · ${D.fmtLong(ds[0])} → ${D.fmtLong(ds[ds.length - 1])} · ${D.daysLabel(c.days)} at ${D.fmtTime(c.startTime)}, ${c.length} minutes` +
+            (mismatch ? `. The start date is a ${D.DAY_NAMES[sd]}, so the first session moves to the next ${D.DAY_NAMES[c.days[0]]}.` : '');
+
+        // Excluded dates: tell the organizer when they move the schedule
+        const skipped = D.skippedDates(c), note = $('#ex-note');
+        note.hidden = !c.excluded.length || !ds.length;
+        note.classList.toggle('neutral', !skipped.length);
+        if (skipped.length) {
+          const plainEnd = D.sessionDates(c, { ignoreExcluded: true }).pop();
+          note.querySelector('span').innerHTML = `<b>${skipped.length} session${skipped.length > 1 ? 's' : ''} skipped.</b> Your clinic end date has been updated from ${D.fmtLong(plainEnd)} to ${D.fmtLong(ds[ds.length - 1])}. Skipped: ${skipped.map(D.fmtLong).join(', ')}.`;
+        } else note.querySelector('span').textContent = 'These dates don’t fall on a session day, so your schedule is unchanged.';
+        if (ex) ex.refresh();
+
+        const valid = c.name && c.location && c.startDate && c.length;
+        $('#save').disabled = orig.started || !diff.length || !valid;
+        const s = $('#status');
+        if (!orig.started) { s.textContent = diff.length ? `${diff.length} unsaved change${diff.length > 1 ? 's' : ''}` : 'No changes yet'; s.classList.toggle('dirty', diff.length > 0); }
+        return { c, diff };
+      }
+
+      // Inputs + listbox picks (create-clinic.js updates the label; we track the selection)
+      ['#f-name', '#f-desc', '#f-len'].forEach(s => $(s).addEventListener('input', update));
+      document.addEventListener('click', e => {
+        const opt = e.target.closest('[data-listbox] .menu [data-value]');
+        if (opt) setTimeout(() => { const h = opt.closest('[data-listbox]').querySelector('input[type=hidden]'); setBox(h.id, opt.dataset.value); update(); });
+      });
+      const pick = () => { try { startNative.showPicker(); } catch (e) { startNative.focus(); } };
+      startText.addEventListener('click', pick); $('#start-btn').addEventListener('click', pick);
+      startNative.addEventListener('change', () => { if (startNative.value) { startText.value = fmtDate(startNative.value); update(); } });
+      $('#f-name').addEventListener('blur', () => { if (!$('#f-name').value.trim()) wzError($('#f-name').closest('.wz-field'), 'Enter a clinic name'); });
+      $('#f-len').addEventListener('blur', () => { if (!minutes()) wzError($('#length-field'), 'Enter the session length'); });
+      ex = ExcludeDates($('#ex-field'), { value: orig.excluded, schedule: current, onChange: update });
+      update();
+
+      const openModal = id => { const el = $(id); el.hidden = false; el.querySelector('button:not([data-close]), a')?.focus(); };
+      $('#edit-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const { c, diff } = update();
+        if (!diff.length || $('#save').disabled) return;
+        const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
+        $('#changes').innerHTML = diff.map(k => k === 'description'
+          ? `<li><span class="k">${LABELS[k]}</span><span class="v">Updated</span></li>`
+          : `<li><span class="k">${LABELS[k]}</span><span class="v"><span class="old">${esc(fmt(k, orig))}</span>${esc(fmt(k, c))}</span></li>`).join('');
+        // The end date isn't a field, but it moves with the schedule — show it when it changes
+        const endOld = D.sessionDates(orig).pop(), endNew = D.sessionDates(c).pop();
+        if (endOld && endNew && +endOld !== +endNew) $('#changes').insertAdjacentHTML('beforeend', `<li><span class="k">Ends</span><span class="v"><span class="old">${D.fmtLong(endOld)}</span>${D.fmtLong(endNew)}</span></li>`);
+        openModal('#confirm-save');
+      });
+      $('#do-save').addEventListener('click', () => {
+        const { c, diff } = update();
+        D.save(c);
+        location.href = `clinic-overview.html?updated=${diff.length}`;
+      });
+      $('#cancel').addEventListener('click', () => {
+        if (!orig.started && changed(current()).length) { openModal('#confirm-discard'); return; }
+        location.href = 'clinic-overview.html';
+      });
+    })();
+  </script>
+</body>
+</html>

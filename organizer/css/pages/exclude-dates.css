@@ -1,0 +1,61 @@
+/* "Exclude specific dates" field (js/exclude-dates.js) — used with the create-clinic wizard styles */
+
+.ex-help { font-size: 14px; line-height: 20px; color: var(--muted); margin-top: -4px; }
+[data-ex-open].open { border-color: var(--brand); background: #fff; }
+
+.ex-pop { position: absolute; left: 0; top: calc(100% + 6px); z-index: 45; width: 344px; max-width: 100%; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 32px rgba(17,25,39,.14); padding: 16px; display: flex; flex-direction: column; gap: 12px; }.ex-field-wrap { position: relative; }
+
+.ex-mode { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 22px; background: var(--field); }
+.ex-mode button { height: 34px; border: 0; border-radius: 18px; background: none; font-size: 14px; font-weight: 500; color: var(--text-2); cursor: pointer; }
+.ex-mode button[aria-pressed="true"] { background: #fff; color: var(--brand); box-shadow: 0 1px 3px rgba(17,25,39,.12); }
+
+.ex-head { display: flex; align-items: center; justify-content: space-between; }
+.ex-head b { font-weight: 600; font-size: 16px; color: var(--ink); }
+.ex-head button { width: 36px; height: 36px; border: 0; border-radius: 18px; background: none; display: grid; place-items: center; cursor: pointer; }
+.ex-head button:hover { background: var(--field); }
+.ex-head img { width: 20px; height: 20px; }
+.ex-head img.flip { transform: scaleX(-1); }
+
+.ex-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 4px; }
+.ex-grid i { font-style: normal; text-align: center; font-size: 12px; color: var(--muted); padding-bottom: 4px; }
+.ex-grid button { position: relative; height: 40px; border: 0; background: none; font-size: 14px; color: var(--ink); cursor: pointer; border-radius: 10px; }
+.ex-grid button:hover { background: var(--field); }
+.ex-grid button:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+/* session days: brand dot under the number */
+.ex-grid button.sess::after, .ex-grid button.skip::after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--brand); }
+/* excluded: red band, rounded at the ends of a run */
+.ex-grid button.ex { background: var(--danger-bg); color: var(--danger); border-radius: 0; }
+.ex-grid button.ex-start { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+.ex-grid button.ex-end { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+.ex-grid button.skip { text-decoration: line-through; font-weight: 600; }
+.ex-grid button.skip::after { background: var(--danger); }
+.ex-grid button.pend { box-shadow: inset 0 0 0 2px var(--danger); }
+
+.ex-tip { font-size: 13px; color: var(--muted); }
+.ex-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 4px; border-top: 1px solid var(--line); padding-top: 12px; }
+.ex-legend { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.ex-legend i { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+.ex-legend i.l-ex { width: 12px; height: 12px; border-radius: 3px; background: var(--danger-bg); border: 1px solid var(--danger); margin-left: 8px; }
+
+/* Selected dates */
+.ex-chips { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ex-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 6px 0 12px; border-radius: 18px; background: var(--field); font-size: 14px; font-weight: 500; color: var(--ink); }
+.ex-chip > img { width: 16px; height: 16px; }
+.ex-chip small { font-size: 12px; font-weight: 500; color: var(--danger); background: var(--danger-bg); padding: 2px 8px; border-radius: 10px; }
+.ex-chip button { width: 24px; height: 24px; border: 0; border-radius: 12px; background: none; display: grid; place-items: center; cursor: pointer; }
+.ex-chip button:hover { background: #e3e5e9; }
+.ex-chip button img { width: 14px; height: 14px; }
+
+/* "1 session skipped" message under the schedule */
+.ex-note { display: flex; gap: 10px; padding: 14px 16px; border-radius: 16px; background: var(--warn-bg); color: var(--warn); font-size: 15px; line-height: 21px; }
+.ex-note b { font-weight: 600; }
+.ex-note img { width: 20px; height: 20px; flex: none; margin-top: 1px; }
+.ex-note.neutral { background: var(--field); color: var(--text-2); }
+
+/* Holiday on a session day → one-tap exclude (replaces the old Thanksgiving checkbox) */
+.ex-suggest { font-size: 15px; line-height: 21px; color: var(--brand); }
+.ex-suggest .link { font-size: 15px; text-decoration: underline; text-underline-offset: 2px; }
+
+.ex-pop[hidden], .ex-chips[hidden], .ex-note[hidden], .ex-suggest[hidden] { display: none; }
+
+@media (max-width: 720px) { .ex-pop { width: 100%; } }

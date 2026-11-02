@@ -42,32 +42,32 @@
       <a class="btn btn-md btn-dark" href="setup-clinic.html"><img class="icon" src="assets/icons/plus.svg" alt="">Create clinic</a>
     </div>
 
+    <nav class="tabs status-tabs" role="tablist" aria-label="Clinic status" id="status-tabs">
+      <button type="button" role="tab" data-status="active">Active <span class="tab-count"></span></button>
+      <button type="button" role="tab" data-status="completed">Completed <span class="tab-count"></span></button>
+      <button type="button" role="tab" data-status="cancelled">Cancelled <span class="tab-count"></span></button>
+    </nav>
     <div class="list-tools">
+      <div class="pills" aria-label="Filter by role" id="role-pills">
+        <button type="button" data-role="all">All</button>
+        <button type="button" data-role="organizer">Organizer</button>
+        <button type="button" data-role="player">Player</button>
+        <button type="button" data-role="substitute">Substitute</button>
+        <button type="button" data-role="coach">Coach</button>
+      </div>
       <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="clinic-q" type="search" placeholder="Search clinics" aria-label="Search clinics"></div>
-      <div class="seg" data-group role="tablist" aria-label="Clinic status">
-        <button class="on" type="button" role="tab" data-status="active">Active (6)</button>
-        <button type="button" role="tab" data-status="completed">Completed (12)</button>
-      </div>
     </div>
-    <div class="list-filters">
-      <div class="pills" data-group aria-label="Filter by role" id="role-pills">
-        <button class="on" type="button" data-role="all">All (6)</button>
-        <button type="button" data-role="organizer">Organizer (4)</button>
-        <button type="button" data-role="player">Player (2)</button>
-        <button type="button" disabled>Substitute (0)</button>
-        <button type="button" data-role="coach">Coach (1)</button>
-      </div>
-    </div>
+    <p class="status-intro" id="status-intro"></p>
 
     <div class="clinics-grid" id="clinics">
-      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer" data-name="Saturday Tennis">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-status="active" data-roles="organizer" data-name="Saturday Tennis" id="card-saturday">
         <div class="cl-top">
-          <div class="cc-title"><h3 class="h3">Saturday Tennis</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Tennis</span></div></div>
+          <div class="cc-title"><h3 class="h3" data-c="name">Saturday Tennis</h3><div class="chips"><span class="chip">Organizer</span><span class="chip" data-c="sport">Tennis</span></div></div>
           <span class="badge badge-ok">Active</span>
         </div>
         <div class="meta-list">
-          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 · Every Monday · 9:00 AM</span>
-          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt=""><span data-c="schedule">Oct 3 – Nov 21 · Every Saturday at 9:00 AM</span></span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt=""><span data-c="location">Riverside Tennis Center</span></span>
           <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players · 8 sessions</span>
         </div>
         <div class="cl-next">
@@ -77,7 +77,7 @@
         <div class="cl-foot"><span class="note warn">$240 in facility fees outstanding</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
       </a>
 
-      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer" data-name="Tuesday Tennis Club">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-status="active" data-roles="organizer" data-name="Tuesday Tennis Club">
         <div class="cl-top">
           <div class="cc-title"><h3 class="h3">Tuesday Tennis Club</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Tennis</span></div></div>
           <span class="badge badge-ok">Active</span>
@@ -94,7 +94,7 @@
         <div class="cl-foot"><span class="note">All fees paid</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
       </a>
 
-      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer player" data-name="Monday Morning Tennis">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-status="active" data-roles="organizer player" data-name="Monday Morning Tennis">
         <div class="cl-top">
           <div class="cc-title"><h3 class="h3">Monday Morning Tennis</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Player</span></div></div>
           <span class="badge badge-ok">Active</span>
@@ -111,7 +111,7 @@
         <div class="cl-foot"><span class="note warn">2 players haven't responded</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
       </a>
 
-      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="organizer" data-name="Friday Padel Night">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-status="active" data-roles="organizer" data-name="Friday Padel Night">
         <div class="cl-top">
           <div class="cc-title"><h3 class="h3">Friday Padel Night</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Padel</span></div></div>
           <span class="badge badge-warn">Starts Oct 23</span>
@@ -128,7 +128,7 @@
         <div class="cl-foot"><span class="note">2 invitations pending</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
       </a>
 
-      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="player" data-name="Thursday Rally">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-status="active" data-roles="player" data-name="Thursday Rally">
         <div class="cl-top">
           <div class="cc-title"><h3 class="h3">Thursday Rally</h3><div class="chips"><span class="chip">Player</span><span class="chip">Half Share</span></div></div>
           <span class="badge badge-ok">Active</span>
@@ -145,7 +145,7 @@
         <div class="cl-foot"><span class="note warn">Your share: $60.00 due Oct 20</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
       </a>
 
-      <a class="card card-lg cl-card" href="clinic-overview.html" data-roles="coach" data-name="Weekend Beginners">
+      <a class="card card-lg cl-card" href="clinic-overview.html" data-status="active" data-roles="coach" data-name="Weekend Beginners">
         <div class="cl-top">
           <div class="cc-title"><h3 class="h3">Weekend Beginners</h3><div class="chips"><span class="chip">Coach</span><span class="chip">Tennis</span></div></div>
           <span class="badge badge-ok">Active</span>
@@ -161,24 +161,183 @@
         </div>
         <div class="cl-foot"><span class="note">$150.00 coaching fees outstanding</span><span class="link">View clinic<img class="icon" src="assets/icons/caret-right.svg" alt=""></span></div>
       </a>
+
+      <!-- Completed: every session has been played -->
+      <article class="card card-lg cl-card cl-past" data-status="completed" data-roles="organizer" data-name="Summer Doubles">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Summer Doubles</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Tennis</span></div></div>
+          <span class="badge badge-brand">Completed</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Jul 11 – Aug 29 · Every Saturday · 9:00 AM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">12 players · 3 substitutes</span>
+        </div>
+        <dl class="cl-result">
+          <div><dt>Sessions played</dt><dd>8 of 8</dd></div>
+          <div><dt>Ended</dt><dd>Aug 29, 2026</dd></div>
+          <div><dt>Fees</dt><dd class="ok">All settled</dd></div>
+        </dl>
+        <div class="cl-foot"><span class="note">Avg. 11 players per session</span><span class="cl-acts"><a class="link" href="create-clinic-1.html">Run again</a><button class="link" type="button" data-toast="Clinic summary isn't part of this prototype">View summary<img class="icon" src="assets/icons/caret-right.svg" alt=""></button></span></div>
+      </article>
+
+      <article class="card card-lg cl-card cl-past" data-status="completed" data-roles="organizer" data-name="Spring Pickleball Ladder">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Spring Pickleball Ladder</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Pickleball</span></div></div>
+          <span class="badge badge-brand">Completed</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Apr 6 – Jun 1 · Every Monday · 6:00 PM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Lakeside Racquet Club</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">10 players · 2 substitutes</span>
+        </div>
+        <dl class="cl-result">
+          <div><dt>Sessions played</dt><dd>7 of 8</dd></div>
+          <div><dt>Ended</dt><dd>Jun 1, 2026</dd></div>
+          <div><dt>Fees</dt><dd class="warn">$45 outstanding</dd></div>
+        </dl>
+        <div class="cl-foot"><span class="note">1 session cancelled for rain</span><span class="cl-acts"><a class="link" href="create-clinic-1.html">Run again</a><button class="link" type="button" data-toast="Clinic summary isn't part of this prototype">View summary<img class="icon" src="assets/icons/caret-right.svg" alt=""></button></span></div>
+      </article>
+
+      <article class="card card-lg cl-card cl-past" data-status="completed" data-roles="coach" data-name="Junior Clinic">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Junior Clinic</h3><div class="chips"><span class="chip">Coach</span><span class="chip">Tennis</span></div></div>
+          <span class="badge badge-brand">Completed</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Jun 3 – Jul 22 · Every Wednesday · 4:00 PM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Maple Grove Tennis Club</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">Organized by Sophia Martinez · 8 players</span>
+        </div>
+        <dl class="cl-result">
+          <div><dt>Sessions coached</dt><dd>8 of 8</dd></div>
+          <div><dt>Ended</dt><dd>Jul 22, 2026</dd></div>
+          <div><dt>Coaching fees</dt><dd class="ok">Paid</dd></div>
+        </dl>
+        <div class="cl-foot"><span class="note">$400 earned</span><span class="cl-acts"><button class="link" type="button" data-toast="Clinic summary isn't part of this prototype">View summary<img class="icon" src="assets/icons/caret-right.svg" alt=""></button></span></div>
+      </article>
+
+      <article class="card card-lg cl-card cl-past" data-status="completed" data-roles="player" data-name="Friday Padel Social">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Friday Padel Social</h3><div class="chips"><span class="chip">Player</span><span class="chip">Half Share</span></div></div>
+          <span class="badge badge-brand">Completed</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">May 1 – Jun 19 · Every Friday · 7:00 PM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Northside Padel Club</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">Organized by Jenny · 8 players</span>
+        </div>
+        <dl class="cl-result">
+          <div><dt>You played</dt><dd>4 of 4</dd></div>
+          <div><dt>Ended</dt><dd>Jun 19, 2026</dd></div>
+          <div><dt>Your share</dt><dd class="ok">Paid</dd></div>
+        </dl>
+        <div class="cl-foot"><span class="note">Half share · every other week</span><span class="cl-acts"><button class="link" type="button" data-toast="Clinic summary isn't part of this prototype">View summary<img class="icon" src="assets/icons/caret-right.svg" alt=""></button></span></div>
+      </article>
+
+      <!-- Cancelled: stopped before all sessions were played -->
+      <article class="card card-lg cl-card cl-past" data-status="cancelled" data-roles="organizer" data-name="Autumn Beginners">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Autumn Beginners</h3><div class="chips"><span class="chip">Organizer</span><span class="chip">Tennis</span></div></div>
+          <span class="badge badge-danger">Cancelled</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Was Sep 5 – Oct 24 · Every Saturday · 10:00 AM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Central Park Courts</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">6 of 10 players joined</span>
+        </div>
+        <dl class="cl-result">
+          <div><dt>Sessions played</dt><dd>2 of 8</dd></div>
+          <div><dt>Cancelled</dt><dd>Sep 14, 2026</dd></div>
+          <div><dt>Refunds</dt><dd class="ok">$360 refunded</dd></div>
+        </dl>
+        <p class="cl-reason"><b>Reason</b>Not enough players signed up to keep the courts booked.</p>
+        <div class="cl-foot"><span class="note">Players, substitutes and coach were notified</span><span class="cl-acts"><a class="link" href="create-clinic-1.html">Run again</a><button class="link" type="button" data-toast="Cancelled clinic details aren't part of this prototype">View details<img class="icon" src="assets/icons/caret-right.svg" alt=""></button></span></div>
+      </article>
+
+      <article class="card card-lg cl-card cl-past" data-status="cancelled" data-roles="player" data-name="Tuesday Night Padel">
+        <div class="cl-top">
+          <div class="cc-title"><h3 class="h3">Tuesday Night Padel</h3><div class="chips"><span class="chip">Player</span><span class="chip">Full Share</span></div></div>
+          <span class="badge badge-danger">Cancelled</span>
+        </div>
+        <div class="meta-list">
+          <span class="meta-row"><img class="icon" src="assets/icons/calendar-blank.svg" alt="">Was Sep 1 – Oct 6 · Every Tuesday · 8:00 PM</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/map-pin.svg" alt="">Northside Padel Club</span>
+          <span class="meta-row"><img class="icon" src="assets/icons/users.svg" alt="">Organized by Jenny · 8 players</span>
+        </div>
+        <dl class="cl-result">
+          <div><dt>You played</dt><dd>0 of 6</dd></div>
+          <div><dt>Cancelled</dt><dd>Aug 30, 2026</dd></div>
+          <div><dt>Your refund</dt><dd class="warn">$60 pending</dd></div>
+        </dl>
+        <p class="cl-reason"><b>Reason</b>Venue closed for court resurfacing.</p>
+        <div class="cl-foot"><span class="note">Cancelled by the organizer</span><span class="cl-acts"><button class="link" type="button" data-toast="Cancelled clinic details aren't part of this prototype">View details<img class="icon" src="assets/icons/caret-right.svg" alt=""></button></span></div>
+      </article>
     </div>
-    <p class="muted" id="clinics-empty" hidden style="margin-top:24px">No clinics match your search.</p>
+    <div class="list-empty" id="clinics-empty" hidden><img src="assets/icons/court-basketball.svg" alt=""><b></b><p></p></div>
   </main>
 
   <script src="js/organizer.js"></script>
+  <script src="js/clinic-data.js"></script>
   <script>
-    // Search + role filter (Completed tab is outside this prototype)
+    // Saturday clinic card mirrors edits made on edit-clinic.html; ?deleted=<name> removes it
+    (() => {
+      const card = document.getElementById('card-saturday'), p = new URLSearchParams(location.search);
+      if (p.has('deleted')) {
+        card.remove();
+        toast(`“${p.get('deleted')}” was deleted · players, substitutes and coach notified`);
+        history.replaceState(null, '', location.pathname);
+        return;
+      }
+      const c = ClinicData.load(), saved = (() => { try { return localStorage.getItem('cs-clinic-saturday'); } catch (e) { return null; } })();
+      if (!saved) return;
+      card.querySelectorAll('[data-c]').forEach(el => { const k = el.dataset.c; el.textContent = k === 'schedule' ? ClinicData.scheduleLine(c) : c[k]; });
+      card.dataset.name = c.name;
+    })();
+  </script>
+  <script>
+    // Status tabs (Active / Completed / Cancelled, deep-linkable with ?status=) + role filter + search
     (() => {
       const q = document.getElementById('clinic-q'), cards = [...document.querySelectorAll('#clinics .cl-card')], empty = document.getElementById('clinics-empty');
-      let role = 'all';
+      const tabs = [...document.querySelectorAll('#status-tabs [data-status]')], pills = [...document.querySelectorAll('#role-pills [data-role]')];
+      const INTRO = {
+        active: 'Clinics that are running or about to start.',
+        completed: 'Clinics where every session has been played. Run one again to start a new clinic with the same setup.',
+        cancelled: 'Clinics that were stopped before all sessions were played. Refunds are shown on each clinic.',
+      };
+      const EMPTY = { active: 'No active clinics', completed: 'No completed clinics yet', cancelled: 'No cancelled clinics' };
+      const p = new URLSearchParams(location.search);
+      let status = INTRO[p.get('status')] ? p.get('status') : 'active', role = 'all';
+      const hasRole = (c, r) => r === 'all' || c.dataset.roles.split(' ').includes(r);
+
       const apply = () => {
         const term = q.value.trim().toLowerCase(); let shown = 0;
-        cards.forEach(c => { const ok = (role === 'all' || c.dataset.roles.split(' ').includes(role)) && c.dataset.name.toLowerCase().includes(term); c.hidden = !ok; if (ok) shown++; });
+        tabs.forEach(t => {
+          const on = t.dataset.status === status;
+          t.classList.toggle('on', on); t.setAttribute('aria-selected', String(on));
+          t.querySelector('.tab-count').textContent = cards.filter(c => c.dataset.status === t.dataset.status).length;
+        });
+        const inTab = cards.filter(c => c.dataset.status === status);
+        pills.forEach(b => {
+          const n = inTab.filter(c => hasRole(c, b.dataset.role)).length;
+          b.textContent = `${b.textContent.replace(/ \(\d+\)$/, '')} (${n})`;
+          b.disabled = !n && b.dataset.role !== 'all';
+          b.classList.toggle('on', b.dataset.role === role);
+        });
+        cards.forEach(c => { const ok = c.dataset.status === status && hasRole(c, role) && c.dataset.name.toLowerCase().includes(term); c.hidden = !ok; if (ok) shown++; });
+        document.getElementById('status-intro').textContent = INTRO[status];
         empty.hidden = shown > 0;
+        empty.querySelector('b').textContent = term || role !== 'all' ? 'No clinics match your filters' : EMPTY[status];
+        empty.querySelector('p').textContent = term || role !== 'all' ? 'Try another search or role.' : '';
       };
+      tabs.forEach(t => t.addEventListener('click', () => {
+        status = t.dataset.status; role = 'all';
+        history.replaceState(null, '', status === 'active' ? location.pathname : `?status=${status}`);
+        apply();
+      }));
+      pills.forEach(b => b.addEventListener('click', () => { role = b.dataset.role; apply(); }));
       q.addEventListener('input', apply);
-      document.getElementById('role-pills').addEventListener('click', e => { const b = e.target.closest('[data-role]'); if (b) { role = b.dataset.role; apply(); } });
-      document.querySelector('[data-status="completed"]').addEventListener('click', () => toast('Completed clinics aren’t part of this prototype'));
+      apply();
     })();
   </script>
 </body>

@@ -91,3 +91,8 @@
   .m-fee { margin-right: 0; }
   .m-req { flex-direction: column; align-items: flex-start; }
 }
+
+/* Session details → coach actions (link into the Coaches tab) */
+.m-coach-acts { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.m-coach-acts span { color: var(--muted); font-size: 13px; }
+.m-coach-note { color: var(--warn); font-size: 13px; }

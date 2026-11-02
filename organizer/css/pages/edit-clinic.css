@@ -1,0 +1,53 @@
+/* Edit clinic (edit-clinic.html) — same layout as the create-clinic wizard (create-clinic.css), plus edit states */
+
+.wz-head p b { font-weight: 600; color: var(--ink); }
+textarea.wz-input { display: block; height: auto; min-height: 124px; padding: 12px; resize: vertical; font-weight: 400; line-height: 22px; font-family: inherit; }
+.wz-count { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); margin-top: -2px; }
+
+/* Changed field: brand outline, like the focused state, plus an "Edited" tag on the label */
+.wz-field.is-changed > .wz-input { border-color: var(--brand); background: #fff; }
+.wz-field > label { align-items: baseline; }
+.wz-field .chg { display: none; font-size: 13px; color: var(--brand); font-weight: 500; margin-left: auto; }
+.wz-field.is-changed .chg { display: inline; }
+
+/* Listboxes: selected option (Figma 02a — check + "Matches start date" hint on Recurring Day) */
+[data-listbox] .menu [aria-selected="true"] { background: var(--brand-tint); color: var(--brand); font-weight: 500; }
+[data-listbox] .menu [aria-selected="true"]::after { content: ""; margin-left: auto; width: 20px; height: 20px; flex: none; background: url("../../assets/icons/check-brand.svg") center/20px no-repeat; }
+#day-menu .hint-sm { font-size: 12px; font-weight: 400; color: var(--muted); }
+
+.wz-info.warn { background: var(--warn-bg); color: var(--warn); }
+.wz-info b { font-weight: 600; }
+
+/* Locked once the first session starts */
+.lock-banner { display: flex; gap: 12px; padding: 16px; border-radius: 16px; background: var(--warn-bg); color: var(--warn); font-size: 15px; line-height: 22px; }
+.lock-banner b { display: block; font-weight: 600; }
+.lock-banner img { width: 22px; height: 22px; flex: none; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+fieldset[disabled] { opacity: .55; }
+fieldset[disabled] .wz-input { cursor: not-allowed; }
+
+/* Footer: unsaved-changes status in the middle slot */
+.stepbar .status { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); justify-self: center; }
+.stepbar .status.dirty { color: var(--warn); font-weight: 500; }
+.stepbar .status.dirty::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+.stepbar .wz-next:disabled { opacity: .45; cursor: not-allowed; filter: none; }
+
+/* Modals */
+.confirm-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--brand-tint); display: grid; place-items: center; margin-bottom: 20px; }
+.modal h2 { font-weight: 600; font-size: 26px; line-height: 32px; color: var(--ink); }
+.modal .lead { color: var(--muted); font-size: 16px; margin-top: 8px; }
+.changes { margin: 20px 0 16px; padding: 4px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+.changes li { list-style: none; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 12px; padding: 12px 0; font-size: 14px; }
+.changes li + li { border-top: 1px solid var(--border); }
+.changes .k { color: var(--muted); }
+.changes .v { color: var(--ink); font-weight: 500; overflow-wrap: anywhere; }
+.changes .old { color: var(--muted); text-decoration: line-through; font-weight: 400; margin-right: 6px; }
+.notify { display: flex; gap: 8px; color: var(--muted); font-size: 14px; align-items: center; }
+.m-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+
+@media (max-width: 720px) {
+  .stepbar { grid-template-columns: auto 1fr; }
+  .stepbar .status { display: none; }
+  .changes li { grid-template-columns: 1fr; gap: 2px; }
+  .m-acts { grid-template-columns: 1fr; }
+}

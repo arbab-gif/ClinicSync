@@ -1,0 +1,56 @@
+/* Change the location of one session (js/session-location.js) */
+
+/* Session cards */
+.s-col.moved .val { color: var(--brand); font-weight: 500; }
+.loc-tag { display: inline-flex; margin-left: 8px; padding: 1px 8px; border-radius: 10px; background: var(--brand-soft); color: var(--brand); font-size: 11px; font-weight: 500; vertical-align: 1px; white-space: nowrap; }
+
+/* Location section in session details */
+.m-row.loc .loc-ic, .loc-swap .loc-ic { width: 40px; height: 40px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: none; }
+.m-row.loc .loc-ic img, .loc-swap .loc-ic img { width: 22px; height: 22px; }
+.m-row.loc .m-who span { font-size: 12px; color: var(--muted); }
+.m-row.loc.moved { background: var(--brand-tint); }
+.loc-note { font-size: 13px; color: var(--text-2); }
+.loc-note b { font-weight: 600; }
+
+/* Change + review modals (stack above the session modal) */
+#loc-edit, #loc-review { z-index: 55; }
+.loc-modal { max-width: 580px; display: flex; flex-direction: column; gap: 16px; }
+.loc-modal h2 { font-weight: 600; font-size: 26px; line-height: 32px; color: var(--ink); padding-right: 44px; }
+.loc-scope { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--text-2); font-size: 14px; line-height: 20px; }
+.scope-pill { display: inline-flex; padding: 2px 10px; border-radius: 10px; background: var(--purple-bg); color: var(--purple); font-size: 12px; font-weight: 600; }
+#le-form { display: flex; flex-direction: column; gap: 16px; }
+.loc-choice { border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.loc-choice legend { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 8px; padding: 0; }
+.loc-opt { display: flex; gap: 10px; align-items: flex-start; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer; }
+.loc-opt:has(input:checked) { border-color: var(--brand); background: var(--brand-tint); }
+.loc-opt input { margin-top: 3px; accent-color: var(--brand); }
+.loc-opt b { display: block; font-weight: 600; font-size: 15px; color: var(--ink); }
+.loc-opt small { display: block; margin-top: 2px; color: var(--muted); font-size: 13px; line-height: 18px; }
+.field[hidden] { display: none; }
+.rv-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.rv-chips button { height: 34px; padding: 0 14px; border-radius: 17px; border: 1px solid var(--line); background: #fff; font-size: 14px; color: var(--text-2); cursor: pointer; }
+.rv-chips button.on { background: var(--brand-tint); border-color: var(--brand); color: var(--brand); font-weight: 500; }
+.loc-preview { color: var(--text-2); font-size: 14px; line-height: 20px; }
+.loc-preview img { width: 16px; height: 16px; vertical-align: -3px; margin-right: 6px; }
+.loc-preview:empty { display: none; }
+.loc-preview b { font-weight: 600; color: var(--ink); }
+.loc-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+
+.loc-swap { display: flex; align-items: center; gap: 12px; }
+.loc-swap .sw { flex: 1; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; background: var(--card); min-width: 0; }
+.loc-swap .sw.to { background: var(--brand-tint); }
+.loc-swap .sw small { display: block; font-size: 12px; color: var(--muted); }
+.loc-swap .sw b { display: block; font-weight: 600; font-size: 15px; color: var(--ink); }
+.loc-swap .sw-arrow { color: var(--muted); font-size: 20px; }
+.loc-impact { margin: 0; padding: 4px 16px; border: 1px solid var(--border); border-radius: 12px; list-style: none; }
+.loc-impact li { padding: 10px 0; font-size: 14px; line-height: 20px; color: var(--text-2); }
+.loc-impact li + li { border-top: 1px solid var(--border); }
+.loc-impact b { font-weight: 600; color: var(--ink); }
+.loc-notify { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+.loc-notify img { width: 18px; height: 18px; opacity: .7; }
+
+@media (max-width: 720px) {
+  .loc-choice, .loc-acts { grid-template-columns: 1fr; }
+  .loc-swap { flex-direction: column; align-items: stretch; }
+  .loc-swap .sw-arrow { transform: rotate(90deg); align-self: center; }
+}

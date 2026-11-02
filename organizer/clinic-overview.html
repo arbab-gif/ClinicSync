@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
   <link rel="icon" href="assets/logo-mark.png">
   <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/session-location.css">
   <link rel="stylesheet" href="css/pages/clinic.css">
   <link rel="stylesheet" href="css/pages/clinic-session-card.css">
   <link rel="stylesheet" href="css/pages/clinic-overview.css">
@@ -38,20 +39,21 @@
     <a class="back" href="clinics.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
     <div class="clinic-head">
       <div>
-        <div class="clinic-title"><span class="title-wrap"><h1>Saturday</h1></span><span class="chip">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-title"><span class="title-wrap"><h1 data-c="name">Saturday</h1></span><span class="chip" data-c="sport">Tennis</span><span class="badge badge-ok">Active</span></div>
         <div class="clinic-meta">
-          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt="">Oct 3 – Nov 21 on Every Monday at 9:00 AM</span>
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt=""><span data-c="schedule">Oct 3 – Nov 21 · Every Saturday at 9:00 AM</span></span>
           <span><img class="icon-20" src="assets/icons/users.svg" alt="">12 Players</span>
-          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt="">Riverside Tennis Center</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt=""><span data-c="location">Riverside Tennis Center</span></span>
         </div>
+        <p class="clinic-desc" data-c="description" hidden></p>
       </div>
       <div class="clinic-actions">
         <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
         <button class="icon-btn" type="button" aria-label="More actions" aria-haspopup="menu" data-menu="#clinic-more"><img class="icon-20" src="assets/icons/dots-three.svg" alt=""></button>
-        <div class="menu" id="clinic-more" role="menu" hidden>
-          <button role="menuitem" type="button" data-toast="Edit clinic isn't part of this prototype">Edit clinic</button>
-          <button role="menuitem" type="button" data-toast="Duplicate clinic isn't part of this prototype">Duplicate clinic</button>
-          <button role="menuitem" type="button" data-toast="End clinic isn't part of this prototype">End clinic</button>
+        <div class="menu clinic-menu" id="clinic-more" role="menu" hidden>
+          <a role="menuitem" href="edit-clinic.html" data-edit><img class="icon-20" src="assets/icons/pencil-simple.svg" alt="">Edit clinic</a>
+          <button role="menuitem" type="button" class="danger" data-open="#delete-clinic" data-delete><img class="icon-20" src="assets/icons/trash-red.svg" alt="">Delete clinic</button>
+          <p class="menu-note" id="menu-note">Editing and deleting are available until the first session starts.</p>
         </div>
       </div>
     </div>
@@ -60,7 +62,7 @@
       <a href="clinic-sessions.html">Sessions</a>
       <a href="clinic-players.html">Players</a>
       <a href="clinic-substitutes.html">Substitutes</a>
-      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-coaches.html">Coach</a>
       <a href="clinic-payments.html">Payments</a>
     </nav>
 
@@ -175,6 +177,7 @@
         </section>
       </div>
       <aside class="ov-side">
+        <section class="ov-coach" id="ov-coach" aria-labelledby="h-ov-coach"></section>
         <section class="ov-players">
           <h2 class="h2">Players &amp; Substitutes</h2>
           <div class="seg" data-group role="tablist" aria-label="Players or substitutes">
@@ -241,5 +244,73 @@
     }));
   </script>
   <script src="js/organizer.js"></script>
+  <div class="overlay" id="delete-clinic" hidden role="dialog" aria-modal="true" aria-labelledby="dc-title">
+    <div class="modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <div class="del-ic"><img src="assets/icons/trash-red.svg" alt="" width="26" height="26"></div>
+      <h2 id="dc-title">Delete this clinic?</h2>
+      <p class="lead">All 8 sessions are removed and the 12 players, 3 substitutes and coach are told the clinic is cancelled. This can't be undone.</p>
+      <div class="field" style="margin-top:20px">
+        <label for="dc-input">Type <b data-c="name">Saturday</b> to confirm</label>
+        <input class="input" id="dc-input" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="m-acts">
+        <button class="btn btn-lg btn-soft" type="button" data-close>Keep clinic</button>
+        <button class="btn btn-lg btn-danger" type="button" id="dc-go" disabled>Delete clinic</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/clinic-data.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script>
+    // Coach card: current coach, pending invite, or Add coach (when the coach step was skipped)
+    (() => {
+      const CD = CoachData; CD.load();
+      const s = CD.S, c = CD.coach(s.clinic.coach), p = s.clinic.pending, el = document.getElementById('ov-coach');
+      const av = x => x && x.photo ? `<img class="co-av" src="${x.photo}" alt="">` : `<span class="co-av initials">${CD.initials(x ? x.name : '?')}</span>`;
+      let body;
+      if (c) body = `<div class="ovc-row">${av(c)}<div><b>${c.name}</b><span>${CD.money(c.fee)} per player · per session</span></div></div>`;
+      else if (p) body = `<div class="ovc-row"><span class="co-av initials">${CD.initials(CD.whoName(p.who))}</span><div><b>${p.who.invite ? `Invite sent to ${p.who.invite.email}` : `Request sent to ${CD.whoName(p.who)}`}</b><span>${p.who.invite ? 'Waiting for them to join ClinicSync' : 'Awaiting their response'}</span></div></div>`;
+      else body = `<p class="ovc-empty">No coach yet. Sessions run without one and players pay the facility share only.</p>`;
+      el.innerHTML = `<div class="ovc-head"><h2 class="h2" id="h-ov-coach">Coach</h2>${c || p ? '<a class="link" href="clinic-coaches.html">Manage</a>' : ''}</div>${body}
+        ${!c && !p ? '<a class="btn btn-md btn-primary btn-block" href="clinic-coaches.html?add=clinic">Add coach</a>' : ''}`;
+      // Upcoming session cards: coach column follows the coach for that session
+      document.querySelectorAll('.ov-list .s-card').forEach(card => {
+        const day = card.querySelector('.datebox b'), val = card.querySelector('.s-col .lbl img[src*="chalkboard"]');
+        if (!day || !val) return;
+        const x = CD.sessions().find(s => s.iso === `2026-10-${day.textContent.trim().padStart(2, '0')}`);
+        if (!x) return;
+        const sc = CD.coach(CD.sessionCoach(x.n)), out = val.closest('.s-col').querySelector('.val');
+        out.innerHTML = sc ? `${sc.photo ? `<img src="${sc.photo}" alt="">` : ''}${sc.name}` : '<span style="color:var(--muted)">No coach</span>';
+      });
+    })();
+  </script>
+  <script>
+    (() => {
+      const D = window.ClinicData, c = D.load(), $ = s => document.querySelector(s);
+      document.querySelectorAll('[data-c]').forEach(el => {
+        const k = el.dataset.c;
+        el.textContent = k === 'schedule' ? D.scheduleLine(c) : c[k];
+        if (k === 'description') el.hidden = !c.description;
+      });
+      document.title = `${c.name} · ClinicSync`;
+      if (!c.started) { const s = $('.ov-stats b'); if (s) s.firstChild.textContent = '00'; }
+      if (c.started) {
+        // Locked once the first session has started
+        const ed = $('[data-edit]'), del = $('[data-delete]');
+        ed.removeAttribute('href'); ed.setAttribute('aria-disabled', 'true');
+        del.disabled = true; del.removeAttribute('data-open');
+        $('#menu-note').innerHTML = '<img class="icon-20" src="assets/icons/lock-simple.svg" alt="">The first session has started, so this clinic can’t be edited or deleted.';
+      }
+      const inp = $('#dc-input'), go = $('#dc-go');
+      inp.addEventListener('input', () => { const ok = inp.value.trim() === c.name; go.disabled = !ok; inp.classList.toggle('err', !ok && inp.value.length >= c.name.length); });
+      go.addEventListener('click', () => { D.reset(); location.href = 'clinics.html?deleted=' + encodeURIComponent(c.name); });
+      if (new URLSearchParams(location.search).has('updated')) {
+        toast('Clinic updated · players, substitutes and coach notified');
+        history.replaceState(null, '', location.pathname);
+      }
+    })();
+  </script>
+  <script src="js/session-location.js"></script>
 </body>
 </html>

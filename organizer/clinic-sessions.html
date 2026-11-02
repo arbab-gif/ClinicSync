@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
   <link rel="icon" href="assets/logo-mark.png">
   <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/session-location.css">
   <link rel="stylesheet" href="css/pages/clinic.css">
   <link rel="stylesheet" href="css/pages/clinic-session-card.css">
   <link rel="stylesheet" href="css/pages/clinic-sessions.css">
@@ -60,7 +61,7 @@
       <a href="clinic-sessions.html" class="on" aria-current="page">Sessions</a>
       <a href="clinic-players.html">Players</a>
       <a href="clinic-substitutes.html">Substitutes</a>
-      <button type="button" data-toast="Coaches isn't part of this prototype">Coaches</button>
+      <a href="clinic-coaches.html">Coach</a>
       <a href="clinic-payments.html">Payments</a>
     </nav>
 
@@ -418,5 +419,27 @@
     }));
   </script>
   <script src="js/organizer.js"></script>
+  <script src="js/clinic-data.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script>
+    // Session details → Coach section reflects the coach for that session (clinic coach, session-only coach or none)
+    (() => {
+      const CD = CoachData; CD.load();
+      const cc = CD.coach(CD.S.clinic.coach);
+      document.querySelectorAll('.overlay[id^="session-"]').forEach(ov => {
+        const day = ov.id.split('-')[1], iso = `2026-10-${day.padStart(2, '0')}`;
+        const x = CD.sessions().find(s => s.iso === iso), sec = ov.querySelector('.m-sec');
+        if (!x || !sec) return;
+        const c = CD.coach(CD.sessionCoach(x.n)), own = CD.isOverride(x.n), o = CD.S.sessions[x.n] || {}, p = o.pending, ca = o.cantAttend && !own ? o.cantAttend : null;
+        const link = (d, label, cls = 'btn-outline') => `<a class="btn btn-sm ${cls}" href="clinic-coaches.html?session=${x.n}&do=${d}">${label}</a>`;
+        const row = c
+          ? `<div class="m-row coach">${c.photo ? `<img class="avatar-img" src="${c.photo}" alt="">` : `<span class="initials m-av">${CD.initials(c.name)}</span>`}<div class="m-who"><b>${c.name}</b><span>${o.replacing ? `Covering for ${o.replacing}` : own ? 'This session only' : 'Clinic coach'}</span></div><span class="m-fee">${CD.money(c.fee)}<small>/player</small></span>${ca ? '<span class="badge badge-danger">Can’t attend</span>' : '<span class="st st-green">Confirmed</span>'}</div>`
+          : `<div class="m-row coach"><span class="initials m-av">—</span><div class="m-who"><b>No coach</b><span>${o.noCoachBecause ? `${o.noCoachBecause} can’t attend · running without a coach` : 'Players pay the facility share only'}</span></div></div>`;
+        sec.innerHTML = `<h3>Coach</h3>${row}${p ? `<p class="m-coach-note">${p.who.invite ? `Invite sent to ${p.who.invite.email}` : `Request sent to ${CD.whoName(p.who)}`} · waiting for a response</p>` : ''}
+          ${!x.done && ca && !p ? `<p class="m-coach-note">${CD.coach(ca.coach).name} can’t attend: “${ca.reason}”</p>` : ''}<div class="m-coach-acts">${x.done || p ? '' : ca ? link('replace', 'Choose a replacement', 'btn-primary') : ''}<span>${x.done ? '' : ca ? `Only affects ${x.label}.` : !c ? (CD.S.clinic.coach ? 'Running without a coach.' : `No clinic coach yet. <a class="link" href="clinic-coaches.html?add=clinic">Add a clinic coach</a>`) : 'The coach is set for this session. If they can’t attend, they’ll send you a request.'}</span></div>`;
+      });
+    })();
+  </script>
+  <script src="js/session-location.js"></script>
 </body>
 </html>

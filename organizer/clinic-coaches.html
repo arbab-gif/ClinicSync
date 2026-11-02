@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coach · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="stylesheet" href="css/organizer.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+  <link rel="stylesheet" href="css/pages/coaches.css">
+</head>
+<body>
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <nav class="o-nav" aria-label="Main">
+      <a href="dashboard.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/nav-clinics.svg)" aria-hidden="true"></span><span class="o-nav-label">Dashboard</span></a>
+      <a href="clinics.html" class="on" aria-current="page"><span class="o-nav-ico" style="--ico:url(../assets/icons/court-basketball.svg)" aria-hidden="true"></span><span class="o-nav-label">Clinics</span></a>
+      <a href="messages.html"><span class="o-nav-ico" style="--ico:url(../assets/icons/chat-circle.svg)" aria-hidden="true"></span><span class="o-nav-label">Messages</span><span class="o-nav-count" aria-label="3 unread">3</span></a>
+    </nav>
+    <div class="o-header-right">
+      <button class="o-bell" type="button" aria-label="Notifications, unread" data-toast="Notifications aren't part of this prototype"><img src="assets/icons/bell.svg" alt=""><span class="dot"></span></button>
+      <div class="o-account">
+        <button type="button" data-menu="#account-menu" aria-haspopup="menu" aria-expanded="false">
+          <span class="avatar"><img src="assets/icons/user.svg" alt=""></span><span class="name">Albert John</span><img class="icon-24" src="assets/icons/caret-down.svg" alt="">
+        </button>
+        <div class="menu" id="account-menu" role="menu" hidden>
+          <a role="menuitem" href="complete-profile.html">My profile</a>
+          <a role="menuitem" href="sign-in.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <a class="back" href="clinics.html"><img class="icon" src="assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1 data-c="name">Saturday</h1></span><span class="chip" data-c="sport">Tennis</span><span class="badge badge-ok">Active</span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="assets/icons/calendar-blank.svg" alt=""><span data-c="schedule"></span></span>
+          <span><img class="icon-20" src="assets/icons/users.svg" alt="">12 Players</span>
+          <span><img class="icon-20" src="assets/icons/map-pin.svg" alt=""><span data-c="location">Riverside Tennis Center</span></span>
+        </div>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" href="clinic-messages.html"><img class="icon-20" src="assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic">
+      <a href="clinic-overview.html">Overview</a>
+      <a href="clinic-sessions.html">Sessions</a>
+      <a href="clinic-players.html">Players</a>
+      <a href="clinic-substitutes.html">Substitutes</a>
+      <a href="clinic-coaches.html" class="on" aria-current="page">Coach</a>
+      <a href="clinic-payments.html">Payments</a>
+    </nav>
+
+    <div class="co">
+      <div class="co-main">
+        <section class="co-sec" aria-labelledby="h-clinic-coach">
+          <div class="co-head">
+            <div><h2 class="h2" id="h-clinic-coach">Clinic coach</h2><p>Coaches every upcoming session. Add one here if you skipped it when creating the clinic.</p></div>
+          </div>
+          <div id="clinic-coach" aria-live="polite"></div>
+        </section>
+        <section class="co-sec" aria-labelledby="h-by-session">
+          <div class="co-head">
+            <div><h2 class="h2" id="h-by-session">Coach by session</h2><p>Each session uses the clinic coach. A session only changes when the coach can’t attend and you choose a replacement.</p></div>
+          </div>
+          <div class="cs-list" id="session-list"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Prototype only: play the coach's side -->
+  <aside class="sim" id="sim" aria-label="Prototype controls">
+    <button class="sim-toggle" type="button" id="sim-toggle" aria-expanded="false"><span class="sim-dot"></span>Simulate the coach <small>prototype</small></button>
+    <div class="sim-body" id="sim-body" hidden></div>
+  </aside>
+
+  <!-- Coach picker -->
+  <div class="overlay drawer-overlay" id="picker" hidden>
+    <aside class="drawer co-drawer" role="dialog" aria-modal="true" aria-labelledby="pk-title">
+      <div class="co-drawer-head">
+        <div><h2 id="pk-title">Add a coach</h2><p class="co-scope" id="pk-scope"></p></div>
+        <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <div class="pk-tabs" role="tablist" aria-label="How to add a coach">
+        <button type="button" role="tab" data-pk-tab="find" aria-selected="true" class="on">Find a coach</button>
+        <button type="button" role="tab" data-pk-tab="invite" aria-selected="false">Invite by email</button>
+      </div>
+      <div id="pk-find" role="tabpanel">
+        <label class="co-search"><img src="assets/icons/search.svg" alt=""><input id="pk-q" type="search" placeholder="Search coaches by name" autocomplete="off" aria-label="Search coaches"></label>
+        <div class="pk-list" id="pk-list"></div>
+      </div>
+      <form id="pk-invite" role="tabpanel" hidden novalidate>
+        <p class="pk-intro">Invite a coach who isn't on ClinicSync yet. They get an email to create a profile, set their fee and accept.</p>
+        <div class="field"><label for="iv-name">Coach name <span class="opt">(optional)</span></label><input class="input" id="iv-name" placeholder="e.g. Robert Fox" autocomplete="off"></div>
+        <div class="field" id="iv-email-field"><label for="iv-email">Email address <span class="req">*</span></label><input class="input" id="iv-email" type="email" placeholder="robert@gmail.com" autocomplete="off"><span class="hint err" id="iv-err" hidden></span></div>
+        <div class="co-callout" id="iv-exists" hidden></div>
+        <div class="field"><label for="iv-msg">Message <span class="opt">(optional)</span></label><textarea class="textarea" id="iv-msg" rows="3" placeholder="Hi Robert, I'd love you to coach our Saturday tennis clinic…"></textarea></div>
+        <p class="co-note"><img src="assets/icons/info-grey.svg" alt="">Their fee per player, per session appears once they create their profile. Players see it before paying.</p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Continue</button>
+      </form>
+    </aside>
+  </div>
+
+  <!-- Review & confirm (with reason when replacing) -->
+  <div class="overlay" id="review" hidden role="dialog" aria-modal="true" aria-labelledby="rv-title">
+    <div class="modal co-modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="rv-title">Add coach?</h2>
+      <div class="rv-swap" id="rv-swap"></div>
+      <ul class="rv-impact" id="rv-impact"></ul>
+      <p class="co-notify" id="rv-notify"></p>
+      <div class="co-acts2">
+        <button class="btn btn-lg btn-soft" type="button" id="rv-back">Back</button>
+        <button class="btn btn-lg btn-primary" type="button" id="rv-go">Send request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Run a session without a coach (after the coach can't attend) -->
+  <div class="overlay" id="remove" hidden role="dialog" aria-modal="true" aria-labelledby="rm-title">
+    <div class="modal co-modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <div class="rm-ic warn"><img src="assets/icons/warning-circle.svg" alt="" width="26" height="26"></div>
+      <h2 id="rm-title">Run this session without a coach?</h2>
+      <p class="lead" id="rm-lead"></p>
+      <ul class="rv-impact" id="rm-impact"></ul>
+      <p class="co-notify" id="rm-notify"></p>
+      <div class="co-acts2">
+        <button class="btn btn-lg btn-soft" type="button" data-close>Choose a replacement instead</button>
+        <button class="btn btn-lg btn-dark" type="button" id="rm-go">Run without a coach</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/organizer.js"></script>
+  <script src="js/clinic-data.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script src="js/coaches-page.js"></script>
+</body>
+</html>

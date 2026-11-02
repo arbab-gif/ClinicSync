@@ -47,3 +47,26 @@
   .ov-stats { grid-template-columns: 1fr; }
   .ov-stats > div { border-left: 0; padding-left: 0; min-height: 0; padding-bottom: 12px; }
 }
+
+/* Clinic actions menu + delete confirm */
+.clinic-desc { margin-top: 12px; max-width: 720px; color: var(--text-2); font-size: 16px; line-height: 24px; }
+.clinic-menu { min-width: 260px; }
+.clinic-menu .danger { color: var(--danger); }
+.clinic-menu [aria-disabled="true"], .clinic-menu button:disabled { color: var(--disabled); cursor: not-allowed; background: none; }
+.clinic-menu [aria-disabled="true"] img, .clinic-menu button:disabled img { opacity: .4; }
+.menu-note { display: flex; gap: 8px; align-items: flex-start; margin: 4px 6px 4px; padding: 10px 8px 4px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 18px; }
+.del-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--danger-bg); display: grid; place-items: center; margin-bottom: 20px; }
+#delete-clinic h2 { font-weight: 600; font-size: 26px; line-height: 32px; color: var(--ink); }
+#delete-clinic .lead { color: var(--muted); font-size: 16px; margin-top: 8px; }
+#delete-clinic .m-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.btn-danger:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Coach card (side column) */
+.ov-coach { border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 14px; }
+.ovc-head { display: flex; align-items: center; justify-content: space-between; }
+.ovc-row { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: var(--card); }
+.ovc-row b { display: block; font-weight: 500; font-size: 16px; color: var(--ink); }
+.ovc-row span { font-size: 14px; color: var(--muted); }
+.ovc-empty { color: var(--muted); font-size: 14px; line-height: 20px; }
+.ov-coach .co-av { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex: none; }
+.ov-coach .co-av.initials { display: grid; place-items: center; background: #eaeef8; color: var(--brand); font-weight: 600; font-size: 14px; }

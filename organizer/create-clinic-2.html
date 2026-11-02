@@ -10,6 +10,7 @@
   <link rel="icon" href="assets/logo-mark.png">
   <link rel="stylesheet" href="css/organizer.css">
   <link rel="stylesheet" href="css/pages/create-clinic.css">
+  <link rel="stylesheet" href="css/pages/exclude-dates.css">
 </head>
 <body>
   <header class="o-header">
@@ -90,6 +91,15 @@
         <label for="sessions">Number of sessions</label>
         <input class="wz-input" id="sessions" name="sessions" value="8" inputmode="numeric" autocomplete="off">
       </div>
+      <div class="wz-field" id="ex-field">
+        <label id="ex-label">Exclude Specific Dates <span class="muted">(Optional)</span></label>
+        <p class="ex-help" id="ex-help">Select dates when sessions should not take place, such as holidays or vacations.</p>
+        <button class="wz-input" type="button" data-ex-open aria-haspopup="dialog" aria-expanded="false" aria-labelledby="ex-label" aria-describedby="ex-help"><span class="val ph">Select dates</span><img src="assets/icons/calendar-24.svg" alt=""></button>
+        <div class="ex-pop" data-ex-pop role="dialog" aria-label="Choose dates to exclude" hidden></div>
+        <ul class="ex-chips" data-ex-chips aria-label="Excluded dates" hidden></ul>
+        <p class="ex-suggest" id="ex-suggest" hidden><span></span> <button type="button" class="link">Exclude this date</button></p>
+      </div>
+      <p class="ex-note" id="ex-note" aria-live="polite" hidden><img src="assets/icons/info-circle.svg" alt=""><span></span></p>
       <section class="wz-section">
         <h2 class="wz-h2">Clinic Fees</h2>
         <div class="wz-field">
@@ -98,7 +108,6 @@
         </div>
       </section>
     </form>
-    <label class="wz-check"><input type="checkbox" id="holiday" form="step-form"><span>Your schedule includes Thanksgiving (Nov 26). Exclude this holiday to adjust your total sessions automatically.</span></label>
   </main>
 
   <footer class="stepbar">
@@ -108,6 +117,8 @@
   </footer>
   <script src="js/organizer.js"></script>
   <script src="js/create-clinic.js"></script>
+  <script src="js/clinic-data.js"></script>
+  <script src="js/exclude-dates.js"></script>
   <script>
     const form = document.getElementById('step-form');
     const startText = document.getElementById('start-text'), startNative = document.getElementById('start-native');
@@ -115,23 +126,44 @@
     const pick = () => { try { startNative.showPicker(); } catch (e) { startNative.focus(); } };
     startText.addEventListener('click', pick);
     document.getElementById('start-btn').addEventListener('click', pick);
-    startNative.addEventListener('change', () => { if (startNative.value) startText.value = fmt(startNative.value); });
-
-    const holiday = document.getElementById('holiday'), sessions = document.getElementById('sessions');
-    let base = 8;
-    sessions.addEventListener('input', () => { base = parseInt(sessions.value, 10) || 0; });
-    holiday.addEventListener('change', () => { // excluding the holiday removes one session
-      const n = parseInt(sessions.value, 10) || 0;
-      sessions.value = holiday.checked ? Math.max(n - 1, 0) : n + 1;
-    });
+    startNative.addEventListener('change', () => { if (startNative.value) { startText.value = fmt(startNative.value); updateSchedule(); } });
+    const sessions = document.getElementById('sessions');
 
     const s = wz.get();
+    if (s.startIso) startNative.value = s.startIso;
     if (s.start) startText.value = s.start;
     if (s.day) { form.day.value = s.day; document.querySelector('#day-field .val').textContent = s.day; document.querySelector('#day-field .val').classList.remove('ph'); }
     if (s.length) document.getElementById('length').value = s.length;
     if (s.sessions) sessions.value = s.sessions;
     if (s.fee) form.fee.value = s.fee;
     if (s.time) { form.time.value = s.time; form.time.closest('[data-listbox]').querySelector('.val').textContent = s.time; }
+
+    // Exclude specific dates: skipped sessions move to the next recurring day, total stays the same
+    const D = ClinicData, HOLIDAYS = { '2026-11-26': 'Thanksgiving', '2026-12-25': 'Christmas Day', '2027-01-01': 'New Year’s Day' };
+    const schedule = () => ({ startDate: startNative.value, days: form.day.value ? [form.day.value.slice(0, 3)] : [], sessions: parseInt(sessions.value, 10) || 0, excluded: ex ? ex.get() : (s.excluded || []) });
+    let ex;
+    function updateSchedule() {
+      const c = schedule(), ds = D.sessionDates(c), skipped = D.skippedDates(c), note = document.getElementById('ex-note');
+      note.hidden = !c.excluded.length || !ds.length;
+      note.classList.toggle('neutral', !skipped.length);
+      note.querySelector('span').innerHTML = skipped.length
+        ? `<b>${skipped.length} session${skipped.length > 1 ? 's' : ''} skipped.</b> Your clinic end date has been updated to ${D.fmtLong(ds[ds.length - 1])}. Skipped: ${skipped.map(D.fmtLong).join(', ')}.`
+        : 'These dates don’t fall on a session day, so your schedule is unchanged.';
+      // Holiday on a session day that isn't excluded yet → offer to exclude it
+      const hit = D.sessionDates(c).map(D.isoOf).find(iso => HOLIDAYS[iso]);
+      const sug = document.getElementById('ex-suggest');
+      sug.hidden = !hit;
+      if (hit) { sug.dataset.iso = hit; sug.querySelector('span').textContent = `Your schedule includes ${HOLIDAYS[hit]} (${D.parseDate(hit).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}).`; }
+      if (ex) ex.refresh();
+    }
+    ex = ExcludeDates(document.getElementById('ex-field'), { value: s.excluded || [], schedule, onChange: updateSchedule });
+    document.querySelector('#ex-suggest button').addEventListener('click', () => {
+      const iso = document.getElementById('ex-suggest').dataset.iso;
+      ex.add({ from: iso, to: iso });
+    });
+    sessions.addEventListener('input', updateSchedule);
+    document.addEventListener('click', e => { if (e.target.closest('#day-menu [data-value]')) setTimeout(updateSchedule); });
+    updateSchedule();
 
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -140,7 +172,7 @@
       if (!document.getElementById('length').value.trim()) { wzError(document.getElementById('length-field'), 'Enter the session length'); ok = false; }
       if (!(parseInt(sessions.value, 10) > 0)) { wzError(document.getElementById('sessions-field'), 'Enter the number of sessions'); ok = false; }
       if (!ok) return;
-      wz.set({ start: startText.value, day: form.day.value, time: form.time.value, length: document.getElementById('length').value.trim(), sessions: sessions.value, fee: form.fee.value.trim() });
+      wz.set({ start: startText.value, startIso: startNative.value, excluded: ex.get(), day: form.day.value, time: form.time.value, length: document.getElementById('length').value.trim(), sessions: sessions.value, fee: form.fee.value.trim() });
       location.href = 'create-clinic-3.html';
     });
   </script>
