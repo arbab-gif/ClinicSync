@@ -38,7 +38,7 @@
   const baseFor = day => { const card = document.getElementById('card-' + day); const v = card && card.querySelector('.s-col img[src*="map-pin"]'); return v ? v.closest('.s-col').querySelector('.val').dataset.base : CLINIC_VENUE; };
   const sessionName = day => { const c = document.getElementById('card-' + day); return c ? c.querySelector('.s-title h3').textContent.trim() : 'Session'; };
   const dateLabel = day => { const m = document.getElementById('session-' + day); return m ? m.querySelector('.m-head h2').textContent.trim() : ''; };
-  const playerCount = day => document.querySelectorAll(`#players-${day} .m-row`).length;
+  const playerCount = day => document.querySelectorAll(`#players-${day} .m-row:not(.out)`).length;
 
   function paintSection(day) {
     const m = document.getElementById('session-' + day); if (!m) return;

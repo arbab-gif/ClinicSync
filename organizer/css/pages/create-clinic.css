@@ -244,3 +244,7 @@ button.wz-input { cursor: pointer; justify-content: space-between; }
 .ok-coach img, .ok-coach .initials { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; font-size: 11px; }
 .ok-main .btn-lg { width: 342px; max-width: 100%; font-size: 20px; }
 @media (max-width: 720px) { .ok-card { padding: 16px; } .ok-top p { font-size: 16px; } }
+
+/* Who each plan is for (Figma Choose plan): role chips under the plan line */
+.plan-roles { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.plan-roles span { padding: 2px 8px; border-radius: 12px; background: #fff; border: 1px solid #d2d6db; color: var(--text-2); font-size: 11px; font-weight: 500; }

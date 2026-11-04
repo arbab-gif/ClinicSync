@@ -1,0 +1,170 @@
+/* Player clinics: list extras + clinic page (Overview · Sessions · Players · Payments).
+   Everything else comes from the organizer's clinic styles (clinics, clinic, clinic-overview, session card/modal). */
+
+.cl-foot .note.brand { color: var(--brand); font-weight: 500; }
+
+/* Banner under the tabs: substitute info, completed and cancelled history */
+.pc-banner { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; border-radius: 16px; background: var(--card); }
+.pc-banner > div:first-child { display: flex; flex-direction: column; gap: 4px; }
+.pc-banner b { font-weight: 600; font-size: 16px; color: var(--ink); }
+.pc-banner span { color: var(--text-2); font-size: 14px; line-height: 20px; }
+.pc-banner.info { background: var(--brand-tint); }
+.pc-banner.danger { background: var(--danger-bg); }
+.pc-banner .cl-result { max-width: 640px; }
+
+/* Session card / modal: what the player can do */
+.p-sact { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--border); }
+.p-sact.in-modal { border-top: 0; padding: 14px 16px; border-radius: 12px; background: var(--card); }
+.p-snote { color: var(--text-2); font-size: 14px; line-height: 20px; }
+.p-sbtns { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.p-sbtns:empty { display: none; }
+.p-demo { border: 1px dashed var(--line); background: #fff; border-radius: 99px; padding: 6px 12px; font: 500 13px var(--font); color: var(--muted); cursor: pointer; }
+.p-scard.other { opacity: .72; }
+.p-scard.other:hover { opacity: 1; }
+.p-scard.open { box-shadow: inset 0 0 0 1.5px var(--brand-2); }
+.st-blue { background: var(--info-bg); color: var(--info); }
+.st-purple { background: #ebe9fe; color: #5925dc; }
+
+/* Overview */
+.p-more { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 16px; background: #eaeef8; margin-bottom: 8px; max-width: 752px; }
+.p-more > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.p-more b { font-weight: 600; font-size: 15px; color: var(--ink); }
+.p-more span { color: var(--text-2); font-size: 14px; line-height: 20px; }
+.p-more-ic { width: 36px; height: 36px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: none; }
+.p-more-ic img { width: 18px; height: 18px; }
+.p-about { display: flex; flex-direction: column; gap: 16px; }
+.p-about .p-dl { padding: 0 16px; }
+.p-about .p-dl dt, .p-about .p-dl dd { font-size: 14px; }
+.p-dl { margin: 0; border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; }
+.p-dl div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; }
+.p-dl div + div { border-top: 1px solid var(--line); }
+.p-dl dt { color: var(--muted); font-size: 15px; }
+.p-dl dd { margin: 0; text-align: right; font-weight: 500; font-size: 15px; color: var(--ink); }
+
+/* People rows (overview side, Players tab) */
+.pl { display: flex; flex-direction: column; gap: 32px; padding: 28px 0 56px; max-width: 880px; }
+.pl-sec { display: flex; flex-direction: column; gap: 14px; }
+.pl-list { display: flex; flex-direction: column; gap: 10px; }
+.pl-row { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 12px; background: var(--card); }
+.pl-av { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
+.pl-row .m-av { width: 44px; height: 44px; }
+.pl-who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.pl-who b { font-weight: 500; font-size: 16px; color: var(--ink); }
+.pl-note { color: var(--muted); font-size: 14px; text-align: right; }
+.dc-gap { width: 36px; flex: none; }
+
+/* Payments */
+.p-pay { padding-bottom: 56px; display: flex; flex-direction: column; gap: 16px; max-width: 880px; }
+.p-pay-note { font-size: 15px; line-height: 22px; }
+.p-pay-table { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.p-pay-row { display: grid; grid-template-columns: minmax(0, 2fr) 1fr 1fr minmax(0, 1.6fr); gap: 12px; align-items: center; padding: 14px 18px; font-size: 15px; color: var(--ink); }
+.p-pay-row + .pay-row { border-top: 1px solid var(--line); }
+.p-pay-row.head { background: var(--card); color: var(--muted); font-size: 13px; font-weight: 500; }
+.p-pay-row span:nth-child(3) { font-weight: 500; }
+
+/* Modals */
+.rp-steps { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: var(--text-2); font-size: 14px; line-height: 20px; }
+.rp-steps b { color: var(--ink); font-weight: 600; }
+.jn-impact { margin: 0; padding: 4px 16px; border: 1px solid var(--line); border-radius: 12px; list-style: none; }
+.jn-impact li { padding: 10px 0; font-size: 14px; line-height: 20px; color: var(--text-2); }
+.jn-impact li + li { border-top: 1px solid var(--line); }
+.jn-impact b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 960px) {
+  .p-pay-row { grid-template-columns: 1fr 1fr; }
+  .pl-note { display: none; }
+}
+
+/* Status pills (same values as the organizer's session cards) for pages that don't load those styles */
+.st { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 500; white-space: nowrap; line-height: normal; }
+.st-green { background: #d3f8df; color: #087443; }
+.st-yellow { background: #fef7c3; color: #a15c07; }
+.st-red { background: #fee4e2; color: #b42318; }
+.st-gray { background: var(--chip-bg); color: var(--chip-ink); }
+.cl-next .st { flex: none; }
+
+/* Overview side: payment overview */
+.p-paycard { display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--border); }
+.p-payline { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px; border-radius: 12px; background: var(--card); }
+.p-payline > div:first-child { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.p-payline b { font-weight: 500; font-size: 15px; color: var(--ink); }
+.p-payline span { font-size: 13px; color: var(--muted); }
+.p-payline .amt { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; }
+.p-payline .amt b { font-family: var(--font-display); font-weight: 600; font-size: 20px; }
+.p-paysum { display: flex; justify-content: space-between; align-items: center; padding: 2px 4px; font-size: 14px; color: var(--text-2); }
+.p-paysum b { font-weight: 600; color: var(--ink); }
+
+/* Pay coach fee */
+.p-paycard .btn-block { margin-top: 2px; }
+.p-pay-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.p-pay-head .btn { flex: none; }
+.p-pay-row small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+.pc-modal { gap: 16px; }
+.pc-modal fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.pc-modal legend { font-weight: 500; font-size: 15px; color: var(--ink); margin-bottom: 8px; padding: 0; }
+#pc-list { display: flex; flex-direction: column; gap: 8px; }
+.pc-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+.pc-row:has(input:checked) { border-color: var(--brand); background: var(--brand-tint); }
+.pc-row input { accent-color: var(--brand); width: 18px; height: 18px; }
+.pc-row > span { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.pc-row b { font-weight: 600; font-size: 15px; color: var(--ink); }
+.pc-row small { color: var(--muted); font-size: 13px; }
+.pc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.pc-method { display: flex; align-items: center; justify-content: center; gap: 8px; height: 46px; border: 1.5px solid var(--line); border-radius: 12px; font-weight: 500; font-size: 15px; color: var(--ink); cursor: pointer; }
+.pc-method input { position: absolute; opacity: 0; pointer-events: none; }
+.pc-method:has(input:checked) { border-color: var(--brand); background: var(--brand-tint); color: var(--brand); }
+.pc-method:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+.pc-hint { color: var(--text-2); font-size: 14px; line-height: 20px; padding: 10px 12px; border-radius: 10px; background: var(--card); }
+.pc-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; border-top: 1px solid var(--line); }
+.pc-total span { color: var(--muted); font-size: 15px; }
+.pc-total b { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--ink); }
+@media (max-width: 720px) { .pc-grid { grid-template-columns: 1fr 1fr; } .p-pay-head { flex-direction: column; } }
+.p-payline.due { background: #fef7c3; }
+.p-paycard .p-demo { align-self: flex-start; }
+.p-paysum.today { color: var(--info); }
+
+/* Session card: Scheduled · Venue · Coach always on one line */
+.p-scard .s-cols { flex-wrap: nowrap; gap: 20px; }
+.p-scard .s-col { width: auto; flex: 1 1 0; min-width: 0; }
+.p-scard .s-col .val { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; }
+.p-scard .s-col .val img { flex: none; }
+.p-scard .s-col:nth-child(2) { flex: 1.5 1 0; }
+
+/* People rows: role chip + note under the name, so every row lines up */
+.pl-who b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.pl-sub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pl-sub .pl-note { text-align: left; font-size: 13px; }
+.pl-row { align-items: center; }
+@media (max-width: 960px) { .pl-sub .pl-note { display: inline; } }
+.m-row .m-cant { flex: none; height: 34px; padding: 0 14px; font-size: 13px; }
+
+/* People rows: name + role chip on one line, the note below */
+.pl-name { display: flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
+.pl-name b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pl-name .chip { flex: none; }
+.pl-who > .pl-note { text-align: left; font-size: 13px; display: block; }
+
+/* Overview: open spots heading count */
+.h2.with-count { display: flex; align-items: center; gap: 10px; }
+.h2.with-count .count { background: var(--brand-soft); color: var(--brand); }
+
+/* Payments tab: explanation, then the action under it */
+.p-pay-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+.p-demo { white-space: nowrap; }
+
+/* Payments and Players use the full content width, edge to edge with the header and tabs */
+.p-pay, .pl { max-width: none; }
+.p-pay .ov-stats { max-width: none; }
+.p-pay .p-pay-note { max-width: 880px; }
+
+/* Session details: your row's "Can't make it" is wider than a chat icon, so every row gets the same
+   right-hand slot (132px) and the status pills line up in one column */
+#sm .m-row .m-cant { width: 132px; justify-content: center; padding: 0; }
+#sm:has(.m-cant) .m-row .st + .dc-open { margin-left: 96px; }
+#sm:has(.m-cant) .m-row:not(:has(.dc-open)):not(:has(.m-cant)):not(.loc)::after { width: 132px; }
+#sm .m-row:has(.m-cant)::after { content: none; display: none; }
+.rp-sub { color: var(--muted); font-size: 14px; line-height: 20px; margin-top: -4px; }
+.p-more-x { width: 32px; height: 32px; flex: none; align-self: flex-start; border: 0; border-radius: 50%; background: none; display: grid; place-items: center; cursor: pointer; }
+.p-more-x:hover { background: #fff; }
+.p-more-x img { width: 16px; height: 16px; opacity: .6; }
+#rp-lead { font-weight: 600; color: var(--ink); }

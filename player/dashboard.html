@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="css/player.css">
+  <link rel="stylesheet" href="css/pages/dashboard.css">
+</head>
+<body>
+  <!-- Figma: Player / Dashboard / 01 Player dashboard (496:2545) -->
+  <header data-player-header data-active="Dashboard"></header>
+
+  <main class="pd">
+    <div class="pd-main">
+      <section class="pd-welcome">
+        <h1 class="h1">Welcome, <span data-p="first">Jessica</span>!</h1>
+        <p>Here's what's happening with your clinics.</p>
+      </section>
+
+      <div class="stats pd-stats">
+        <div><span>Active Clinics</span><b id="st-clinics">01</b></div>
+        <div><span>Upcoming Sessions</span><b id="st-upcoming">04</b></div>
+        <div><span>Sessions Attended</span><b id="st-attended">00</b></div>
+      </div>
+
+      <hr class="pd-rule">
+
+      <section class="pd-upcoming" aria-labelledby="h-upcoming">
+        <div class="section-head">
+          <h2 class="pd-h2" id="h-upcoming">Upcoming Sessions</h2>
+          <a class="link" href="clinic.html?id=monday&tab=sessions">View schedule<img class="icon-16" src="assets/icons/caret-right-brand.svg" alt=""></a>
+        </div>
+        <div class="ps-list" id="upcoming-list"></div>
+      </section>
+    </div>
+
+    <aside class="pd-side">
+      <section aria-labelledby="h-clinics">
+        <h2 class="pd-h2 display" id="h-clinics">My Clinics</h2>
+        <div class="pc-list" id="clinic-list"></div>
+      </section>
+
+      <hr class="pd-rule">
+
+      <section class="pa card" aria-labelledby="h-activity">
+        <div class="pa-head">
+          <h2 class="pd-h2 display" id="h-activity">Recent Activity</h2>
+          <span class="badge p-badge badge-brand" id="act-new">2 new</span>
+        </div>
+        <p class="pa-sub">Latest updates from your clinics.</p>
+        <div class="pa-feed" id="activity"></div>
+        <button class="btn btn-lg btn-outline p-cta" type="button" data-toast="All activity is next on the list">View All Activity</button>
+      </section>
+    </aside>
+  </main>
+
+  <!-- RSVP for one session (opened from a pending badge) -->
+  <div class="overlay" id="rsvp" hidden role="dialog" aria-modal="true" aria-labelledby="rsvp-title">
+    <div class="modal p-modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="rsvp-title">Will you be there?</h2>
+      <p class="lead" id="rsvp-lead"></p>
+      <div class="p-acts">
+        <button class="btn btn-lg btn-soft" type="button" data-rsvp="cant">Can’t make it</button>
+        <button class="btn btn-lg btn-primary" type="button" data-rsvp="going">I’m going</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/player-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/player-data.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

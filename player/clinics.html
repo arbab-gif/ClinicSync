@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinics · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="css/player.css">
+  <link rel="stylesheet" href="css/pages/clinic.css">
+</head>
+<body>
+  <!-- Same page as the organizer's Clinics (organizer/clinics.html), showing the clinics you play or sub in -->
+  <header data-player-header data-active="Clinics"></header>
+
+  <main class="page">
+    <div class="list-head">
+      <div>
+        <h1 class="h1">Clinics</h1>
+        <p>Every clinic you play in or sub for. Open one to see your sessions, players and payments.</p>
+      </div>
+    </div>
+
+    <nav class="tabs status-tabs" role="tablist" aria-label="Clinic status" id="status-tabs">
+      <button type="button" role="tab" data-status="active">Active <span class="tab-count"></span></button>
+      <button type="button" role="tab" data-status="completed">Completed <span class="tab-count"></span></button>
+      <button type="button" role="tab" data-status="cancelled">Cancelled <span class="tab-count"></span></button>
+    </nav>
+    <div class="list-tools">
+      <div class="pills" aria-label="Filter by role" id="role-pills">
+        <button type="button" data-role="all" class="on">All</button>
+        <button type="button" data-role="Player">Player</button>
+        <button type="button" data-role="Substitute">Substitute</button>
+      </div>
+      <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="clinic-q" type="search" placeholder="Search clinics" aria-label="Search clinics"></div>
+    </div>
+    <p class="status-intro" id="status-intro"></p>
+
+    <div class="clinics-grid" id="clinics"></div>
+    <p class="muted" id="clinics-empty" hidden style="margin-top:24px"></p>
+  </main>
+
+  <script src="js/player-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/player-data.js"></script>
+  <script>
+    (() => {
+      const P = PlayerData, $ = s => document.querySelector(s);
+      const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      const I = '../organizer/assets/icons/';
+      const INTRO = {
+        active: 'Clinics running now or about to start. RSVP to your sessions and pick up open spots.',
+        completed: 'Clinics that have finished. Your sessions and payments stay here for reference.',
+        cancelled: 'Clinics the organizer cancelled, with their reason and what happened to your fees.',
+      };
+      let status = new URLSearchParams(location.search).get('status') || 'active', role = 'all';
+      const range = c => { const s = P.sessionsOf(c); return `${P.fmt(s[0].date, { month: 'short', day: 'numeric' })} – ${P.fmt(s.at(-1).date, { month: 'short', day: 'numeric' })}`; };
+
+      function card(c) {
+        const head = `<div class="cl-top"><div class="cc-title"><h3 class="h3">${esc(c.name)}</h3><div class="chips"><span class="chip">${c.role}</span><span class="chip">${c.role === 'Substitute' ? c.sport : esc(c.share)}</span></div></div>`;
+        const meta = `<div class="meta-list">
+          <span class="meta-row"><img class="icon" src="${I}calendar-blank.svg" alt="">${range(c)} · ${c.days}, ${P.timeRange(c)}</span>
+          <span class="meta-row"><img class="icon" src="${I}map-pin.svg" alt="">${esc(c.location)}</span>
+          <span class="meta-row"><img class="icon" src="${I}users.svg" alt="">Organized by ${esc(c.organizer)}${c.coach ? ` · Coach ${esc(c.coach)}` : ''}</span></div>`;
+        const href = `clinic.html?id=${c.id}`;
+        if (c.status === 'active') {
+          const started = P.sessionsOf(c)[0].date <= P.TODAY;
+          const badge = started ? '<span class="badge badge-ok">Active</span>' : `<span class="badge badge-warn">Starts ${P.fmt(c.startDate, { month: 'short', day: 'numeric' })}</span>`;
+          const open = P.openSpots(c), next = P.booked(c).find(s => s.date >= P.TODAY && P.statusOf(s).kind !== 'replaced');
+          const nextRow = c.role === 'Substitute'
+            ? (open[0] ? `<div class="cl-next"><span class="datebox"><small>${P.fmt(open[0].date, { month: 'short' })}</small><b>${P.fmt(open[0].date, { day: 'numeric' })}</b></span><span class="cl-next-body"><small>Open spot for substitutes</small><b>Session ${open[0].n} · ${c.day}, ${P.fmtTime(c.start)} ${c.start < '12' ? 'AM' : 'PM'}</b></span><span class="st st-blue">Open spot</span></div>` : '')
+            : (next ? `<div class="cl-next"><span class="datebox"><small>${P.fmt(next.date, { month: 'short' })}</small><b>${P.fmt(next.date, { day: 'numeric' })}</b></span><span class="cl-next-body"><small>Your next session</small><b>Session ${next.n} · ${c.day}, ${P.fmtTime(c.start)} AM</b></span>${P.statusOf(next).kind === 'going' ? '' : `<span class="st st-${P.statusOf(next).tone}">${P.statusOf(next).label}</span>`}</div>` : '');
+          const note = c.role === 'Substitute' ? 'You’re on the substitute list' : open.length ? `<span class="note brand">${open.length} open spot${open.length > 1 ? 's' : ''} you can join</span>` : `${P.booked(c).length} of ${c.allowed} sessions booked`;
+          return `<a class="card card-lg cl-card" href="${href}">${head}${badge}</div>${meta}${nextRow}<div class="cl-foot"><span class="note">${note}</span><span class="link">View clinic<img class="icon" src="${I}caret-right.svg" alt=""></span></div></a>`;
+        }
+        const mine = P.booked(c), past = c.past || {};
+        const att = mine.filter(s => past[s.n] === 'attended').length, rep = mine.filter(s => past[s.n] === 'replaced').length;
+        if (c.status === 'completed') {
+          return `<a class="card card-lg cl-card cl-past" href="${href}">${head}<span class="badge badge-mute">Completed</span></div>${meta}
+            <dl class="cl-result"><div><dt>Attended</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Replaced</dt><dd>${rep}</dd></div><div><dt>Fees</dt><dd class="ok">All paid</dd></div></dl>
+            <div class="cl-foot"><span class="note">Ended ${P.fmt(P.sessionsOf(c).at(-1).date, { month: 'short', day: 'numeric' })}</span><span class="link">View history<img class="icon" src="${I}caret-right.svg" alt=""></span></div></a>`;
+        }
+        return `<a class="card card-lg cl-card cl-past" href="${href}">${head}<span class="badge badge-danger">Cancelled</span></div>${meta}
+          <p class="cl-reason"><b>Cancelled</b>${esc(c.reason)}</p>
+          <dl class="cl-result"><div><dt>Played</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Cancelled on</dt><dd>${c.cancelledOn}</dd></div><div><dt>Refund</dt><dd class="ok">${c.refund.split(' ')[0]}</dd></div></dl>
+          <div class="cl-foot"><span class="note">${esc(c.refund)}</span><span class="link">View details<img class="icon" src="${I}caret-right.svg" alt=""></span></div></a>`;
+      }
+
+      function render() {
+        const term = $('#clinic-q').value.trim().toLowerCase();
+        document.querySelectorAll('#status-tabs [data-status]').forEach(b => { b.classList.toggle('on', b.dataset.status === status); b.setAttribute('aria-selected', b.dataset.status === status); b.querySelector('.tab-count').textContent = P.CLINICS.filter(c => c.status === b.dataset.status).length; });
+        const list = P.CLINICS.filter(c => c.status === status && (role === 'all' || c.role === role) && c.name.toLowerCase().includes(term));
+        $('#clinics').innerHTML = list.map(card).join('');
+        $('#status-intro').textContent = INTRO[status];
+        $('#clinics-empty').hidden = list.length > 0;
+        $('#clinics-empty').textContent = term || role !== 'all' ? 'No clinics match your filters.' : `No ${status} clinics yet.`;
+      }
+      document.getElementById('status-tabs').addEventListener('click', e => { const b = e.target.closest('[data-status]'); if (b) { status = b.dataset.status; history.replaceState(null, '', `?status=${status}`); render(); } });
+      document.getElementById('role-pills').addEventListener('click', e => { const b = e.target.closest('[data-role]'); if (!b) return; role = b.dataset.role; document.querySelectorAll('#role-pills button').forEach(x => x.classList.toggle('on', x === b)); render(); });
+      $('#clinic-q').addEventListener('input', render);
+      render();
+    })();
+  </script>
+</body>
+</html>

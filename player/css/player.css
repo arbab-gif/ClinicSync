@@ -1,0 +1,28 @@
+/* ClinicSync — Player portal. Builds on ../organizer/css/organizer.css (tokens, header, buttons, cards);
+   only what differs for players lives here. Values come from the Figma "Player" sections (Final Design page). */
+
+:root {
+  --card-p: #f8f9fa;
+  --body-2: #4d5761;
+  --pending-bg: #fef7c3; --pending: #a15c07;
+  --brand-wash: #eaeef8;
+}
+
+/* ---------- Badges (Player/Badge: Clash Grotesk Medium 13) ---------- */
+.p-badge { font-family: var(--font-display); }
+.badge-pending { background: var(--pending-bg); color: var(--pending); }
+button.badge { border: 0; cursor: pointer; }
+button.badge-pending:hover { filter: brightness(.97); text-decoration: underline; }
+
+/* ---------- Shared bits ---------- */
+.p-cta { font-family: var(--font-display); height: 56px; padding: 0 28px; align-self: flex-start; }
+.p-meta { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 15px; line-height: 20px; }
+.p-meta img { width: 16px; height: 16px; flex: none; }
+
+/* RSVP modal */
+.p-modal { display: flex; flex-direction: column; gap: 12px; }
+.p-modal h2 { font-weight: 600; font-size: 26px; line-height: 32px; padding-right: 44px; }
+.p-modal .lead { color: var(--text-2); font-size: 15px; line-height: 22px; }
+.p-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+
+

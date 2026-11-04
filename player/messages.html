@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Messages · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="../organizer/css/pages/direct-chat.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body>
+  <!-- Same page as the organizer's Messages (Figma: Player / Messages / 01–04), with the player's chats -->
+  <header data-player-header data-active="Messages"></header>
+
+  <main class="page">
+    <div class="list-head">
+      <div>
+        <h1 class="h1">Messages</h1>
+        <p>Your clinic group chats and direct messages with organizers, coaches and players.</p>
+      </div>
+      <button class="btn btn-md btn-dark" type="button" data-open="#new-dm"><img class="icon" src="../organizer/assets/icons/plus.svg" alt="">New message</button>
+    </div>
+
+    <div class="msg-split">
+      <div class="msg-left">
+        <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="chat-q" type="search" placeholder="Search people or clinics" aria-label="Search chats"></div>
+        <div class="seg" role="tablist" aria-label="Show">
+          <button class="on" type="button" role="tab" data-show="group">Clinics</button>
+          <button type="button" role="tab" data-show="dm">Direct</button>
+        </div>
+        <div class="chat-list" id="chats"></div>
+        <p class="muted" id="chats-empty" hidden>No chats match your search.</p>
+      </div>
+      <div class="msg-right" id="chat-panel"></div>
+    </div>
+  </main>
+
+  <!-- New message: anyone in your clinics -->
+  <div class="overlay" id="new-dm" hidden role="dialog" aria-modal="true" aria-labelledby="nd-title">
+    <div class="modal dm-new">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="nd-title">New message</h2>
+      <p>Message anyone in your clinics.</p>
+      <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="nd-q" type="search" placeholder="Search by name" aria-label="Search by name"></div>
+      <div class="dm-filter" id="nd-filter" role="tablist" aria-label="Role">
+        <button class="on" type="button" data-role="">All</button><button type="button" data-role="Organizer">Organizers</button><button type="button" data-role="Coach">Coaches</button><button type="button" data-role="Player">Players</button><button type="button" data-role="Substitute">Substitutes</button>
+      </div>
+      <div class="dm-people" id="nd-list"></div>
+    </div>
+  </div>
+
+  <script src="js/player-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/chat-config.js"></script>
+  <script>
+    const P = '../organizer/assets/img/people/';
+    window.DirectChatConfig = { ...PLAYER_CHAT, inline: '#chat-panel' };
+  </script>
+  <script src="../organizer/js/direct-chat.js"></script>
+  <script src="../organizer/js/messages-page.js"></script>
+  <script>
+    MessagesPage({
+      caret: '../organizer/assets/icons/caret-right.svg',
+      unread: { 'Monday Morning Tennis': 2, 'Sarah Miller': 1 },
+      groups: [
+        { name: 'Monday Morning Tennis', ini: 'MM', tone: '', role: 'Player', members: 9 },
+        { name: 'Thursday Rally', ini: 'TR', tone: 'ok', role: 'Substitute', members: 7 },
+      ],
+      people: [
+        { clinic: 'Monday Morning Tennis', name: 'Jenny Wilson', role: 'Organizer', photo: P + 'red.png' },
+        { clinic: 'Monday Morning Tennis', name: 'Sarah Miller', role: 'Coach', photo: P + 'side.png' },
+        { clinic: 'Monday Morning Tennis', name: 'Liam Johnson', role: 'Player', photo: P + 'curly.png' },
+        { clinic: 'Monday Morning Tennis', name: 'Maria Lopez', role: 'Substitute', photo: P + 'dark.png' },
+        { clinic: 'Monday Morning Tennis', name: 'Olivia Chen', role: 'Player', photo: P + 'sophia.png' },
+        { clinic: 'Thursday Rally', name: 'Marcus Reed', role: 'Player', photo: P + 'man2.png' },
+      ],
+    });
+  </script>
+</body>
+</html>

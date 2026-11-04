@@ -39,6 +39,15 @@
 .m-who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 .m-who b { font-weight: 500; font-size: 16px; line-height: 20px; color: var(--ink); }
 .m-who .rating { align-self: flex-start; background: #f0f0f0; color: var(--chip-ink); font-size: 12px; font-weight: 500; padding: 3px 8px; border-radius: 14px; }
+/* Session Participants: one list, each person tagged with their role (+ Replacement when they filled a spot) */
+.m-sec-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.m-count { padding: 4px 12px; border-radius: 14px; background: var(--chip-bg); color: var(--chip-ink); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.m-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.m-tags .tag { padding: 3px 10px; border-radius: 14px; background: #fff; border: 1px solid var(--line); color: var(--chip-ink); font-size: 12px; font-weight: 500; line-height: 16px; }
+.m-tags .tag-repl { background: var(--brand-soft); border-color: transparent; color: var(--brand); }
+.m-tags .rating { background: none; padding: 0 0 0 4px; color: var(--muted); font-weight: 400; }
+.m-row.out { opacity: .55; }
+.m-row.out b { text-decoration: line-through; text-decoration-color: var(--muted); }
 .m-row.coach .m-who { gap: 4px; }
 .m-row.coach .m-who span { font-size: 12px; color: var(--muted); }
 .m-fee { font-weight: 500; font-size: 16px; margin-right: 150px; }

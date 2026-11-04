@@ -10,8 +10,10 @@
   <link rel="icon" href="assets/logo-mark.png">
   <link rel="stylesheet" href="css/organizer.css">
   <link rel="stylesheet" href="css/pages/clinics.css">
+  <link rel="stylesheet" href="css/pages/direct-chat.css">
 </head>
 <body>
+  <!-- Figma: Organizer / Messages / 01 Group chat (698:25546) and DM 01–03 -->
   <header class="o-header">
     <a class="o-brand" href="dashboard.html"><img src="assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
     <nav class="o-nav" aria-label="Main">
@@ -27,6 +29,7 @@
         </button>
         <div class="menu" id="account-menu" role="menu" hidden>
           <a role="menuitem" href="complete-profile.html">My profile</a>
+          <button role="menuitem" type="button" id="reset-demo">Reset prototype data</button>
           <a role="menuitem" href="sign-in.html">Logout</a>
         </div>
       </div>
@@ -39,82 +42,97 @@
         <h1 class="h1">Messages</h1>
         <p>Each clinic has one group chat with its players, substitutes and coach.</p>
       </div>
+      <button class="btn btn-md btn-dark" type="button" data-open="#new-dm"><img class="icon" src="assets/icons/plus.svg" alt="">New message</button>
     </div>
 
-    <div class="list-tools">
-      <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="chat-q" type="search" placeholder="Search clinic chats" aria-label="Search clinic chats"></div>
-      <div class="seg" data-group role="tablist" aria-label="Show">
-        <button class="on" type="button" role="tab" data-show="all">All chats (6)</button>
-        <button type="button" role="tab" data-show="unread">Unread (2)</button>
+    <div class="msg-split">
+      <div class="msg-left">
+        <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="chat-q" type="search" placeholder="Search clinic chats" aria-label="Search chats"></div>
+        <div class="seg" role="tablist" aria-label="Show">
+          <button class="on" type="button" role="tab" data-show="group">Clinics</button>
+          <button type="button" role="tab" data-show="dm">Direct</button>
+        </div>
+        <div class="chat-list" id="chats"></div>
+        <p class="muted" id="chats-empty" hidden>No chats match your search.</p>
       </div>
+      <div class="msg-right" id="chat-panel"></div>
     </div>
-
-    <div class="chat-list" id="chats">
-      <a class="chat-row unread" href="clinic-messages.html" data-name="Saturday Tennis">
-        <span class="chat-av">ST</span>
-        <span class="chat-main">
-          <span class="chat-line"><span class="chat-name">Saturday Tennis</span><span class="chip">Organizer</span></span>
-          <span class="chat-preview"><b>Robert Wilson:</b> I can cover Session 4 if Jessica can't make it.</span>
-        </span>
-        <span class="chat-side"><span class="chat-time">9:22 AM</span><span class="chat-unread" aria-label="2 unread">2</span></span>
-      </a>
-      <a class="chat-row unread" href="clinic-messages.html" data-name="Thursday Rally">
-        <span class="chat-av ok">TR</span>
-        <span class="chat-main">
-          <span class="chat-line"><span class="chat-name">Thursday Rally</span><span class="chip">Player</span></span>
-          <span class="chat-preview"><b>Jenny:</b> Courts 3 and 4 tonight. Please confirm by 5 PM.</span>
-        </span>
-        <span class="chat-side"><span class="chat-time">8:05 AM</span><span class="chat-unread" aria-label="1 unread">1</span></span>
-      </a>
-      <a class="chat-row" href="clinic-messages.html" data-name="Monday Morning Tennis">
-        <span class="chat-av warn">MM</span>
-        <span class="chat-main">
-          <span class="chat-line"><span class="chat-name">Monday Morning Tennis</span><span class="chip">Organizer</span></span>
-          <span class="chat-preview"><b>You:</b> Session 5 moves to Mon, Oct 26 at 6:00 PM. Approved by Sophia.</span>
-        </span>
-        <span class="chat-side"><span class="chat-time">Yesterday</span></span>
-      </a>
-      <a class="chat-row" href="clinic-messages.html" data-name="Tuesday Tennis Club">
-        <span class="chat-av">TT</span>
-        <span class="chat-main">
-          <span class="chat-line"><span class="chat-name">Tuesday Tennis Club</span><span class="chip">Organizer</span></span>
-          <span class="chat-preview"><b>Grace Liu:</b> Thanks for the reminder, see everyone at 6!</span>
-        </span>
-        <span class="chat-side"><span class="chat-time">Oct 7</span></span>
-      </a>
-      <a class="chat-row" href="clinic-messages.html" data-name="Weekend Beginners">
-        <span class="chat-av purple">WB</span>
-        <span class="chat-main">
-          <span class="chat-line"><span class="chat-name">Weekend Beginners</span><span class="chip">Coach</span></span>
-          <span class="chat-preview"><b>You:</b> Bring water, we'll do serve drills first.</span>
-        </span>
-        <span class="chat-side"><span class="chat-time">Oct 5</span></span>
-      </a>
-      <a class="chat-row" href="clinic-messages.html" data-name="Friday Padel Night">
-        <span class="chat-av">FP</span>
-        <span class="chat-main">
-          <span class="chat-line"><span class="chat-name">Friday Padel Night</span><span class="chip">Organizer</span></span>
-          <span class="chat-preview">No messages yet. The chat opens when the first session is scheduled.</span>
-        </span>
-        <span class="chat-side"><span class="chat-time">—</span></span>
-      </a>
-    </div>
-    <p class="muted" id="chats-empty" hidden style="margin-top:24px">No chats match your search.</p>
   </main>
+
+  <!-- New message: anyone in the clinics you organize -->
+  <div class="overlay" id="new-dm" hidden role="dialog" aria-modal="true" aria-labelledby="nd-title">
+    <div class="modal dm-new">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="nd-title">New message</h2>
+      <p>Message anyone in the clinics you organize.</p>
+      <div class="search"><img src="assets/icons/search.svg" alt=""><input class="input" id="nd-q" type="search" placeholder="Search by name" aria-label="Search by name"></div>
+      <div class="dm-filter" id="nd-filter" role="tablist" aria-label="Role">
+        <button class="on" type="button" data-role="">All</button><button type="button" data-role="Player">Players</button><button type="button" data-role="Substitute">Substitutes</button><button type="button" data-role="Coach">Coaches</button>
+      </div>
+      <div class="dm-people" id="nd-list"></div>
+    </div>
+  </div>
 
   <script src="js/organizer.js"></script>
   <script>
-    (() => {
-      const q = document.getElementById('chat-q'), rows = [...document.querySelectorAll('#chats .chat-row')], empty = document.getElementById('chats-empty');
-      let show = 'all';
-      const apply = () => {
-        const term = q.value.trim().toLowerCase(); let n = 0;
-        rows.forEach(r => { const ok = (show === 'all' || r.classList.contains('unread')) && r.dataset.name.toLowerCase().includes(term); r.hidden = !ok; if (ok) n++; });
-        empty.hidden = n > 0;
-      };
-      q.addEventListener('input', apply);
-      document.querySelectorAll('[data-show]').forEach(b => b.addEventListener('click', () => { show = b.dataset.show; apply(); }));
-    })();
+    const SAT = { name: 'Saturday Tennis', when: 'Saturdays · 9:00–10:30 AM' }, THU = { name: 'Thursday Rally', when: 'Thursdays · 6:00–7:30 PM' }, WKD = { name: 'Weekend Beginners', when: 'Sundays · 10:00–11:30 AM' };
+    const P = 'assets/img/people/';
+    window.DirectChatConfig = {
+      inline: '#chat-panel', me: 'Albert', clinic: 'Saturday Tennis', membersWord: 'Players',
+      // Clinic chats as in the Figma Messages screens; direct threads as in DM 01
+      seed: {
+        'Saturday Tennis': [
+          { from: 'me', t: 'Please arrive 10 minutes early for Saturday’s session.', at: 'Yesterday, 6:10 PM' },
+          { from: 'them', who: 'Jessica Lee', role: 'Player', ini: 'JL', photo: P + 'blonde.png', t: 'I’m running about 15 minutes late today.', at: 'Today, 8:20 AM' },
+          { from: 'them', who: 'Robert Wilson', role: 'Player', ini: 'RW', photo: P + 'man1.png', t: 'Thanks for letting us know!', at: 'Today, 8:22 AM' },
+          { from: 'me', t: 'We may need more substitutes for upcoming sessions.', at: 'Today, 8:30 AM' },
+          { from: 'them', who: 'Robert Wilson', role: 'Player', ini: 'RW', photo: P + 'man1.png', t: 'I can cover Session 4 if Jessica can’t make it.', at: 'Today, 9:22 AM' },
+        ],
+        'Thursday Rally': [{ from: 'them', who: 'Jenny', role: 'Organizer', ini: 'JW', photo: P + 'red.png', t: 'Courts 3 and 4 tonight. Please confirm by 5 PM.', at: 'Today, 8:05 AM' }],
+        'Monday Morning Tennis': [{ from: 'me', t: 'Session 5 moves to Mon, Oct 26 at 6:00 PM. Approved by Sophia.', at: 'Yesterday, 5:30 PM' }],
+        'Tuesday Tennis Club': [{ from: 'them', who: 'Grace Liu', role: 'Player', ini: 'GL', t: 'Thanks for the reminder, see everyone at 6!', at: 'Oct 7, 4:12 PM' }],
+        'Weekend Beginners': [{ from: 'me', t: 'Bring water, we’ll do serve drills first.', at: 'Oct 5, 9:00 AM' }],
+        'Maria Lopez': [
+          { from: 'them', t: 'Hi Albert, should I bring the ball machine on Saturday?', at: 'Today, 9:40 AM' },
+          { from: 'me', t: 'Yes please, courts 2 and 3 are ours.', at: 'Today, 9:45 AM' },
+          { from: 'them', t: 'Great, see you then!', at: 'Today, 9:46 AM' },
+        ],
+        'Olivia Chen': [{ from: 'them', t: 'Is it okay if I leave 10 minutes early this week?', at: 'Today, 8:05 AM' }],
+        'Jessica Lee': [{ from: 'them', t: 'Sorry, I can’t make it on Oct 24.', at: 'Mon, 7:50 PM' }, { from: 'me', t: 'No problem, I’ll find you a replacement.', at: 'Mon, 8:02 PM' }],
+      },
+      profiles: {
+        'Maria Lopez': { level: 'Tennis · Certified coach', fee: '$25 per player, per session', since: 'March 2025', clinics: [{ ...SAT, their: 'Coach' }, { ...WKD, their: 'Coach' }] },
+        'Jessica Lee': { level: 'Tennis · NTRP 3.5', since: 'September 2025', clinics: [{ ...SAT, their: 'Player' }] },
+        'Robert Wilson': { level: 'Tennis · NTRP 4.0', since: 'May 2025', clinics: [{ ...SAT, their: 'Player' }, { ...THU, their: 'Substitute' }] },
+        'Priya Nair': { level: 'Tennis · NTRP 3.5', since: 'July 2025', clinics: [{ ...SAT, their: 'Substitute' }] },
+        'Olivia Chen': { level: 'Tennis · NTRP 3.5', since: 'January 2026', clinics: [{ ...THU, their: 'Player' }] },
+        'Daniel Kim': { level: 'Tennis · NTRP 3.5', since: 'April 2025', clinics: [{ ...THU, their: 'Player' }] },
+      },
+    };
+  </script>
+  <script src="js/direct-chat.js"></script>
+  <script src="js/messages-page.js"></script>
+  <script>
+    MessagesPage({
+      caret: 'assets/icons/caret-right.svg',
+      unread: { 'Saturday Tennis': 2, 'Thursday Rally': 1, 'Olivia Chen': 1 },
+      groups: [
+        { name: 'Saturday Tennis', ini: 'ST', tone: '', role: 'Organizer', members: 9 },
+        { name: 'Thursday Rally', ini: 'TR', tone: 'ok', role: 'Player', members: 8 },
+        { name: 'Monday Morning Tennis', ini: 'MM', tone: 'warn', role: 'Organizer', members: 9 },
+        { name: 'Tuesday Tennis Club', ini: 'TT', tone: '', role: 'Organizer', members: 10 },
+        { name: 'Weekend Beginners', ini: 'WB', tone: 'purple', role: 'Coach', members: 6 },
+        { name: 'Friday Padel Night', ini: 'FP', tone: '', role: 'Organizer', members: 4, empty: 'No messages yet. The chat opens when the first session is scheduled.' },
+      ],
+      people: [
+        { clinic: 'Saturday Tennis', name: 'Maria Lopez', role: 'Coach', photo: P + 'coach.png' },
+        { clinic: 'Saturday Tennis', name: 'Jessica Lee', role: 'Player', photo: P + 'blonde.png' },
+        { clinic: 'Saturday Tennis', name: 'Robert Wilson', role: 'Player', photo: P + 'man1.png' },
+        { clinic: 'Saturday Tennis', name: 'Priya Nair', role: 'Substitute', photo: P + 'dark.png' },
+        { clinic: 'Thursday Rally', name: 'Olivia Chen', role: 'Player', photo: P + 'sophia.png' },
+        { clinic: 'Thursday Rally', name: 'Daniel Kim', role: 'Player', photo: P + 'man2.png' },
+      ],
+    });
   </script>
 </body>
 </html>
