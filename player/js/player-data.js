@@ -44,16 +44,11 @@
       day: 'Wed', days: 'Wednesdays', start: '18:00', end: '19:30', startDate: '2026-04-08', sessions: 6, allowed: 6, capacity: 4,
       players: ['Jessica Lee', 'Liam Johnson', 'Olivia Chen', 'Robert Wilson'], subs: ['Maria Lopez'],
       // final state of each of your sessions
-      past: { 1: 'attended', 2: 'attended', 3: 'replaced', 4: 'attended', 5: 'attended', 6: 'attended' }, replacedBy: { 3: 'Maria Lopez' }, paidFacility: { method: 'Venmo', on: 'Apr 2' } },
-    { id: 'sunday', description: 'Social padel mornings with rotating partners. Rackets were available to borrow.', name: 'Sunday Padel Social', sport: 'Padel', status: 'cancelled', role: 'Player', share: 'Half Share',
-      organizer: 'Jenny Wilson', coach: null, coachFee: 0, facilityFee: 120, location: 'Northside Padel Club',
-      day: 'Sun', days: 'Sundays', start: '10:00', end: '11:00', startDate: '2026-08-02', sessions: 8, allowed: 4, capacity: 4,
-      players: ['Jessica Lee', 'Olivia Chen', 'Marcus Reed', 'Liam Johnson'], subs: [],
-      booked: [1, 3, 5, 7], past: { 1: 'attended', 3: 'attended' }, cancelledOn: 'Aug 20', reason: 'The club closed the padel courts for resurfacing.', refund: '$60 refunded for the 2 sessions not played', paidFacility: { method: 'Zelle', on: 'Jul 28' } },
+      past: { 1: 'attended', 2: 'attended', 3: 'replaced', 4: 'attended', 5: 'attended', 6: 'attended' }, replacedBy: { 3: 'Maria Lopez' }, paidFacility: { method: 'Venmo', on: 'Apr 2' }, },
   ];
 
   const DEFAULTS = {
-    booked: { monday: [1, 3, 5, 7], spring: [1, 2, 3, 4, 5, 6], sunday: [1, 3, 5, 7] },
+    booked: { monday: [1, 3, 5, 7], spring: [1, 2, 3, 4, 5, 6] },
     joined: {},        // "clinic:n" → true for replacement spots you took (beyond your share)
     rsvp: {},          // kept for older saved state; booked sessions are always 'going'
     today: null,       // "clinic:n" of a session happening today, before it starts (prototype: 'it's session day')
@@ -95,15 +90,15 @@
   // What a session looks like to the player
   function statusOf(s) {
     const c = s.clinic;
-    if (c.status === 'completed' || (c.status === 'cancelled' && c.past && c.past[s.n])) {
+    if (c.cancelled && c.cancelled[s.n]) return { kind: 'cancelled', label: 'Session cancelled', tone: 'red' };
+    if (c.status === 'completed') {
       if (!isBooked(s)) return { kind: 'other', label: 'Not in your share', tone: 'gray' };
       const p = (c.past || {})[s.n] || 'attended';
       return { kind: p, label: p === 'attended' ? 'Attended' : p === 'replaced' ? `Replaced by ${c.replacedBy?.[s.n] || 'a substitute'}` : 'Missed', tone: p === 'attended' ? 'green' : 'gray' };
     }
-    if (c.status === 'cancelled') return { kind: 'cancelled', label: 'Cancelled', tone: 'red' };
     const r = requestOf(s);
     if (isBooked(s) && state.played[key(s)]) return { kind: 'attended', label: 'Attended', tone: 'green' };
-    if (isBooked(s) && state.today === key(s) && !(r && r.status === 'filled')) return { kind: 'today', label: `Today · ${fmtTime(s.clinic.start)} ${ampm(s.clinic.start)}`, tone: 'blue' };
+    if (isBooked(s) && state.today === key(s) && !(r && r.status === 'filled')) return { kind: 'today', label: 'Today', tone: 'blue' };
     if (isBooked(s)) {
       if (r && r.status === 'filled') return { kind: 'replaced', label: `Replaced by ${r.by}`, tone: 'gray' };
       if (r) return { kind: 'requested', label: r.status === 'subs' ? 'Request sent to substitutes' : 'Replacement requested', tone: 'purple' };
@@ -146,7 +141,7 @@
     fillRequest(s, by, byRole) { const r = state.requests[key(s)]; if (r) { r.status = 'filled'; r.by = by; r.byRole = byRole; save(); } },
     cancelRequest(s) { delete state.requests[key(s)]; state.rsvp[key(s)] = 'going'; save(); },
     isPlayed: s => !!state.played[key(s)],
-    attendedCount() { return Object.keys(state.played).length; },
+    attendedCount(filter = () => true) { return Object.keys(state.played).filter(k => { const c = CLINICS.find(x => x.id === k.split(':')[0]); return c && filter(c); }).length; },
     // Prototype: your next session happens (so its coach fee becomes due)
     nextToPlay(c) { return this.booked(c).find(x => !state.played[key(x)] && !(requestOf(x)?.status === 'filled')); },
     todayOf(c) { const s = state.today && this.booked(c).find(x => key(x) === state.today); return s || null; },

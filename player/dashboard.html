@@ -31,9 +31,22 @@
 
       <hr class="pd-rule">
 
+      <div class="pills pd-roles" role="tablist" aria-label="Filter by role" id="role-pills">
+        <button type="button" role="tab" data-role="all" class="on" aria-selected="true">All</button>
+        <button type="button" role="tab" data-role="Player" aria-selected="false">Player</button>
+        <button type="button" role="tab" data-role="Substitute" aria-selected="false">Substitute</button>
+      </div>
+
+      <section class="pd-upcoming pd-open" aria-labelledby="h-open" id="open-sec" hidden>
+        <div class="section-head">
+          <h2 class="pd-h2 display" id="h-open">Open spots <span class="count" id="open-count"></span></h2>
+        </div>
+        <div class="ps-list" id="open-list"></div>
+      </section>
+
       <section class="pd-upcoming" aria-labelledby="h-upcoming">
         <div class="section-head">
-          <h2 class="pd-h2" id="h-upcoming">Upcoming Sessions</h2>
+          <h2 class="pd-h2 display" id="h-upcoming">Upcoming Sessions</h2>
           <a class="link" href="clinic.html?id=monday&tab=sessions">View schedule<img class="icon-16" src="assets/icons/caret-right-brand.svg" alt=""></a>
         </div>
         <div class="ps-list" id="upcoming-list"></div>

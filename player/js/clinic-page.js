@@ -1,6 +1,6 @@
 /* Player clinic page: Overview · Sessions · Players · Payments for one clinic (?id=monday&tab=sessions&open=2).
    Active clinics are interactive (RSVP, can't make it → replacement request, join an open spot, chat);
-   completed and cancelled clinics are read-only history. Data and state: js/player-data.js. */
+   completed clinics are read-only history. Data and state: js/player-data.js. */
 
 (() => {
   const P = PlayerData, $ = s => document.querySelector(s);
@@ -24,7 +24,9 @@
   document.title = `${c.name} · ClinicSync`;
   $('#c-name').textContent = c.name; $('#c-role').textContent = c.role; $('#c-sport').textContent = c.sport;
   const started = sessions[0].date <= P.TODAY;
-  // the clinic status (Starts Oct 5 / Active / Completed / Cancelled) shows on the clinic card in the Clinics list, not here
+  // clinic status, top right of the header
+  $('#c-status').textContent = c.status === 'completed' ? 'Completed' : 'Active';
+  $('#c-status').classList.add(c.status === 'completed' ? 'badge-mute' : 'badge-ok');
   $('#c-schedule').textContent = `${short(sessions[0].date)} – ${short(sessions.at(-1).date)} · ${c.days}, ${P.timeRange(c)}`;
   $('#c-location').textContent = c.location;
   if (c.description) { $('#c-desc').textContent = c.description; $('#c-desc').hidden = false; }
@@ -33,12 +35,23 @@
   // ---------- banner (role / history) ----------
   const mine = P.booked(c), past = c.past || {};
   const att = mine.filter(s => past[s.n] === 'attended').length, rep = mine.filter(s => past[s.n] === 'replaced').length;
+
+  // Completed clinic: a wrap-up card with an attendance ring, totals and a session-by-session strip
+  function doneBanner() {
+    const I = '../organizer/assets/icons/';
+    const dots = mine.map(x => { const k = past[x.n] === 'replaced' ? 'rep' : 'ok'; return `<li class="cd-dot ${k}" title="Session ${x.n} · ${short(x.date)} · ${k === 'ok' ? 'Attended' : 'Replaced'}"><b>${x.n}</b><small>${short(x.date)}</small></li>`; }).join('');
+    return `<section class="cd">
+      <div class="cd-main">
+        <span class="cd-badge"><img src="${I}check-circle-green.svg" alt="">Completed</span>
+        <h2 class="cd-title">That’s a wrap!</h2>
+        <p class="cd-sub">This clinic ended on ${long(sessions.at(-1).date)}. Your sessions and payments stay here for reference.</p>
+        <ol class="cd-strip" aria-label="Your sessions">${dots}</ol>
+        <div class="cd-legend"><span><i class="ok"></i>Attended</span><span><i class="rep"></i>Replaced</span></div>
+      </div>
+    </section>`;
+  }
   $('#c-banner').innerHTML = c.status === 'completed'
-    ? `<div class="pc-banner"><div><b>This clinic ended on ${long(sessions.at(-1).date)}.</b><span>Your sessions and payments stay here for reference. Chat is read-only.</span></div>
-        <dl class="cl-result"><div><dt>Attended</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Replaced</dt><dd>${rep}</dd></div><div><dt>Fees</dt><dd class="ok">All paid</dd></div></dl></div>`
-    : c.status === 'cancelled'
-      ? `<div class="pc-banner danger"><div><b>${esc(c.organizer)} cancelled this clinic on ${c.cancelledOn}.</b><span>“${esc(c.reason)}”</span></div>
-        <dl class="cl-result"><div><dt>Played</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Remaining sessions</dt><dd>Cancelled</dd></div><div><dt>Refund</dt><dd class="ok">${esc(c.refund)}</dd></div></dl></div>`
+    ? doneBanner()
       : c.role === 'Substitute'
         ? `<div class="pc-banner info"><div><b>You’re on the substitute list.</b><span>When a player can’t make it, the spot goes to the clinic’s players first, then to substitutes. Open spots show up in Sessions.</span></div></div>`
         : '';
@@ -54,7 +67,7 @@
       case 'going': return '';
       case 'requested': return row(r.status === 'subs' ? 'No player joined in time, so your spot went to the substitutes.' : `Your spot is offered to the clinic’s players${r.reason ? ` · “${esc(r.reason)}”` : ''}.`,
         `<button class="btn btn-sm btn-soft" type="button" data-cancel-req="${s.n}">Cancel request</button>${r.status === 'players' ? `<button class="p-demo" type="button" data-demo="${s.n}">Prototype: no player joins in time</button>` : ''}`);
-      case 'today': return row(`Starts at ${when} at ${esc(c.moved?.[s.n]?.venue || c.location)}${c.court ? ` · ${esc(c.court)}` : ''}. ${c.coachFee ? `The $${c.coachFee} coach fee is charged after the session.` : ''}`,
+      case 'today': return row('',
         `<button class="btn btn-sm btn-soft" type="button" data-late="${s.n}">Running late</button><button class="btn btn-sm btn-soft" type="button" data-cant="${s.n}">Can’t make it</button>`);
       case 'attended': { const p = P.coachPaidOf(s); return row(c.coachFee ? `You attended. Coach fee $${c.coachFee} ${!p ? 'is due.' : p.status === 'paid' ? `paid · ${p.method}.` : `reported · ${p.method}.`}` : 'You attended.', c.coachFee && !p ? '<button class="btn btn-sm btn-primary" type="button" data-pay-coach>Pay coach fee</button>' : ''); }
       case 'replaced': return row(`${esc(r.by)} took your spot. You’re off this session and won’t pay its coach fee.`, '');
@@ -85,9 +98,40 @@
   }
 
   // ---------- session modal ----------
+  // A session that already happened: the coach fee and who actually played
+  function doneSession(s, st) {
+    const n = s.n, mv = c.moved?.[n], venue = mv ? mv.venue : c.location;
+    const replaced = st.kind === 'replaced', by = replaced ? (c.replacedBy?.[n] || P.requestOf(s)?.by || 'A substitute') : null;
+    // who played: everyone else, you (or the person who took your spot)
+    const others = P.participants(s).filter(p => !p.me && !p.out && !(replaced && p.name === by));
+    const roster = replaced
+      ? [...others.map(p => ({ ...p })), { name: by, role: P.requestOf(s)?.byRole || 'Substitute', replacement: true }, { name: P.PLAYER.name, role: 'Player', me: true, out: true }]
+      : [{ name: P.PLAYER.name, role: 'Player', me: true, replacement: !!P.state.joined[`${c.id}:${n}`] }, ...others];
+    const played = roster.filter(p => !p.out).length;
+    // coach fee for this one session
+    const paid = live ? P.coachPaidOf(s) : { method: c.paidFacility?.method || 'Stripe', status: 'paid' };
+    const fee = !c.coachFee ? null
+      : replaced ? { amt: '$0', pill: '<span class="st st-gray">Not charged</span>', note: `${esc(by.split(' ')[0])} played this one, so there’s no fee for you` }
+      : !paid ? { amt: `$${c.coachFee}`, pill: '<span class="st st-yellow">Due</span>', note: 'Charged after the session · pay by card, Venmo, Zelle or cash', due: true }
+      : paid.status === 'paid' ? { amt: `$${c.coachFee}`, pill: `<span class="st st-green">Paid · ${paid.method}</span>`, note: `Paid to ${esc(c.coach)}` }
+      : { amt: `$${c.coachFee}`, pill: `<span class="st st-purple">${paid.method === 'Cash' ? 'Cash · to confirm' : `Reported · ${paid.method}`}</span>`, note: `Waiting for ${esc(c.coach.split(' ')[0])} to confirm` };
+    return `
+      <div class="m-head"><div><div class="cs-title"><h2 id="sm-title">${long(s.date)}</h2><span class="badge badge-mute">Completed</span></div><p>${P.timeRange(c)} · Session ${n} of ${c.sessions}</p></div><button class="m-x" type="button" data-close aria-label="Close"><img src="${I}x-close-sm.svg" alt=""></button></div>
+      ${fee ? `<div class="cs-fee${fee.due ? ' due' : ''}">${face(c.coach)}<div class="m-who"><b>Coach fee · ${esc(c.coach)}</b><span>${fee.note}</span></div><div class="cs-amt"><b>${fee.amt}</b>${fee.pill}</div>${fee.due ? '<button class="btn btn-sm btn-primary" type="button" data-pay-coach>Pay now</button>' : ''}</div>` : ''}
+      <hr class="m-hr">
+      <section class="m-sec"><div class="m-sec-h"><h3>Who played</h3><span class="m-count">${played} played</span></div>
+        ${roster.map(p => `<div class="m-row${p.out ? ' out' : ''}">${face(p.name)}<div class="m-who"><b${p.me ? ' data-me' : ''}>${esc(p.name)}${p.me ? ' (You)' : ''}</b><span class="m-tags"><span class="tag">${p.role}</span>${p.replacement ? '<span class="tag tag-repl">Replacement</span>' : ''}</span></div>${p.out ? '<span class="st st-gray">Replaced</span>' : '<span class="st st-green">Played</span>'}</div>`).join('')}
+      </section>`;
+  }
+
   function openSession(n) {
     const s = s$(n); modalFor = n;
     const st = P.statusOf(s), mv = c.moved?.[n], ps = P.participants(s);
+    if (['attended', 'replaced'].includes(st.kind) || (live && P.isBooked(s) && P.isPlayed(s))) {
+      $('#sm').innerHTML = doneSession(s, st);
+      const ov = $('#session'); if (ov.hidden) { ov.hidden = false; document.body.style.overflow = 'hidden'; }
+      return;
+    }
     const confirmed = ps.filter(p => !p.out && !(p.me && st.kind !== 'going' && st.kind !== 'attended')).length;
     const pStatus = p => p.out ? (p.me ? '<span class="st st-gray">Replaced</span>' : '<span class="st st-gray">Can’t make it</span>')
       : p.me ? (st.kind === 'requested' ? '<span class="st st-red">Need Replacement</span>' : st.kind === 'pending' ? '<span class="st st-yellow">RSVP pending</span>' : '<span class="st st-green">Confirmed</span>')
@@ -139,9 +183,9 @@
     return `${cf.due.length ? `<div class="p-payline due"><div><b>Coach fee due</b><span>${cf.due.map(s => `Session ${s.n} (${short(s.date)})`).join(', ')}</span></div><div class="amt"><b>$${cf.due.length * c.coachFee}</b><span class="st st-yellow">Due</span></div></div>
       <button class="btn btn-md btn-primary btn-block" type="button" data-pay-coach>Pay coach fee · $${cf.due.length * c.coachFee}</button>`
       : `<div class="p-payline"><div><b>Coach fee</b><span>$${c.coachFee} after each session you attend</span></div><div class="amt"><b>$${cf.paidAmt}</b><span class="st ${cf.reported.length ? 'st-purple' : 'st-green'}">${cf.reported.length ? 'Reported' : cf.paidAmt ? 'Paid' : 'Nothing due'}</span></div></div>`}
-      ${cf.reported.length ? `<div class="p-paysum"><span>Waiting for ${esc(c.coach)} to confirm · ${n(cf.reported.length)}</span><b>$${cf.reported.length * c.coachFee}</b></div>` : ''}
-      ${cf.upcoming.length ? `<div class="p-paysum"><span>Charged after the session · ${n(cf.upcoming.length, 'session')} to come</span><b>$${cf.upcoming.length * c.coachFee}</b></div>` : ''}
-      ${cf.today ? `<div class="p-paysum today"><span>Today · Session ${cf.today.n} · charged after it</span><b>$${c.coachFee}</b></div>` : ''}
+      ${cf.reported.length ? `<div class="p-paysum"><span>Pending</span><b>$${cf.reported.length * c.coachFee}</b></div>` : ''}
+      ${cf.upcoming.length ? `<div class="p-paysum"><span>Upcoming</span><b>$${cf.upcoming.length * c.coachFee}</b></div>` : ''}
+      ${cf.today ? `<div class="p-paysum today"><span>Today</span><b>$${c.coachFee}</b></div>` : ''}
       ${demoBtn(cf)}`;
   }
   const facilityLine = () => c.facilityFee ? `<div class="p-payline"><div><b>Facility fee</b><span>Paid when you accepted the invite${c.paidFacility ? ` · ${c.paidFacility.method}` : ''}</span></div><div class="amt"><b>$${c.facilityFee}</b><span class="st st-green">Paid</span></div></div>` : '';
@@ -173,18 +217,20 @@
   // ---------- tabs ----------
   const statBox = (label, val, small) => `<div><span>${label}</span><b>${val}${small ? `<small>${small}</small>` : ''}</b></div>`;
   function personRow(name, role, note, me) {
-    return `<div class="pl-row">${face(name, 'pl-av')}<div class="pl-who"><span class="pl-name"><b>${esc(name)}${me ? ' (You)' : ''}</b><span class="chip">${role}</span></span>${note ? `<span class="pl-note">${esc(note)}</span>` : ''}</div>${me || !live ? '<span class="dc-gap"></span>' : chatBtn(name, role)}</div>`;
+    return `<div class="pl-row">${face(name, 'pl-av')}<div class="pl-who"><span class="pl-name"><b>${esc(name)}${me ? ' (You)' : ''}</b><span class="chip">${role}</span></span>${note ? `<span class="pl-note">${esc(note)}</span>` : ''}</div>${me ? '<span class="dc-gap"></span>' : chatBtn(name, role)}</div>`;
   }
   const TABS = {
     overview() {
       // your next three sessions (booked or joined, not handed to someone else)
-      const upcoming = P.booked(c).filter(s => s.date >= P.TODAY && P.statusOf(s).kind !== 'replaced').slice(0, 3);
+      const upcoming = P.booked(c).filter(s => s.date >= P.TODAY && !['replaced', 'attended'].includes(P.statusOf(s).kind) && !P.isPlayed(s)).slice(0, 3);
       const open = live ? P.openSpots(c) : [];
       const stats = live
         ? (c.role === 'Substitute' ? statBox('Your role', 'Sub') + statBox('Sessions taken', String(mine.length).padStart(2, '0')) + statBox('Open spots', String(open.length).padStart(2, '0'))
           : statBox('Your sessions', String(mine.length).padStart(2, '0'), `/${String(c.sessions).padStart(2, '0')}`) + statBox('Attended', String(P.booked(c).filter(P.isPlayed).length).padStart(2, '0')) + statBox('Open spots', String(open.length).padStart(2, '0')))
-        : statBox('Attended', String(att).padStart(2, '0'), `/${String(mine.length).padStart(2, '0')}`) + statBox('Replaced', String(rep).padStart(2, '0')) + statBox(c.status === 'cancelled' ? 'Cancelled sessions' : 'Sessions run', String(c.status === 'cancelled' ? c.sessions - Object.keys(past).length : c.sessions).padStart(2, '0'));
+        : statBox('Attended', String(att).padStart(2, '0'), `/${String(mine.length).padStart(2, '0')}`) + statBox('Replaced', String(rep).padStart(2, '0')) + statBox('Sessions run', String(c.sessions).padStart(2, '0'));
       const nextSec = live && upcoming.length ? `<section class="ov-sessions"><div class="section-head"><h2 class="h2">Your upcoming sessions</h2><button class="link" type="button" data-goto="sessions">All sessions<img class="icon" src="${I}caret-right.svg" alt=""></button></div><div class="ov-list">${upcoming.map(sCard).join('')}</div></section>` : '';
+      // Finished clinics: your sessions as history, filling the overview
+      const pastSec = !live && mine.length ? `<section class="ov-sessions"><div class="section-head"><h2 class="h2">Your sessions</h2><button class="link" type="button" data-goto="sessions">All sessions<img class="icon" src="${I}caret-right.svg" alt=""></button></div><div class="ov-list">${mine.slice(0, 3).map(sCard).join('')}</div></section>` : '';
       // Open spots live on the overview: sessions someone can't make, which you can join
       const openSec = live && open.length ? `<section class="ov-sessions ov-open" id="open-spots"><div class="section-head"><h2 class="h2 with-count">Open spots <span class="count">${open.length}</span></h2></div><div class="ov-list">${open.map(sCard).join('')}</div></section>` : '';
       const more = live && c.role === 'Player' && !moreHidden() ? `<div class="p-more"><span class="p-more-ic"><img src="${I}user-plus.svg" alt=""></span><div><b>Want to play more?</b><span>You can join extra sessions when a replacement spot opens, even after reaching your share limit.${open.length ? ` ${open.length} spot${open.length > 1 ? 's are' : ' is'} open below.` : ''}</span></div><button class="p-more-x" type="button" data-hide-more aria-label="Dismiss"><img src="${I}x.svg" alt=""></button></div>` : '';
@@ -200,7 +246,7 @@
         ${facilityLine()}
         ${c.coachFee ? coachBlock(cf) : ''}
       </section>` : '';
-      return `<div class="ov"><div class="ov-main"><div class="ov-stats">${stats}</div>${more}${openSec}${nextSec}</div>
+      return `<div class="ov"><div class="ov-main"><div class="ov-stats">${stats}</div>${more}${openSec}${nextSec}${pastSec}</div>
         <aside class="ov-side"><section class="ov-coach"><div class="ovc-head"><h2 class="h2">Organizer &amp; coach</h2></div>
           ${personRow(c.organizer, 'Organizer', '')}${c.coach ? personRow(c.coach, 'Coach', `$${c.coachFee} per session`) : ''}</section>
           ${payCard}
@@ -222,21 +268,20 @@
     },
     payments() {
       const rows = [];
-      if (c.facilityFee) rows.push([`Facility fee · ${c.share}<small>Paid when you accepted the invite</small>`, c.paidFacility ? c.paidFacility.on : short(sessions[0].date), `$${c.facilityFee}.00`, `<span class="st st-green">Paid${c.paidFacility ? ` · ${c.paidFacility.method}` : ''}</span>`]);
+      if (c.facilityFee) rows.push([`Facility fee · ${c.share}`, c.paidFacility ? c.paidFacility.on : short(sessions[0].date), `$${c.facilityFee}.00`, `<span class="st st-green">Paid${c.paidFacility ? ` · ${c.paidFacility.method}` : ''}</span>`]);
       const cf = coachFees();
       for (const s of mine) {
         if (!c.coachFee) break;
         const st = P.statusOf(s), label = `Coach fee · Session ${s.n}${P.state.joined[`${c.id}:${s.n}`] ? ' (extra)' : ''}`;
         if (st.kind === 'replaced') { rows.push([label, short(s.date), '—', '<span class="st st-gray">Not charged · replaced</span>']); continue; }
-        if (st.kind === 'cancelled') { rows.push([label, short(s.date), '—', '<span class="st st-gray">Not charged · cancelled</span>']); continue; }
+        if (st.kind === 'cancelled') { rows.push([label, short(s.date), '—', '<span class="st st-gray">Not charged · session cancelled</span>']); continue; }
         const p = live ? P.coachPaidOf(s) : { method: c.paidFacility?.method || 'Stripe', status: 'paid' };
-        if (live && !P.isPlayed(s)) { rows.push([label, short(s.date), `$${c.coachFee}.00`, st.kind === 'today' ? '<span class="st st-blue">Today · charged after the session</span>' : '<span class="st st-gray">Charged after the session</span>']); continue; }
+        if (live && !P.isPlayed(s)) { rows.push([label, short(s.date), `$${c.coachFee}.00`, '<span class="muted">—</span>']); continue; }
         rows.push([label, short(s.date), `$${c.coachFee}.00`, !p ? '<span class="st st-yellow">Due</span>'
           : p.status === 'paid' ? `<span class="st st-green">Paid · ${p.method}</span>` : `<span class="st st-purple">${p.method === 'Cash' ? 'Cash · to confirm' : `Reported · ${p.method}`}</span>`]);
       }
-      if (c.status === 'cancelled') rows.push(['Refund · unplayed sessions', c.cancelledOn, '−$60.00', `<span class="st st-blue">Refunded · ${c.paidFacility?.method || 'Stripe'}</span>`]);
       const sum = statBox('Facility fee', c.facilityFee ? `$${c.facilityFee}` : '$0') + statBox('Coach fees paid', `$${cf.paidAmt}`)
-        + (c.status === 'cancelled' ? statBox('Refunded', '$60') : statBox(live ? 'Coach fee due now' : 'Outstanding', `$${cf.due.length * c.coachFee}`));
+        + statBox(live ? 'Coach fee due now' : 'Outstanding', `$${cf.due.length * c.coachFee}`);
       const btn = live && cf.due.length ? `<button class="btn btn-md btn-primary" type="button" data-pay-coach>Pay coach fee · $${cf.due.length * c.coachFee}</button>` : demoBtn(cf);
       return `<div class="p-pay"><div class="ov-stats">${sum}</div>${btn ? `<div class="p-pay-head">${btn}</div>` : ''}
         ${rows.length ? `<div class="p-pay-table" role="table"><div class="p-pay-row head" role="row"><span>Item</span><span>Date</span><span>Amount</span><span>Status</span></div>${rows.map(r => `<div class="p-pay-row" role="row">${r.map(x => `<span>${x}</span>`).join('')}</div>`).join('')}</div>` : '<p class="muted">Nothing to pay yet.</p>'}</div>`;
@@ -244,10 +289,11 @@
   };
   function render() {
     document.querySelectorAll('#c-tabs [data-tab]').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('on', on); b.setAttribute('aria-current', on ? 'page' : 'false'); });
+    $('#c-banner').hidden = c.status === 'completed' && tab !== 'overview';
     $('#c-body').innerHTML = TABS[tab]();
     if (modalFor && !$('#session').hidden) openSession(modalFor);
   }
-  const go = t => { tab = t; const u = new URL(location); u.searchParams.set('tab', t); u.searchParams.delete('open'); history.replaceState(null, '', u); render(); };
+  const go = t => { tab = t; const u = new URL(location); u.searchParams.set('tab', t); u.searchParams.delete('open'); u.searchParams.delete('join'); history.replaceState(null, '', u); render(); };
 
   // ---------- events ----------
   document.addEventListener('click', e => {
@@ -266,22 +312,26 @@
     }
     if (b('[data-hide-more]')) { hideMore(); return render(); }
     if (b('[data-dismiss]')) { const x = s$(+b('[data-dismiss]').dataset.dismiss); P.dismissSpot(x); $('#session').hidden = true; modalFor = null; document.body.style.overflow = ''; window.toast(`Session ${x.n} hidden. You’ll still get a notification when another spot opens.`); return render(); }
-    if (b('[data-join]')) {
-      actFor = s$(+b('[data-join]').dataset.join); const o = c.openSpots[actFor.n];
-      $('#jn-lead').textContent = `${long(actFor.date)} · ${P.timeRange(c)} at ${c.location}`;
-      $('#jn-impact').innerHTML = [`<b>${esc(o.who)}</b> can’t make it${o.reason ? ` (${esc(o.reason)})` : ''}, so one spot is open.`,
-        c.role === 'Player' ? 'You’re added with a <b>Replacement</b> tag, even past your share limit.' : 'You’re added as a <b>Substitute</b> with a Replacement tag.',
-        c.coachFee ? `Coach fee for this session: <b>$${c.coachFee}</b>, charged after it.` : 'No coach fee for this session.',
-        `${esc(c.organizer)} and the group are told you’re in.`].map(x => `<li>${x}</li>`).join('');
-      $('#join').hidden = false; return;
-    }
+    if (b('[data-join]')) return openJoin(+b('[data-join]').dataset.join);
+    if (b('#session [data-close]') || t.id === 'session') modalFor = null;
+    if (b('#reset-demo')) { P.reset(); location.reload(); }
+  });
+  function openJoin(n) {
+      actFor = s$(n);
+      $('#jn-date').textContent = long(actFor.date);
+      $('#jn-time').textContent = P.timeRange(c);
+      $('#jn-loc').textContent = c.location;
+      $('#jn-role').textContent = c.role;
+      $('#jn-fee').textContent = `$${(c.coachFee || 0).toFixed(2)}`;
+      $('#join').hidden = false; document.body.style.overflow = 'hidden';
+  }
+  document.addEventListener('click', e => {
+    const t = e.target, b = (sel) => t.closest(sel);
     if (b('[data-pay-coach]')) return openPayCoach();
     if (b('[data-session-day]')) { const x = P.sessionDay(c); if (x) window.toast(`It’s session day: Session ${x.n} starts at ${when}.`); return render(); }
     if (b('[data-late]')) return window.toast(`Posted in the clinic chat: “Running a few minutes late.” ${c.organizer.split(' ')[0]} and the group can see it.`);
     if (b('[data-play-next]')) { const x = P.playNext(c); if (x) window.toast(`Session ${x.n} on ${short(x.date)} is done. Its $${c.coachFee} coach fee is now due.`); return render(); }
     if (b('[data-chat]')) { const x = b('[data-chat]'); return DirectChat.open({ name: x.dataset.chat, role: x.dataset.role, photo: photo(x.dataset.chat), ctx: ' · ' + c.name }); }
-    if (b('#session [data-close]') || t.id === 'session') modalFor = null;
-    if (b('#reset-demo')) { P.reset(); location.reload(); }
   });
   $('#rp-go').addEventListener('click', () => {
     P.requestReplacement(actFor, $('#rp-reason').value.trim()); $('#replace').hidden = true;
@@ -299,6 +349,7 @@
     window.toast(`You joined Session ${actFor.n} on ${short(actFor.date)}`); render();
   });
 
-  if (q.get('open') && sessions[+q.get('open') - 1]) { const n = +q.get('open'); if (!q.get('tab')) tab = P.statusOf(s$(n)).kind === 'open' ? 'overview' : 'sessions'; render(); openSession(n); }
+  if (q.get('join') && sessions[+q.get('join') - 1] && P.statusOf(s$(+q.get('join'))).kind === 'open') { tab = 'overview'; render(); openJoin(+q.get('join')); const u = new URL(location); u.searchParams.delete('join'); history.replaceState(null, '', u); }
+  else if (q.get('open') && sessions[+q.get('open') - 1]) { const n = +q.get('open'); if (!q.get('tab')) tab = P.statusOf(s$(n)).kind === 'open' ? 'overview' : 'sessions'; render(); openSession(n); }
   else render();
 })();

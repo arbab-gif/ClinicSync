@@ -24,7 +24,7 @@
   <header data-player-header data-active="Clinics"></header>
 
   <main class="page">
-    <a class="back" href="clinics.html"><img class="icon" src="../organizer/assets/icons/arrow-left.svg" alt="">My clinics</a>
+    <div class="c-topbar"><a class="back" href="clinics.html"><img class="icon" src="../organizer/assets/icons/arrow-left.svg" alt="">My clinics</a><span class="badge" id="c-status"></span></div>
     <div class="clinic-head">
       <div>
         <div class="clinic-title"><span class="title-wrap"><h1 id="c-name"></h1></span><span class="chip" id="c-role"></span><span class="chip" id="c-sport"></span></div>
@@ -69,10 +69,18 @@
   <div class="overlay" id="join" hidden role="dialog" aria-modal="true" aria-labelledby="jn-title">
     <div class="modal p-modal">
       <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
-      <h2 id="jn-title">Join this session?</h2>
-      <p class="lead" id="jn-lead"></p>
-      <ul class="rv-impact jn-impact" id="jn-impact"></ul>
-      <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-close>Not now</button><button class="btn btn-lg btn-primary" type="button" id="jn-go">Join this session</button></div>
+      <h2 id="jn-title">Confirm your spot</h2>
+      <p class="lead">Review the session details before confirming your spot.</p>
+      <div class="jn-when">
+        <b id="jn-date"></b>
+        <span><img src="../organizer/assets/icons/clock-16.svg" alt=""><span id="jn-time"></span></span>
+        <span><img src="../organizer/assets/icons/map-pin-16.svg" alt=""><span id="jn-loc"></span></span>
+      </div>
+      <dl class="jn-rows">
+        <div><dt>Joining as</dt><dd id="jn-role"></dd></div>
+        <div><dt>Coach fee</dt><dd id="jn-fee"></dd></div>
+      </dl>
+      <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-close>Cancel</button><button class="btn btn-lg btn-primary" type="button" id="jn-go">Confirm spot</button></div>
     </div>
   </div>
 

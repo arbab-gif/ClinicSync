@@ -71,3 +71,11 @@
   .ps .link { margin-left: 92px; }
   .pd-stats > div { padding-left: 16px; }
 }
+
+/* Open spots on the dashboard */
+.pd-open .count { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 8px; margin-left: 6px; border-radius: 999px; background: var(--brand-soft, #eef0ff); color: var(--brand, #4f46e5); font: 600 13px/1 'DM Sans', sans-serif; vertical-align: middle; }
+.ps-acts { display: flex; gap: 8px; flex: none; }
+@media (max-width: 720px) { .ps-acts { margin-left: 92px; } }
+
+/* Role filter under the welcome */
+.pd-roles { margin-top: -8px; margin-bottom: -8px; }

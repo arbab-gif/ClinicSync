@@ -28,7 +28,6 @@
     <nav class="tabs status-tabs" role="tablist" aria-label="Clinic status" id="status-tabs">
       <button type="button" role="tab" data-status="active">Active <span class="tab-count"></span></button>
       <button type="button" role="tab" data-status="completed">Completed <span class="tab-count"></span></button>
-      <button type="button" role="tab" data-status="cancelled">Cancelled <span class="tab-count"></span></button>
     </nav>
     <div class="list-tools">
       <div class="pills" aria-label="Filter by role" id="role-pills">
@@ -38,7 +37,6 @@
       </div>
       <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="clinic-q" type="search" placeholder="Search clinics" aria-label="Search clinics"></div>
     </div>
-    <p class="status-intro" id="status-intro"></p>
 
     <div class="clinics-grid" id="clinics"></div>
     <p class="muted" id="clinics-empty" hidden style="margin-top:24px"></p>
@@ -52,11 +50,6 @@
       const P = PlayerData, $ = s => document.querySelector(s);
       const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
       const I = '../organizer/assets/icons/';
-      const INTRO = {
-        active: 'Clinics running now or about to start. RSVP to your sessions and pick up open spots.',
-        completed: 'Clinics that have finished. Your sessions and payments stay here for reference.',
-        cancelled: 'Clinics the organizer cancelled, with their reason and what happened to your fees.',
-      };
       let status = new URLSearchParams(location.search).get('status') || 'active', role = 'all';
       const range = c => { const s = P.sessionsOf(c); return `${P.fmt(s[0].date, { month: 'short', day: 'numeric' })} – ${P.fmt(s.at(-1).date, { month: 'short', day: 'numeric' })}`; };
 
@@ -84,18 +77,19 @@
             <dl class="cl-result"><div><dt>Attended</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Replaced</dt><dd>${rep}</dd></div><div><dt>Fees</dt><dd class="ok">All paid</dd></div></dl>
             <div class="cl-foot"><span class="note">Ended ${P.fmt(P.sessionsOf(c).at(-1).date, { month: 'short', day: 'numeric' })}</span><span class="link">View history<img class="icon" src="${I}caret-right.svg" alt=""></span></div></a>`;
         }
-        return `<a class="card card-lg cl-card cl-past" href="${href}">${head}<span class="badge badge-danger">Cancelled</span></div>${meta}
-          <p class="cl-reason"><b>Cancelled</b>${esc(c.reason)}</p>
-          <dl class="cl-result"><div><dt>Played</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Cancelled on</dt><dd>${c.cancelledOn}</dd></div><div><dt>Refund</dt><dd class="ok">${c.refund.split(' ')[0]}</dd></div></dl>
-          <div class="cl-foot"><span class="note">${esc(c.refund)}</span><span class="link">View details<img class="icon" src="${I}caret-right.svg" alt=""></span></div></a>`;
       }
 
       function render() {
         const term = $('#clinic-q').value.trim().toLowerCase();
         document.querySelectorAll('#status-tabs [data-status]').forEach(b => { b.classList.toggle('on', b.dataset.status === status); b.setAttribute('aria-selected', b.dataset.status === status); b.querySelector('.tab-count').textContent = P.CLINICS.filter(c => c.status === b.dataset.status).length; });
-        const list = P.CLINICS.filter(c => c.status === status && (role === 'all' || c.role === role) && c.name.toLowerCase().includes(term));
+        const inTab = P.CLINICS.filter(c => c.status === status);
+        document.querySelectorAll('#role-pills [data-role]').forEach(b => {
+          const n = inTab.filter(c => b.dataset.role === 'all' || c.role === b.dataset.role).length;
+          b.textContent = `${b.dataset.role === 'all' ? 'All' : b.dataset.role} (${n})`;
+          b.disabled = !n && b.dataset.role !== 'all';
+        });
+        const list = inTab.filter(c => (role === 'all' || c.role === role) && c.name.toLowerCase().includes(term));
         $('#clinics').innerHTML = list.map(card).join('');
-        $('#status-intro').textContent = INTRO[status];
         $('#clinics-empty').hidden = list.length > 0;
         $('#clinics-empty').textContent = term || role !== 'all' ? 'No clinics match your filters.' : `No ${status} clinics yet.`;
       }
