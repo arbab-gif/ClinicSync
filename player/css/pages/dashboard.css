@@ -79,3 +79,4 @@
 
 /* Role filter under the welcome */
 .pd-roles { margin-top: -8px; margin-bottom: -8px; }
+.pa-ic.invite { background: var(--brand-wash, #edf1fc); color: var(--brand); }

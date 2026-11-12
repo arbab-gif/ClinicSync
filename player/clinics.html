@@ -74,7 +74,7 @@
         const att = mine.filter(s => past[s.n] === 'attended').length, rep = mine.filter(s => past[s.n] === 'replaced').length;
         if (c.status === 'completed') {
           return `<a class="card card-lg cl-card cl-past" href="${href}">${head}<span class="badge badge-mute">Completed</span></div>${meta}
-            <dl class="cl-result"><div><dt>Attended</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Replaced</dt><dd>${rep}</dd></div><div><dt>Fees</dt><dd class="ok">All paid</dd></div></dl>
+            <dl class="cl-result">${c.role === 'Substitute' ? `<div><dt>Sessions you played</dt><dd>${att}</dd></div><div><dt>Coach fees</dt><dd>$${att * c.coachFee}</dd></div>` : `<div><dt>Attended</dt><dd>${att} of ${mine.length}</dd></div><div><dt>Replaced</dt><dd>${rep}</dd></div>`}<div><dt>Fees</dt><dd class="ok">All paid</dd></div></dl>
             <div class="cl-foot"><span class="note">Ended ${P.fmt(P.sessionsOf(c).at(-1).date, { month: 'short', day: 'numeric' })}</span><span class="link">View history<img class="icon" src="${I}caret-right.svg" alt=""></span></div></a>`;
         }
       }

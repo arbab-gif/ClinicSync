@@ -16,7 +16,7 @@
   let rsvpFor = null;
 
   // Sessions you picked when you accepted the invite are confirmed: no RSVP step
-  const BADGE = { going: 'badge-ok', today: 'badge-info', requested: 'badge-purple', replaced: 'badge-mute', attended: 'badge-ok' };
+  const BADGE = { cancelled: 'badge-danger', going: 'badge-ok', today: 'badge-info', requested: 'badge-purple', replaced: 'badge-mute', attended: 'badge-ok' };
   function sessionCard(s) {
     const c = s.clinic, st = P.statusOf(s);
     // booked sessions are simply yours: only show a badge when something is different
@@ -26,7 +26,7 @@
       <div class="ps-body">
         <div class="ps-title"><h3>${esc(c.name)}</h3>${badge}</div>
         <div class="ps-row">
-          <span class="p-meta"><img src="${ICON}clock-16.svg" alt="">${c.day} · ${P.timeRange(c)}</span>
+          <span class="p-meta"><img src="${ICON}clock-16.svg" alt="">${s.dayLabel || c.day} · ${s.range || P.timeRange(c)}</span>
           <span class="p-meta"><img src="${ICON}map-pin-16.svg" alt="">${esc(c.location)}</span>
         </div>
         <span class="p-meta"><img src="${ICON}court-basketball.svg" alt="">Session ${s.n} of ${c.sessions} · ${esc(c.share)}</span>
@@ -43,7 +43,7 @@
       <div class="ps-body">
         <div class="ps-title"><h3>${esc(c.name)}</h3><span class="badge p-badge badge-info">Open spot</span></div>
         <div class="ps-row">
-          <span class="p-meta"><img src="${ICON}clock-16.svg" alt="">${c.day} · ${P.timeRange(c)}</span>
+          <span class="p-meta"><img src="${ICON}clock-16.svg" alt="">${s.dayLabel || c.day} · ${s.range || P.timeRange(c)}</span>
           <span class="p-meta"><img src="${ICON}map-pin-16.svg" alt="">${esc(c.location)}</span>
         </div>
         <span class="p-meta"><img src="${ICON}user-switch.svg" alt="">${esc(o.who)} can’t make it · Session ${s.n} of ${c.sessions}</span>
@@ -74,7 +74,7 @@
     </article>`;
   }
 
-  const ACT_ICON = { replace: 'user-switch.svg', message: 'chat-circle.svg', reminder: 'bell.svg', coach: 'identification-badge.svg' };
+  const ACT_ICON = { invite: 'user-plus.svg', replace: 'user-switch.svg', message: 'chat-circle.svg', reminder: 'bell.svg', coach: 'identification-badge.svg' };
   function activityItem(a) {
     const unread = a.unread && !P.state.readActivity.includes(a.id);
     return `<div class="pa-item">
@@ -105,7 +105,7 @@
     $('#open-sec').hidden = !open.length;
     $('#open-count').textContent = open.length;
     $('#open-list').innerHTML = open.map(openCard).join('');
-    $('#activity').innerHTML = P.ACTIVITY.map(activityItem).join('');
+    $('#activity').innerHTML = [...P.changeActivity(), ...P.ACTIVITY].map(activityItem).join('');
     const n = P.unreadCount();
     $('#act-new').textContent = `${n} new`;
     $('#act-new').hidden = !n;

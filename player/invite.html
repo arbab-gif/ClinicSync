@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Substitute invitation · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="css/player.css">
+  <link rel="stylesheet" href="css/pages/invite.css">
+</head>
+<body>
+  <!-- Substitute invitation: review → accept (no sessions to pick, nothing to pay now) or decline -->
+  <header data-player-header data-active="Dashboard"></header>
+
+  <main class="page inv">
+    <a class="back" href="dashboard.html"><img class="icon" src="../organizer/assets/icons/arrow-left.svg" alt="">Dashboard</a>
+
+    <!-- 1. Review -->
+    <section class="inv-card" id="inv-review">
+      <div class="inv-from"><img class="inv-av" src="../organizer/assets/img/people/red.png" alt=""><p><b>Jenny Wilson</b> invited you to be a substitute</p></div>
+      <div class="inv-title"><h1 class="h1">Thursday Rally</h1><span class="chip">Substitute</span><span class="chip">Tennis</span></div>
+      <p class="inv-desc">Fast-paced evening doubles for 3.5–4.5 players. Substitutes fill in when a regular can’t make it.</p>
+      <dl class="inv-meta">
+        <div><dt>Schedule</dt><dd>Thursdays, 6:00–7:30 PM · Oct 8 – Nov 26</dd></div>
+        <div><dt>Location</dt><dd>Riverside Tennis Center · Courts 3 &amp; 4</dd></div>
+        <div><dt>Coach</dt><dd>Sarah Miller · $50 per session</dd></div>
+        <div><dt>Players</dt><dd>4 regular players · 2 substitutes</dd></div>
+      </dl>
+      <h2 class="inv-h2">How substituting works</h2>
+      <ol class="inv-steps">
+        <li><b>No sessions to pick.</b> You’re on the list, not in the lineup.</li>
+        <li><b>We let you know when a spot opens.</b> Players get first pick, then it’s offered to substitutes.</li>
+        <li><b>Join only the sessions you want.</b> First to confirm gets the spot.</li>
+        <li><b>Pay only for sessions you play.</b> The $50 coach fee is charged after each one. No facility fee.</li>
+      </ol>
+      <div class="inv-pay"><span>Due now</span><b>$0</b></div>
+      <div class="inv-acts">
+        <button class="btn btn-lg btn-soft" type="button" data-open="decline">Decline</button>
+        <button class="btn btn-lg btn-primary" type="button" id="accept">Accept invitation</button>
+      </div>
+    </section>
+
+    <!-- 2. Accepted -->
+    <section class="inv-card inv-done" id="inv-accepted" hidden>
+      <span class="inv-ok"><img src="../organizer/assets/icons/check-circle-green.svg" alt=""></span>
+      <h1 class="h1">You’re on the substitute list</h1>
+      <p>We’ll let you know when a spot opens at Thursday Rally. Right now <b>1 spot</b> is open on <b>Thu, Oct 15</b>.</p>
+      <div class="inv-acts center">
+        <a class="btn btn-lg btn-soft" href="dashboard.html">Go to dashboard</a>
+        <a class="btn btn-lg btn-primary" href="clinic.html?id=thursday">See the open spot</a>
+      </div>
+    </section>
+
+    <!-- 3. Declined -->
+    <section class="inv-card inv-done" id="inv-declined" hidden>
+      <h1 class="h1">Invitation declined</h1>
+      <p>Jenny Wilson has been told you won’t be a substitute for Thursday Rally.</p>
+      <div class="inv-acts center"><a class="btn btn-lg btn-primary" href="dashboard.html">Back to dashboard</a></div>
+    </section>
+
+    <button class="p-demo" type="button" id="reset-invite">Prototype: reset invitation</button>
+  </main>
+
+  <div class="overlay" id="decline" hidden role="dialog" aria-modal="true" aria-labelledby="dl-title">
+    <div class="modal p-modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="dl-title">Decline this invitation?</h2>
+      <p class="lead">Jenny Wilson will be told you won’t be a substitute for Thursday Rally.</p>
+      <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-close>Keep invitation</button><button class="btn btn-lg btn-primary" type="button" id="decline-go">Decline</button></div>
+    </div>
+  </div>
+
+  <script src="js/player-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script>
+    (() => {
+      const KEY = 'cs-sub-invite', $ = s => document.querySelector(s);
+      const get = () => { try { return localStorage.getItem(KEY) || 'pending'; } catch { return 'pending'; } };
+      const set = v => { try { localStorage.setItem(KEY, v); } catch {} render(); };
+      function render() { const s = get(); $('#inv-review').hidden = s !== 'pending'; $('#inv-accepted').hidden = s !== 'accepted'; $('#inv-declined').hidden = s !== 'declined'; }
+      $('#accept').addEventListener('click', () => { set('accepted'); window.toast('You’re on the Thursday Rally substitute list'); });
+      $('#decline-go').addEventListener('click', () => { $('#decline').hidden = true; document.body.style.overflow = ''; set('declined'); });
+      $('#reset-invite').addEventListener('click', () => set('pending'));
+      render();
+    })();
+  </script>
+</body>
+</html>

@@ -209,3 +209,4 @@
 .p-sact .p-snote { flex: 1 1 260px; min-width: 0; }
 .p-sact .p-sbtns { margin-left: auto; display: flex; gap: 8px; flex: none; }
 .c-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.p-sub-empty { margin-top: 32px; padding: 32px; border-radius: var(--r-card); background: var(--card); color: var(--muted); text-align: center; }
