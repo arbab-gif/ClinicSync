@@ -210,3 +210,10 @@
 .p-sact .p-sbtns { margin-left: auto; display: flex; gap: 8px; flex: none; }
 .c-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .p-sub-empty { margin-top: 32px; padding: 32px; border-radius: var(--r-card); background: var(--card); color: var(--muted); text-align: center; }
+.s-title h3 .s-name { font-family: var(--font); font-weight: 500; color: var(--text-2); }
+.m-stitle { display: block; margin-bottom: 6px; color: var(--brand); font-size: 15px; font-weight: 600; letter-spacing: .2px; }
+/* Session details header (variation C): date box + one-line title */
+.m-head-c .m-hc { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.m-head-c .datebox { width: 64px; height: 74px; }
+.m-head-c h2 { font-size: 26px; line-height: 32px; }
+.m-head-c p { margin-top: 6px; font-size: 18px; line-height: 24px; color: var(--text-2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }

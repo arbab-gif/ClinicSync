@@ -26,7 +26,8 @@
           <span class="avatar"><img src="../organizer/assets/icons/user.svg" alt=""></span><span class="name">Jessica Lee</span><img class="icon-24" src="../organizer/assets/icons/caret-down.svg" alt="">
         </button>
         <div class="menu" id="account-menu" role="menu" hidden>
-          <a role="menuitem" href="#" data-toast="Profile is next on the list">My profile</a>
+          <a role="menuitem" href="settings.html">My profile</a>
+          <a role="menuitem" href="settings.html?tab=support">Support</a>
           <button role="menuitem" type="button" id="reset-demo">Reset prototype data</button>
           <a role="menuitem" href="/index.html">Logout</a>
         </div>

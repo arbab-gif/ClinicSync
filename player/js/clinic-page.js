@@ -90,7 +90,7 @@
         <div class="datebox"><small>${P.fmt(s.date, { month: 'short' }).toUpperCase()}</small><b>${P.fmt(s.date, { day: 'numeric' })}</b></div>
         <div class="s-main">
           <div class="s-info">
-            <div class="s-title"><h3>Session ${s.n}</h3>${st.kind === 'going' ? '' : `<span class="${tone(st)}">${esc(st.label)}</span>`}${joined && c.role !== 'Substitute' ? '<span class="st st-blue">Replacement</span>' : ''}${s.was && live && st.kind !== 'cancelled' ? '<span class="loc-tag">Rescheduled</span>' : ''}</div>
+            <div class="s-title"><h3>Session ${s.n}${c.names?.[s.n] ? ` <span class="s-name">· ${esc(c.names[s.n])}</span>` : ''}</h3>${st.kind === 'going' ? '' : `<span class="${tone(st)}">${esc(st.label)}</span>`}${joined && c.role !== 'Substitute' ? '<span class="st st-blue">Replacement</span>' : ''}${s.was && live && st.kind !== 'cancelled' ? '<span class="loc-tag">Rescheduled</span>' : ''}</div>
             <div class="s-cols">
               <div class="s-col"><span class="lbl"><img src="${I}calendar-blank-sm.svg" alt="">Scheduled</span><span class="val">${s.dayLabel || c.day} at ${s.at || when}</span></div>
               <div class="s-col${mv ? ' moved' : ''}"><span class="lbl"><img src="${I}map-pin-sm.svg" alt="">Venue</span><span class="val">${esc(mv ? mv.venue : `${c.location}`)}</span></div>
@@ -126,7 +126,7 @@
       : paid.status === 'paid' ? { amt: `$${c.coachFee}`, pill: `<span class="st st-green">Paid · ${paid.method}</span>`, note: `Paid to ${esc(c.coach)}` }
       : { amt: `$${c.coachFee}`, pill: `<span class="st st-purple">${paid.method === 'Cash' ? 'Cash · to confirm' : `Reported · ${paid.method}`}</span>`, note: `Waiting for ${esc(c.coach.split(' ')[0])} to confirm` };
     return `
-      <div class="m-head"><div><div class="cs-title"><h2 id="sm-title">${long(s.date)}</h2><span class="badge badge-mute">Completed</span></div><p>${P.timeRange(c)} · Session ${n} of ${c.sessions}</p></div><button class="m-x" type="button" data-close aria-label="Close"><img src="${I}x-close-sm.svg" alt=""></button></div>
+      ${mHead(s, n, ' · <span class="badge badge-mute">Completed</span>')}
       ${fee ? `<div class="cs-fee${fee.due ? ' due' : ''}">${face(c.coach)}<div class="m-who"><b>Coach fee · ${esc(c.coach)}</b><span>${fee.note}</span></div><div class="cs-amt"><b>${fee.amt}</b>${fee.pill}</div>${fee.due ? '<button class="btn btn-sm btn-primary" type="button" data-pay-coach>Pay now</button>' : ''}</div>` : ''}
       <hr class="m-hr">
       <section class="m-sec"><div class="m-sec-h"><h3>Who played</h3><span class="m-count">${played} played</span></div>
@@ -134,6 +134,10 @@
       </section>`;
   }
 
+  // the session title shown above the date: "Session 3" or "Session 3 · Serve & volley clinic"
+  const sTitle = n => `<span class="m-stitle">Session ${n}${c.names?.[n] ? ` · ${esc(c.names[n])}` : ''}</span>`;
+  // session details header: date box, then "Session 5 · Name" and "Thursday · 6:00–7:30 PM · 5 of 6"
+  const mHead = (s, n, extra) => `<div class="m-head m-head-c"><div class="m-hc"><div class="datebox"><small>${P.fmt(s.date, { month: 'short' }).toUpperCase()}</small><b>${P.fmt(s.date, { day: 'numeric' })}</b></div><div><h2 id="sm-title">Session ${n}${c.names?.[n] ? ` · ${esc(c.names[n])}` : ''}</h2><p>${s.range || P.timeRange(c)}${extra || ''}</p></div></div><button class="m-x" type="button" data-close aria-label="Close"><img src="${I}x-close-sm.svg" alt=""></button></div>`;
   function openSession(n) {
     const s = s$(n); modalFor = n;
     const st = P.statusOf(s), mv = c.moved?.[n], ps = P.participants(s);
@@ -147,7 +151,7 @@
       : p.me ? (st.kind === 'requested' ? '<span class="st st-red">Need Replacement</span>' : st.kind === 'pending' ? '<span class="st st-yellow">RSVP pending</span>' : '<span class="st st-green">Confirmed</span>')
       : '<span class="st st-green">Confirmed</span>';
     $('#sm').innerHTML = `
-      <div class="m-head"><div><h2 id="sm-title">${long(s.date)}</h2><p>${s.range || P.timeRange(c)} · Session ${n} of ${c.sessions}</p></div><button class="m-x" type="button" data-close aria-label="Close"><img src="${I}x-close-sm.svg" alt=""></button></div>
+      ${mHead(s, n)}
       <div class="m-stats"><div><span>Confirmed</span><b>${String(confirmed).padStart(2, '0')}</b></div><div><span>Open spots</span><b>${String(Math.max(0, c.capacity - confirmed)).padStart(2, '0')}</b></div><div><span>Capacity</span><b>${String(c.capacity).padStart(2, '0')}</b></div></div>
       <hr class="m-hr">
       ${actions(s, true)}

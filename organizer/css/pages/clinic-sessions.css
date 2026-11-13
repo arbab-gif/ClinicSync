@@ -105,3 +105,21 @@
 .m-coach-acts { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .m-coach-acts span { color: var(--muted); font-size: 13px; }
 .m-coach-note { color: var(--warn); font-size: 13px; }
+
+/* Rename a session */
+.s-title h3 .s-name { font-family: var(--font); font-weight: 500; color: var(--text-2); }
+.m-sname { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 15px; color: var(--muted); }
+.m-sname b { color: var(--ink); font-weight: 600; }
+.rn-btn { display: inline-flex; align-items: center; gap: 4px; border: 0; background: none; padding: 2px 4px; color: var(--brand); font: 500 14px var(--font); cursor: pointer; }
+.rn-btn img { width: 14px; height: 14px; }
+.rn-btn:hover { text-decoration: underline; }
+.rn-modal { display: flex; flex-direction: column; gap: 16px; }
+.rn-modal .lead { margin: 0; color: var(--muted); }
+.rn-hint { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+.rn-acts { display: flex; align-items: center; gap: 12px; }
+.rn-acts > span { flex: 1; }
+.rn-reset { font-size: 14px; }
+.m-sname { font-size: 16px; color: var(--ink); font-weight: 600; }
+.rn-icon { width: 30px; height: 30px; padding: 0; justify-content: center; border-radius: 50%; background: var(--field); }
+.rn-icon:hover { background: #e9ebef; text-decoration: none; }
+.rn-icon img { width: 16px; height: 16px; }

@@ -31,6 +31,8 @@
       roster: { 1: ['Liam Johnson', 'Olivia Chen', 'Robert Wilson'], 2: ['Liam Johnson', 'Olivia Chen', 'Robert Wilson'], 3: ['Liam Johnson', 'Robert Wilson', 'Olivia Chen'], 4: ['Liam Johnson', 'Olivia Chen', 'Robert Wilson'], 5: ['Olivia Chen', 'Robert Wilson', 'Liam Johnson'], 6: ['Liam Johnson', 'Olivia Chen', 'Robert Wilson'], 7: ['Liam Johnson', 'Robert Wilson', 'Olivia Chen'], 8: ['Olivia Chen', 'Liam Johnson', 'Robert Wilson'] },
       // open replacement spots in sessions you're not booked for
       openSpots: { 2: { who: 'Robert Wilson', reason: 'Work trip' } },
+      // sessions the organizer gave their own name
+      names: { 3: 'Serve & volley clinic' },
       moved: { 6: { venue: 'Northside Courts, Court 1', reason: 'Riverside courts resurfacing' } },
       // facility fee is paid when you accept the invite: Stripe, Venmo, Zelle or cash
       paidFacility: { method: 'Stripe', on: 'Sep 28' }, coachHandle: { venmo: '@sarah-miller', zelle: 'sarah.miller@gmail.com' } },
@@ -69,6 +71,7 @@
   const ACTIVITY = [
     { id: 'invite', kind: 'invite', title: 'Clinic Invitation', body: 'Jenny Wilson invited you to Thursday Rally as a substitute.', when: '2 hours ago', link: 'View Invite', href: 'invite.html', unread: true },
     { id: 'replace', kind: 'replace', title: 'Replacement Needed', body: 'Robert Wilson needs coverage for the October 12 session.', when: '10 minutes ago', link: 'View Opportunity', href: 'clinic.html?id=monday&open=2', unread: true },
+    { id: 'renamed', kind: 'reminder', title: 'Session Renamed', body: 'Monday Morning Tennis · Session 3 is now “Serve & volley clinic”.', when: '3 hours ago', link: 'View Session', href: 'clinic.html?id=monday&open=3', unread: false },
     { id: 'message', kind: 'message', title: 'New Clinic Message', body: 'Jenny Wilson: “Please arrive 10 minutes early on Monday.”', when: '1 hour ago', link: 'View Message', href: 'messages.html', unread: true },
     { id: 'reminder', kind: 'reminder', title: 'Session Reminder', body: 'Your October 5 session starts tomorrow at 9:00 AM.', when: 'Yesterday', link: 'View Session', href: 'clinic.html?id=monday&tab=sessions&open=1' },
     { id: 'coach', kind: 'coach', title: 'Coach Confirmed', body: 'Sarah Miller is confirmed as your clinic coach.', when: 'October 1', link: 'View Clinic', href: 'clinic.html?id=monday' },

@@ -29,7 +29,7 @@
           <span class="p-meta"><img src="${ICON}clock-16.svg" alt="">${s.dayLabel || c.day} · ${s.range || P.timeRange(c)}</span>
           <span class="p-meta"><img src="${ICON}map-pin-16.svg" alt="">${esc(c.location)}</span>
         </div>
-        <span class="p-meta"><img src="${ICON}court-basketball.svg" alt="">Session ${s.n} of ${c.sessions} · ${esc(c.share)}</span>
+        <span class="p-meta"><img src="${ICON}court-basketball.svg" alt="">Session ${s.n} of ${c.sessions}${c.names?.[s.n] ? ` · ${esc(c.names[s.n])}` : ''} · ${esc(c.share)}</span>
       </div>
       <a class="link" href="clinic.html?id=${c.id}&tab=sessions&open=${s.n}">View session${caret}</a>
     </article>`;

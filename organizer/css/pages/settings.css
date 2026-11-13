@@ -1,0 +1,38 @@
+/* Profile & settings — tabs on top, content below (organizer card styling) */
+.st-head p { color: var(--text-2); font-size: 16px; margin-top: 6px; }
+#st-tabs { margin-top: 28px; }
+#st-body { display: flex; flex-direction: column; gap: 24px; margin-top: 28px; }
+.st-card { background: var(--card); border-radius: var(--r-card); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.st-narrow { max-width: 640px; }
+.st-me { display: flex; align-items: center; gap: 16px; }
+.st-me > div { flex: 1; }
+.st-me p { color: var(--muted); margin-top: 4px; }
+.st-av { width: 64px; height: 64px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; font: 600 22px var(--font-display); flex: none; }
+.st-rows { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+.st-rows div { display: grid; grid-template-columns: 200px 1fr; gap: 16px; padding: 14px 16px; }
+.st-rows div + div { border-top: 1px solid var(--line); }
+.st-rows dt { color: var(--muted); }
+.st-rows dd { margin: 0; color: var(--ink); font-weight: 500; }
+.st-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.st-plan { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+.st-plan-t { display: flex; align-items: center; gap: 10px; }
+.st-plan-t b { font: 600 20px var(--font-display); color: var(--ink); }
+.st-plan p { color: var(--muted); margin-top: 4px; }
+.st-pay { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.st-usage { flex-basis: 100%; display: grid; grid-template-columns: 1fr auto; gap: 8px; color: var(--text-2); font-size: 14px; }
+.st-usage i { grid-column: 1 / -1; height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--brand) var(--p), var(--line) var(--p)); }
+.st-plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.st-plancard { background: var(--card); border: 1px solid transparent; border-radius: var(--r-card); padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.st-plancard.on { border-color: var(--brand-2); background: var(--brand-tint); }
+.st-plancard p { color: var(--muted); font-size: 14px; }
+.st-price b { font: 600 36px var(--font-display); color: var(--ink); }
+.st-price span { color: var(--muted); }
+.st-plancard ul { margin: 0; padding-left: 18px; color: var(--text-2); font-size: 14px; line-height: 22px; flex: 1; }
+.st-bill { width: 100%; border-collapse: collapse; font-size: 14px; }
+.st-bill td { padding: 12px 8px; border-top: 1px solid var(--line); }
+.st-bill td:nth-child(3) { font-weight: 600; }
+.st-sub { color: var(--muted); font-size: 14px; }
+.st-acts { display: flex; justify-content: flex-start; }
+.st-doc h4 { font-size: 16px; font-weight: 600; color: var(--ink); margin: 8px 0 0; }
+.st-doc p { color: var(--text-2); line-height: 24px; }
+@media (max-width: 900px) { .st-plans { grid-template-columns: 1fr; } .st-rows div { grid-template-columns: 1fr; } }
