@@ -19,7 +19,7 @@
     const head = ov.querySelector('.m-head > div'); if (!head) return;
     const line = document.createElement('div'); line.className = 'm-sname';
     line.innerHTML = `<span data-sname="${k}"></span><button class="rn-btn rn-icon" type="button" data-rename="${k}" aria-label="Rename ${base[k]}" title="Rename session"><img src="assets/icons/pencil-simple.svg" alt=""></button>`;
-    head.appendChild(line);
+    head.insertBefore(line, head.firstChild);
   });
 
   // the rename dialog

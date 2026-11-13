@@ -217,3 +217,5 @@
 .m-head-c .datebox { width: 64px; height: 74px; }
 .m-head-c h2 { font-size: 26px; line-height: 32px; }
 .m-head-c p { margin-top: 6px; font-size: 18px; line-height: 24px; color: var(--text-2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+/* Session details header: small session label, big date, time */
+.m-head-s p { margin-top: 6px; font-size: 18px; line-height: 24px; color: var(--text-2); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
