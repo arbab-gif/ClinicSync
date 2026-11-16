@@ -128,3 +128,6 @@
 .rn-icon { width: 22px; height: 22px; background: none; }
 .rn-icon:hover { background: var(--brand-tint); }
 .rn-icon img { width: 15px; height: 15px; }
+/* Session details header matches the player: blue Session label, big date, time */
+.m-sname { font-size: 18px; font-weight: 500; }
+.session-modal .m-head p { font-size: 24px; line-height: 30px; color: var(--ink); font-family: var(--font-display); font-weight: 500; }
