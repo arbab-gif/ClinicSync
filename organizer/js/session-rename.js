@@ -20,7 +20,17 @@
     const line = document.createElement('div'); line.className = 'm-sname';
     line.innerHTML = `<span data-sname="${k}"></span><button class="rn-btn rn-icon" type="button" data-rename="${k}" aria-label="Rename ${base[k]}" title="Rename session"><img src="assets/icons/pencil-simple.svg" alt=""></button>`;
     head.insertBefore(line, head.firstChild);
+    // Figma 1553:22575: the time line becomes clock + time and pin + venue
+    const p = head.querySelector(':scope > p');
+    if (p) { const w = document.createElement('div'); w.className = 'm-when'; w.innerHTML = `<span><img src="assets/icons/clock-brand-24.svg" alt="">${esc(p.textContent.trim())}</span><span><img src="assets/icons/map-pin-brand-24.svg" alt=""><span data-svenue="${k}"></span></span>`; p.replaceWith(w); }
   });
+  // the venue follows "Change location" (session-location.js keeps per-session overrides)
+  function paintVenue() {
+    const SL = window.SessionLocation, o = SL ? SL.load() : {};
+    document.querySelectorAll('[data-svenue]').forEach(el => { const ov = o[el.dataset.svenue]; el.textContent = ov ? SL.label(ov) : (SL ? SL.CLINIC_VENUE : 'Riverside Tennis Center'); });
+  }
+  paintVenue();
+  document.addEventListener('click', () => setTimeout(paintVenue, 0));
 
   // the rename dialog
   const dlg = document.createElement('div');

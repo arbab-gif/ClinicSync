@@ -58,14 +58,14 @@ window.CoachData = (() => {
   // Invitations: clinic invites from organizers + coverage requests from other coaches
   const INVITES = [
     { id: 'thu-evening', type: 'clinic', name: 'Thursday Evening Rally', from: 'Sarah Miller', fromRole: 'Organizer', sport: 'Tennis', received: '2h ago',
-      day: 'Thu', days: 'Thursdays', time: '7:00–8:30 PM', start: '2026-12-03', sessions: 6, location: 'Riverside Tennis Center', court: 'Courts 3 & 4', players: 6, fee: 30,
+      day: 'Thu', days: 'Thursdays', time: '7:00–8:30 PM', start: '2026-12-03', sessions: 6, location: 'Riverside Tennis Center', court: 'Courts 3 & 4', players: 6, subs: 2, fee: 30,
       desc: 'Fast-paced evening doubles for 3.5–4.5 players. Drills first, then match play.', status: 'pending' },
     { id: 'sat-juniors', type: 'clinic', name: 'Saturday Juniors', from: 'Jenny Wilson', fromRole: 'Organizer', sport: 'Tennis', received: 'Yesterday',
-      day: 'Sat', days: 'Saturdays', time: '9:30–11:00 AM', start: '2026-11-28', sessions: 4, location: 'Maple Grove Tennis Club', court: 'Courts 1 & 2', players: 8, fee: 20,
+      day: 'Sat', days: 'Saturdays', time: '9:30–11:00 AM', start: '2026-11-28', sessions: 4, location: 'Maple Grove Tennis Club', court: 'Courts 1 & 2', players: 8, subs: 3, fee: 20,
       desc: 'Junior development clinic for ages 12–16. Footwork, serve and rally consistency.', status: 'pending',
       conflict: { clinic: 'saturday', n: 8 } },
     { id: 'cover-thu', type: 'coverage', name: 'Thursday Rally', from: 'James Carter', fromRole: 'Coach', organizer: 'Jenny Wilson', sport: 'Tennis', received: '5h ago',
-      day: 'Thu', time: '6:00–7:30 PM', date: '2026-11-26', n: 6, sessions: 1, location: 'Riverside Tennis Center', court: 'Courts 3 & 4', players: 6, fee: 25,
+      day: 'Thu', time: '6:00–7:30 PM', date: '2026-11-26', n: 6, sessions: 1, location: 'Riverside Tennis Center', court: 'Courts 3 & 4', players: 6, subs: 2, fee: 25,
       reason: 'I’m at a coaching certification that week.', status: 'pending',
       roster: ['Olivia Chen', 'Marcus Reed', 'Daniel Kim', 'Jessica Lee', 'Robert Wilson', 'Grace Liu'] },
     { id: 'saturday', type: 'clinic', name: 'Saturday Tennis', from: 'Albert John', fromRole: 'Organizer', sport: 'Tennis', received: 'Sep 30', day: 'Sat', days: 'Saturdays', time: '9:00–10:30 AM', start: '2026-10-10', sessions: 8, location: 'Riverside Tennis Center', players: 4, fee: 25, status: 'accepted', on: 'Sep 30' },
@@ -75,9 +75,12 @@ window.CoachData = (() => {
 
   // Coaches Maria can ask to cover a session
   const COACHES = [
-    { name: 'James Carter', sport: 'Tennis · USPTA certified', photo: '/organizer/assets/img/avatar-ethan-patel.png' },
-    { name: 'Olivia Davis', sport: 'Tennis · PTR certified', photo: '/organizer/assets/img/coach-olivia-davis.png' },
-    { name: 'Sophia Martinez', sport: 'Tennis & padel coach', photo: '/organizer/assets/img/coach-sophia-martinez.png' },
+    { name: 'James Carter', sport: 'Tennis · USPTA certified', photo: '/organizer/assets/img/player-ethan-brown.png', ntrp: '4.5', level: 'Advanced', loc: 'Riverside, CA, USA', years: 6, status: 'Available' },
+    { name: 'Olivia Davis', sport: 'Tennis · PTR certified', photo: '/organizer/assets/img/coach-olivia-davis.png', ntrp: '4.5', level: 'Advanced', loc: 'Riverside, CA, USA', years: 4, status: 'Available' },
+    { name: 'Sophia Martinez', sport: 'Tennis & padel coach', photo: '/organizer/assets/img/coach-sophia-martinez.png', ntrp: '5.0', level: 'Advanced', loc: 'Riverside, CA, USA', years: 8, status: 'Available' },
+    { name: 'Ethan Brooks', sport: 'Tennis · USPTA certified', photo: '/organizer/assets/img/people/curly.png', ntrp: '4.0', level: 'Intermediate', loc: 'Corona, CA, USA', years: 3, status: 'Available' },
+    { name: 'Noah Williams', sport: 'Tennis coach', photo: '/organizer/assets/img/people/man2.png', ntrp: '4.5', level: 'Advanced', loc: 'Riverside, CA, USA', years: 5, status: 'Busy' },
+    { name: 'Maya Patel', sport: 'Tennis coach', photo: '/organizer/assets/img/player-maya-patel.png', ntrp: '4.0', level: 'Intermediate', loc: 'Corona, CA, USA', years: 2, status: 'Available' },
   ];
   for (const x of COACHES) PEOPLE[x.name] = x.photo;
 

@@ -49,7 +49,7 @@
     for (const s of up) {
       const k = D.statusOf(s).kind, key = D.key(s.clinic, s.n), r = s.clinic.reschedule?.[s.n], u = D.unavailOf(s);
       if (k === 'resched') items.push(item(['warn', 'calendar-blank-20.svg'], 'Reschedule request', `${U.sLabel(s)} → ${D.day(r.date)} · ${esc(r.time)}`, `<button class="btn btn-sm btn-outline" type="button" data-rs="${key}">Review</button>`));
-      if (k === 'unavail' && u.mode === 'self' && u.invited.at(-1)?.status === 'declined') items.push(item(['danger', 'user-switch.svg'], `${esc(first(u.invited.at(-1).name))} can’t cover`, `${U.sLabel(s)} · ${D.day(s.date)}`, `<button class="btn btn-sm btn-outline" type="button" data-again="${key}">Invite another coach</button><button class="btn btn-sm btn-soft" type="button" data-orgfix="${key}">Let ${esc(first(s.clinic.organizer))} arrange it</button>`));
+      if (k === 'unavail' && u.mode === 'self' && u.invited.at(-1)?.status === 'declined') items.push(item(['danger', 'user-switch.svg'], `${esc(first(u.invited.at(-1).name))} can’t cover`, `${U.sLabel(s)} · ${D.day(s.date)}`, `<button class="btn btn-sm btn-outline" type="button" data-again="${key}">Invite another coach</button><button class="btn btn-sm btn-soft" type="button" data-orgfix="${key}">Let the organizer arrange it</button>`));
     }
     const e = D.earnings();
     for (const r of e.rows.filter(r => r.pay.status === 'reported')) items.push(item(['purple', 'check-circle.svg'], 'Confirm a payment', `${esc(r.player)} paid $${r.amt} by ${r.pay.method} · ${esc(r.s.clinic.name)} · ${D.short(r.s.date)}`, `<button class="btn btn-sm btn-outline" type="button" data-confirm="${D.key(r.s.clinic, r.s.n)}|${esc(r.player)}|${r.pay.method}">Confirm</button>`));
@@ -80,7 +80,7 @@
     if (b.dataset.role) { role = b.dataset.role; return render(); }
     if (b.dataset.rs) return U.resched(sOf(b.dataset.rs), render);
     if (b.dataset.again) { U.pickCoach(sOf(b.dataset.again), render); return; }
-    if (b.dataset.orgfix) { const s = sOf(b.dataset.orgfix); D.state.unavail[b.dataset.orgfix].mode = 'org'; D.save(); window.toast(`${first(s.clinic.organizer)} will arrange a replacement.`); return render(); }
+    if (b.dataset.orgfix) { const s = sOf(b.dataset.orgfix); D.state.unavail[b.dataset.orgfix].mode = 'org'; D.save(); window.toast('The organizer will arrange a replacement.'); return render(); }
     if (b.dataset.confirm) { const [key, p, m] = b.dataset.confirm.split('|'); return U.record(sOf(key), p, render, m); }
   });
   render();

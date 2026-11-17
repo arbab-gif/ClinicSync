@@ -137,7 +137,10 @@
   // the session title shown above the date: "Session 3" or "Session 3 · Serve & volley clinic"
   const sTitle = n => `<span class="m-stitle">Session ${n}${c.names?.[n] ? ` · ${esc(c.names[n])}` : ''}</span>`;
   // session details header: date box, then "Session 5 · Name" and "Thursday · 6:00–7:30 PM · 5 of 6"
-  const mHead = (s, n, extra) => `<div class="m-head m-head-s"><div>${sTitle(n)}<h2 id="sm-title">${long(s.date)}</h2><p>${s.range || P.timeRange(c)}${extra || ''}</p></div><button class="m-x" type="button" data-close aria-label="Close"><img src="${I}x-close-sm.svg" alt=""></button></div>`;
+  // Figma 1553:22575: Session label · date · clock + time, pin + venue (status badge, if any, at the end)
+  const mHead = (s, n, extra) => `<div class="m-head m-head-s"><div>${sTitle(n)}<h2 id="sm-title">${long(s.date)}</h2>
+    <div class="m-when"><span><img src="${I}clock-brand-24.svg" alt="">${s.range || P.timeRange(c)}</span><span><img src="${I}map-pin-brand-24.svg" alt="">${esc(c.moved?.[n]?.venue || c.location)}</span>${(extra || '').replace(/^ · /, '')}</div></div>
+    <button class="m-x" type="button" data-close aria-label="Close"><img src="${I}x-close-sm.svg" alt=""></button></div>`;
   function openSession(n) {
     const s = s$(n); modalFor = n;
     const st = P.statusOf(s), mv = c.moved?.[n], ps = P.participants(s);

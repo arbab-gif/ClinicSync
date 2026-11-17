@@ -131,3 +131,21 @@
 /* Session details header matches the player: blue Session label, big date, time */
 .m-sname { font-size: 18px; font-weight: 500; }
 .session-modal .m-head p { font-size: 24px; line-height: 30px; color: var(--ink); font-family: var(--font-display); font-weight: 500; }
+
+/* Session details header (Figma 1553:22575), shared by organizer, player and coach:
+   "Session 2 ✎" in blue · big date · clock + time and pin + venue · round close button */
+.session-modal .m-head > div:first-child { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.session-modal .m-head h2 { font-family: var(--font-display); font-weight: 600; font-size: 40px; line-height: normal; color: var(--ink); }
+.session-modal .m-stitle, .session-modal .m-sname { display: flex; align-items: center; gap: 6px; margin: 0; font: 500 18px/24px var(--font); color: var(--brand); }
+.session-modal .m-sname [data-sname] { color: var(--brand); }
+.session-modal .rn-icon { width: 24px; height: 24px; }
+.session-modal .rn-icon img { width: 20px; height: 20px; }
+.m-when { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.m-when > span:not(.st):not(.badge) { display: inline-flex; align-items: center; gap: 8px; font: 500 20px var(--font); color: #1f2a37; }
+.m-when img { width: 24px; height: 24px; flex: none; }
+.session-modal .m-x { width: 36px; height: 36px; background: var(--card); border-radius: 48px; flex: none; }
+.session-modal .m-x img { width: 20px; height: 20px; }
+@media (max-width: 720px) {
+  .session-modal .m-head h2 { font-size: 28px; }
+  .m-when > span:not(.st):not(.badge) { font-size: 16px; }
+}

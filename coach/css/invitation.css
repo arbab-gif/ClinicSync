@@ -26,3 +26,24 @@
 .inv-av.initials { display: grid; place-items: center; }
 #reset-inv { margin-top: 16px; }
 .inv-acts .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Invitation layout: quote, session summary, stats strip */
+.iv-quote { margin: 0; padding: 12px 16px; border-left: 3px solid var(--brand-2); border-radius: 0 12px 12px 0; background: #fff; color: var(--text-2); font-size: 15px; line-height: 22px; font-style: italic; }
+.iv-quote cite { display: block; margin-top: 4px; font-style: normal; font-size: 13px; color: var(--muted); }
+.iv-quote cite::before { content: "— "; }
+.iv-when { background: #fff; }
+.iv-stats { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border-radius: 12px; background: #fff; border: 1px solid var(--line); }
+.iv-stats > div { display: flex; flex-direction: column; gap: 4px; padding: 14px 18px; }
+.iv-stats > div + div { border-left: 1px solid var(--line); }
+.iv-stats span { color: var(--muted); font-size: 13px; }
+.iv-stats b { font: 600 26px/32px var(--font-display); color: var(--stat); }
+.iv-stats b small { font: 400 13px var(--font); color: var(--muted); margin-left: 2px; }
+.inv-h2 { font-size: 18px; }
+.iv-roster { gap: 8px; }
+.iv-p { background: #fff; }
+.p-demo { border: 1px dashed var(--line); background: #fff; border-radius: 99px; padding: 6px 12px; font: 500 13px var(--font); color: var(--muted); cursor: pointer; }
+.inv-acts { margin-top: 4px; }
+@media (max-width: 720px) { .iv-stats { grid-auto-flow: row; grid-template-columns: 1fr 1fr; } .iv-stats > div:nth-child(3) { border-left: 0; } }
+.iv-sessions { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); } .iv-s small { white-space: nowrap; }
+.iv-s .datebox small { color: #fff; }   /* month stays white on the blue pill */
+.iv-stats > div { padding: 14px 16px; min-width: 0; } .iv-stats span { white-space: nowrap; }

@@ -98,3 +98,44 @@
 /* Clash Grotesk for headings: stat numbers and the payments table's column headings */
 .ov-stats b { font-family: var(--font-display); }
 .cp-th > span { font-family: var(--font-display); font-weight: 500; font-size: 15px; color: var(--text-2); }
+
+/* Sessions tab: calendar view (grid styles from schedule.css) */
+.ss .sc-cal-head { margin-top: 0; }
+.ss .sc-grid { margin-top: 0; }
+button.sc-ev { width: 100%; border: 0; text-align: left; cursor: pointer; font-family: var(--font); }
+.ss-bar .search { flex: 1; max-width: 380px; }
+.ss .sc-cal-head { justify-content: space-between; }
+.cal-nav { display: flex; gap: 8px; }
+.chip-s.done b { color: var(--muted); }
+.chip-s .tx { font-style: normal; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cal-cell .chip-s { border-left-width: 4px; }
+.session-modal .m-row.coach .dc-open { display: none; }   /* no chat button on your own line */
+.p-payline > div:first-child { justify-content: center; }
+
+/* Reschedule request on a session card: old → new time, reason underneath */
+.rs-req { align-items: center; }
+.rs-body { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+.rs-ic { width: 36px; height: 36px; border-radius: 50%; background: var(--y100, #fef7c3); display: grid; place-items: center; flex: none; }
+.rs-ic img { width: 18px; height: 18px; }
+.rs-body > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.rs-t { font-weight: 600; font-size: 14px; color: var(--ink); }
+.rs-move { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14px; }
+.rs-move s { color: var(--muted); }
+.rs-move b { color: var(--brand); font-weight: 600; }
+.rs-move img { width: 14px; height: 14px; opacity: .6; }
+.rs-body small { color: var(--muted); font-size: 13px; }
+/* reschedule icon in ClinicSync lime (#90DD38) */
+.rs-ic { background: rgba(144, 221, 56, .18); }
+.rs-ic i { width: 18px; height: 18px; background: #90DD38; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
+
+/* Coaching fees card: label left, amount + tag on one line right, all vertically centred */
+.p-payline { align-items: center; min-height: 64px; }
+.p-payline .amt { flex-direction: row; align-items: center; gap: 12px; }
+.p-payline .amt .st { min-width: 74px; justify-content: center; font-size: 12px; }
+.p-payline .amt .st-green { color: var(--g700); }
+.p-payline .amt .st-purple { color: #5925dc; }
+.p-payline .amt .st-yellow { color: var(--y700); background: #fff; }
+/* reschedule icon: solid ClinicSync lime circle, dark arrows for contrast */
+.rs-ic { background: #90DD38; }
+.rs-ic i { background: #1c2536; }
+.p-scard.resched, .p-scard.unavail { box-shadow: none; }   /* no outline on cards with a request */

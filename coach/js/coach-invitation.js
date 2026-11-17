@@ -15,7 +15,7 @@
     const cf = D.conflictOf(v), st = D.inviteStatus(v), a = D.state.inv[v.id] || {};
     const meta = cover ? [
       ['Sport', v.sport], ['Session', `Session ${v.n} only · ${D.day(v.date)}`], ['Time', v.time], ['Location', `${v.location} · ${v.court}`],
-      ['Organizer', v.organizer], ['Players', `${v.players} confirmed`], ['Coaching fee', `$${v.fee} per player · paid to you, not ${first(v.from)}`],
+      ['Organizer', v.organizer], ['Players', `${v.players} confirmed`], ['Coaching fee', `$${v.fee} per player`],
     ] : [
       ['Sport', v.sport], ['Schedule', `${v.days}, ${v.time}`], ['Dates', `${D.short(sessions[0].date)} – ${D.short(sessions.at(-1).date)}`], ['Sessions', `${v.sessions} sessions`],
       ['Location', `${v.location}${v.court ? ` · ${v.court}` : ''}`], ['Players', `${v.players} players`], ['Proposed coaching fee', `$${v.fee} per player, per session`],
@@ -36,15 +36,15 @@
       <section class="inv-card">
         <div class="inv-from">${av(v.from)}<p><b>${esc(v.from)}</b> ${cover ? `asked you to cover a session · ${v.received}` : `invited you to coach · ${v.received}`}</p></div>
         <div class="inv-title"><h1 class="h1">${esc(v.name)}</h1><span class="chip ${cover ? 'chip-cover' : ''}">${cover ? 'Coverage request' : 'Coach'}</span><span class="chip">${v.sport}</span></div>
-        ${cover ? `<p class="inv-desc">“${esc(v.reason)}” — ${esc(v.from)}</p>` : v.desc ? `<p class="inv-desc">${esc(v.desc)}</p>` : ''}
+        ${cover ? `<blockquote class="iv-quote">“${esc(v.reason)}”<cite>${esc(v.from)}</cite></blockquote>` : v.desc ? `<p class="inv-desc">${esc(v.desc)}</p>` : ''}
         ${state}${clash}
-        <dl class="inv-meta">${meta.map(([t, d]) => `<div><dt>${t}</dt><dd>${esc(d)}</dd></div>`).join('')}</dl>
-        <h2 class="inv-h2">${cover ? 'The session' : 'Sessions'}</h2>
-        <div class="iv-sessions">${sessions.map(s => { const hit = cf && s.date === cf.s.date; return `<div class="iv-s${hit ? ' hit' : ''}"><span class="datebox"><small>${D.fmt(s.date, { month: 'short' })}</small><b>${D.fmt(s.date, { day: 'numeric' })}</b></span><span><b>Session ${s.n}</b><small>${D.fmt(s.date, { weekday: 'short' })} · ${v.time}</small></span>${hit ? '<span class="st st-red">Clash</span>' : ''}</div>`; }).join('')}</div>
+        <div class="cf-sess iv-when"><span class="cf-sess-t"><b>${cover ? `Session ${v.n}` : `${v.sessions} sessions`}</b><small>${cover ? `Covering for ${esc(v.from)} · organized by ${esc(v.organizer)}` : `${D.short(sessions[0].date)} – ${D.short(sessions.at(-1).date)} · organized by ${esc(v.from)}`}</small></span>
+          <span class="cf-sess-w"><span><img src="${I}clock-brand-24.svg" alt="">${cover ? `${D.day(v.date)} · ${v.time}` : `${v.days} · ${v.time}`}</span><span><img src="${I}map-pin-brand-24.svg" alt="">${esc(v.location)}${v.court ? ` · ${esc(v.court)}` : ''}</span></span></div>
+        <div class="iv-stats">${(cover ? [['Players', String(v.players).padStart(2, '0')], ['Substitutes', String(v.subs || 0).padStart(2, '0')], ['Coaching fee', `$${v.fee}<small>/player</small>`], ['Expected earnings', `$${total.toLocaleString()}`]]
+          : [['Players', String(v.players).padStart(2, '0')], ['Substitutes', String(v.subs || 0).padStart(2, '0')], ['Coaching fee', `$${v.fee}<small>/player</small>`], ['Expected earnings', `$${total.toLocaleString()}`]]).map(([l, x]) => `<div><span>${l}</span><b>${x}</b></div>`).join('')}</div>
+        ${cover ? '' : `<h2 class="inv-h2">Sessions (${v.sessions})</h2>
+        <div class="iv-sessions">${sessions.map(s => { const hit = cf && s.date === cf.s.date; return `<div class="iv-s${hit ? ' hit' : ''}"><span class="datebox"><small>${D.fmt(s.date, { month: 'short' })}</small><b>${D.fmt(s.date, { day: 'numeric' })}</b></span><span><b>Session ${s.n}</b><small>${D.fmt(s.date, { weekday: 'short' })} · ${v.time}</small></span>${hit ? '<span class="st st-red">Clash</span>' : ''}</div>`; }).join('')}</div>`}
         ${cover ? `<h2 class="inv-h2">Confirmed players (${v.roster.length})</h2><div class="iv-roster">${v.roster.map(n => `<span class="iv-p">${av(n)}${esc(n)}</span>`).join('')}</div>` : ''}
-        <h2 class="inv-h2">How it works</h2>
-        <ol class="inv-steps">${steps.map(([b, t]) => `<li><b>${b}</b> ${esc(t)}</li>`).join('')}</ol>
-        <div class="inv-pay"><span>Expected earnings<small>${v.players} players × $${v.fee}${v.sessions > 1 ? ` × ${v.sessions} sessions` : ''}, if everyone attends</small></span><b>$${total.toLocaleString()}</b></div>
         ${st === 'pending' ? `<div class="inv-acts"><button class="btn btn-lg btn-soft" type="button" data-open="#decline">Decline</button><button class="btn btn-lg btn-primary" type="button" id="accept"${cf ? ' disabled title="Clashes with a session you coach"' : ''}>${cover ? 'Accept and cover the session' : 'Accept invitation'}</button></div>` : ''}
       </section>
       <button class="p-demo" type="button" id="reset-inv">Prototype: reset this invitation</button>`;
@@ -56,7 +56,6 @@
         <span class="inv-ok"><img src="${I}check-circle-green.svg" alt=""></span>
         <h1 class="h1">${cover ? `You’re covering ${D.short(v.date)}` : `You’re coaching ${esc(v.name)}`}</h1>
         <p>${cover ? `${esc(v.from)} and ${esc(v.organizer)} have been told. The session is on your schedule and its fee is tracked separately from ${first(v.from)}’s.` : `${esc(v.from)} has been told. ${v.sessions} sessions were added to your schedule, starting ${D.day(v.start)}.`}</p>
-        <div class="iv-added">${sessions.slice(0, 3).map(s => `<div class="iv-s"><span class="datebox"><small>${D.fmt(s.date, { month: 'short' })}</small><b>${D.fmt(s.date, { day: 'numeric' })}</b></span><span><b>Session ${s.n}</b><small>${D.fmt(s.date, { weekday: 'short' })} · ${v.time}</small></span><span class="st st-green">Added</span></div>`).join('')}${sessions.length > 3 ? `<span class="muted">+ ${sessions.length - 3} more sessions</span>` : ''}</div>
         <div class="inv-acts center"><a class="btn btn-lg btn-soft" href="dashboard.html">Go to dashboard</a><a class="btn btn-lg btn-primary" href="clinic.html?id=${v.id}&tab=sessions">View ${cover ? 'session' : 'clinic'}</a></div>
       </section>`;
   }

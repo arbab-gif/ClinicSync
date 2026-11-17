@@ -80,3 +80,61 @@
 .inv-row-side small { color: var(--muted); font-size: 13px; }
 .inv-reason { color: var(--muted); font-size: 14px; font-style: italic; }
 @media (max-width: 720px) { .inv-row { flex-wrap: wrap; } .inv-row-side { align-items: flex-start; text-align: left; } }
+
+/* Highlighted session summary at the top of a flow (e.g. Can't make this session?) */
+.cf-sess { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 12px; background: var(--brand-tint); border: 1px solid rgba(46, 84, 180, .18); }
+.cf-sess-t { display: flex; flex-direction: column; gap: 2px; }
+.cf-sess-t b { font: 600 17px/22px var(--font-display); color: var(--brand); }
+.cf-sess-t small { color: var(--text-2); font-size: 13px; }
+.cf-sess-w { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.cf-sess-w > span { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #1f2a37; }
+.cf-sess-w img { width: 18px; height: 18px; }
+.cf-opt { align-items: center; } .cf-opt input { margin-top: 0; }
+
+/* Replacement-coach picker: the organizer's Find Coach cards (copied from organizer/css/pages/create-clinic.css) */
+:root { --green-100: #d3f8df; --green-700: #087443; --pill-line: #d8dfe0; }
+.wz-tabs { display: flex; gap: 43px; height: 60px; border-bottom: 1px solid var(--border); }
+.wz-tabs button { flex: 1; border: 0; border-bottom: 2px solid transparent; background: none; margin-bottom: -1px; font-size: 16px; letter-spacing: -.16px; color: var(--text-2); cursor: pointer; }
+.wz-tabs button.on { color: var(--ink); font-weight: 500; border-bottom-color: var(--brand); }
+.coach-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.coach-search { width: 380px; max-width: 100%; height: 48px; display: flex; align-items: center; gap: 8px; padding: 16px; border: 1px solid var(--border); border-radius: 96px; background: #f2f5f6; }
+.coach-search img { width: 24px; height: 24px; flex: none; }
+.coach-search input { flex: 1; min-width: 0; border: 0; background: none; outline: none; font-size: 14px; letter-spacing: .07px; }
+.coach-search input::placeholder { color: var(--muted); }
+.coach-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.coach-filters .f { position: relative; }
+.coach-filters .f > button { min-height: 36px; padding: 6px 18px; display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--pill-line); border-radius: 56px; background: #fff; font-size: 14px; font-weight: 500; color: var(--ink); cursor: pointer; }
+.coach-filters .f > button img { width: 16px; height: 16px; transform: rotate(90deg); }
+.coach-filters .menu { min-width: 160px; }
+.coach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.coach-card { background: var(--card); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 16px; border: 1px solid transparent; min-width: 0; }
+.coach-card.sel { border-color: var(--brand); background: #f4f7fd; }
+.coach-top { display: flex; gap: 14px; align-items: stretch; }
+.coach-top > img { width: 100px; border-radius: 12px; object-fit: cover; flex: none; min-height: 82px; }
+.coach-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+.coach-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.coach-name { font-weight: 600; font-size: 18px; color: var(--ink); }
+.coach-stats { display: flex; gap: 12px; font-size: 12px; margin-top: 10px; color: var(--muted); }
+.coach-stats b { font-weight: 500; color: var(--ink); margin-left: 4px; }
+.coach-meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.coach-meta span { display: inline-flex; align-items: center; gap: 8px; }
+.coach-meta img { width: 16px; height: 16px; }
+.badge-green { display: inline-flex; padding: 4px 12px; border-radius: 14px; background: var(--green-100); color: var(--green-700); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.coach-card hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
+.coach-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.coach-price { font-weight: 500; font-size: 20px; color: var(--ink); }
+.coach-price small { font-weight: 400; font-size: 12px; color: var(--muted); margin-left: 2px; }
+.coach-btns { display: flex; gap: 16px; }
+.coach-btns button { padding: 6px 14px; border-radius: 28px; font-size: 14px; cursor: pointer; }
+.coach-btns .vp { border: 1px solid var(--border); background: none; color: var(--muted); }
+.coach-btns .sl { border: 0; padding: 6px 16px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); color: #fff; font-weight: 500; }
+.coach-card.sel .sl { background: var(--brand); }
+.coach-empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 32px 0; }
+.cf-modal.cf-wide { max-width: 888px; }
+.cf-wide .coach-search { flex: 1; width: auto; min-width: 220px; }
+.cf-wide .coach-grid { max-height: 52vh; overflow-y: auto; padding-right: 4px; }
+.coach-card.off { opacity: .6; }
+.coach-btns .sl:disabled { background: var(--chip-bg); color: var(--disabled); cursor: not-allowed; }
+.coach-card .st { flex: none; }
+@media (max-width: 760px) { .cf-wide .coach-grid { grid-template-columns: 1fr; } .coach-top > img { width: 72px; } }
+.coach-stats { flex-wrap: wrap; gap: 4px 12px; } .coach-stats span { white-space: nowrap; }
