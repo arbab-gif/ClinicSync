@@ -1,0 +1,82 @@
+/* Coach portal: builds on the organizer styles (+ player.css). Only what's new for coaches lives here. */
+:root {
+  --g100: #d3f8df; --g700: #087443;
+  --y100: #fef7c3; --y700: #a15c07;
+  --r100: #fee4e2; --r700: #b42318;
+  --b100: #dbeafe; --b700: #1d4ed8;
+}
+.st-purple { background: #ebe9fe; color: #5925dc; }
+.st-blue { background: var(--info-bg); color: var(--info); }
+
+/* ---------- Dashboard ---------- */
+.cd-pill { min-width: 22px; height: 22px; padding: 0 7px; border-radius: 11px; background: #fff; color: var(--dark); font-size: 13px; font-weight: 600; display: inline-grid; place-items: center; }
+.chip-cover { background: var(--info-bg); color: var(--info); }
+.chip-new { background: var(--ok-bg); color: var(--ok); }
+.attn-ic.info { background: var(--info-bg); }
+.attn-ic.purple { background: var(--purple-bg); }
+.attn-warn { color: var(--danger); font-size: 13px; font-weight: 500; margin-top: 2px; }
+.attn-actions { flex-wrap: wrap; }
+.up { height: auto; min-height: 72px; }
+.up-note { margin-top: 4px; }
+.pay-row strong.due { color: var(--warn); }
+
+/* ---------- Shared flow modal (reschedule, can't make it, confirm payment) ---------- */
+.cf-modal { display: flex; flex-direction: column; gap: 16px; }
+.cf-modal h2 { font-weight: 600; font-size: 26px; line-height: 32px; padding-right: 44px; }
+.cf-modal .lead { color: var(--text-2); font-size: 15px; line-height: 22px; }
+.cf-modal .p-acts { margin-top: 4px; }
+.cf-move { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+.cf-move > div { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 12px; background: var(--card); }
+.cf-move > div.to { background: var(--brand-tint); }
+.cf-move small { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+.cf-move b { font-weight: 600; font-size: 16px; color: var(--ink); }
+.cf-move span { color: var(--text-2); font-size: 14px; }
+.cf-move img { width: 20px; height: 20px; }
+.cf-why { font-size: 14px; color: var(--text-2); line-height: 20px; }
+.cf-why b { display: block; color: var(--ink); font-weight: 500; margin-bottom: 2px; }
+.cf-who, .cf-methods { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.cf-who legend, .cf-methods legend { font-size: 15px; font-weight: 500; margin-bottom: 8px; padding: 0; }
+.cf-opt { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; }
+.cf-opt:has(input:checked) { border-color: var(--brand); background: var(--brand-tint); }
+.cf-opt input { margin-top: 3px; accent-color: var(--brand); }
+.cf-opt span { display: flex; flex-direction: column; gap: 2px; }
+.cf-opt b { font-weight: 500; font-size: 15px; }
+.cf-opt small { color: var(--muted); font-size: 13px; }
+.cf-coaches { display: flex; flex-direction: column; gap: 8px; }
+.cf-coach { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; }
+.cf-coach:has(input:checked) { border-color: var(--brand); background: var(--brand-tint); }
+.cf-coach.off { opacity: .55; cursor: default; }
+.cf-coach input { accent-color: var(--brand); }
+.cf-coach > span:not(.st):not(.cf-fee) { flex: 1; display: flex; flex-direction: column; }
+.cf-coach b { font-weight: 500; font-size: 15px; }
+.cf-coach small { color: var(--muted); font-size: 13px; }
+.cf-fee { font-weight: 600; font-size: 15px; }
+.cf-fee small { color: var(--muted); font-weight: 400; font-size: 12px; }
+.cf-pay { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--card); }
+.cf-pay > div { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.cf-pay b { font-weight: 500; }
+.cf-pay span { color: var(--muted); font-size: 14px; }
+.cf-methods { flex-direction: row; flex-wrap: wrap; }
+.cf-methods legend { width: 100%; }
+.cf-method { flex: 1; min-width: 100px; }
+.cf-method input { position: absolute; opacity: 0; }
+.cf-method span { display: grid; place-items: center; height: 48px; border: 1.5px solid var(--line); border-radius: 12px; font-weight: 500; cursor: pointer; }
+.cf-method input:checked + span { border-color: var(--brand); background: var(--brand-tint); color: var(--brand); }
+.cf-method input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+.select.err { border-color: var(--danger); background-color: #fff; }
+
+/* ---------- Clinics list + invitations ---------- */
+.cl-cover { background: var(--info-bg); }
+.inv-list { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+.inv-row { display: flex; align-items: center; gap: 20px; padding: 20px 24px; border-radius: var(--r-card); background: var(--card); text-decoration: none; color: inherit; }
+.inv-row:hover h3 { color: var(--brand); }
+.inv-row .inv-av { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
+.inv-row-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.inv-row-t { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.inv-row-t h3 { font-weight: 600; font-size: 18px; line-height: 23px; color: var(--ink); }
+.inv-row-from { color: var(--text-2); font-size: 14px; }
+.inv-row-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex: none; text-align: right; }
+.inv-row-side b { font: 600 20px var(--font-display); color: var(--ink); }
+.inv-row-side small { color: var(--muted); font-size: 13px; }
+.inv-reason { color: var(--muted); font-size: 14px; font-style: italic; }
+@media (max-width: 720px) { .inv-row { flex-wrap: wrap; } .inv-row-side { align-items: flex-start; text-align: left; } }

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schedule · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+  <link rel="stylesheet" href="css/coach.css">
+  <link rel="stylesheet" href="css/schedule.css">
+</head>
+<body>
+  <!-- Every session Maria coaches or covers, as a list or a month calendar -->
+  <header data-coach-header data-active="Dashboard"></header>
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="../organizer/assets/icons/arrow-left.svg" alt="">Dashboard</a>
+    <div class="list-head" style="margin-top:20px"><div><h1 class="h1">My schedule</h1><p>Every session you coach or cover, across all clinics.</p></div>
+      <div class="seg" role="tablist" aria-label="View"><button type="button" data-view="list" class="on">List</button><button type="button" data-view="month">Calendar</button></div></div>
+    <div id="sched"></div>
+  </main>
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script>
+    (() => {
+      const D = CoachData, $ = s => document.querySelector(s);
+      const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      let view = 'list', month = D.TODAY.slice(0, 7);
+      const all = () => D.allClinics().filter(c => c.role !== 'Player').flatMap(D.sessionsOf).sort((a, b) => a.date.localeCompare(b.date));
+      const href = s => `clinic.html?id=${s.clinic.id}&tab=sessions&s=${s.n}`;
+      function list() {
+        const up = all().filter(s => !D.isPast(s));
+        const byWeek = {};
+        for (const s of up) { const d = new Date(s.date + 'T12:00:00'); d.setDate(d.getDate() - d.getDay()); (byWeek[d.toISOString().slice(0, 10)] ||= []).push(s); }
+        return Object.entries(byWeek).map(([w, ss]) => `<section class="sc-week"><h2 class="sc-wh">Week of ${D.short(w)}</h2>${ss.map(s => { const t = D.statusOf(s);
+          return `<a class="sc-row ${t.kind}" href="${href(s)}"><span class="datebox"><small>${D.fmt(s.date, { month: 'short' })}</small><b>${D.fmt(s.date, { day: 'numeric' })}</b></span>
+            <span class="sc-body"><b>${esc(s.clinic.name)} · Session ${s.n}${s.clinic.names?.[s.n] ? ` · ${esc(s.clinic.names[s.n])}` : ''}</b><span>${D.dayOf(s)} · ${D.timeOf(s)} · ${esc(s.clinic.location)}</span></span>
+            ${t.kind === 'upcoming' ? '' : `<span class="st st-${t.tone}">${esc(t.label)}</span>`}<span class="badge ${s.clinic.cover ? 'badge-info' : 'badge-purple'}">${s.clinic.cover ? 'Covering' : 'Coach'}</span></a>`; }).join('')}</section>`).join('') || '<p class="muted">No upcoming sessions.</p>';
+      }
+      function cal() {
+        const [y, m] = month.split('-').map(Number), firstDay = new Date(y, m - 1, 1), days = new Date(y, m, 0).getDate();
+        const by = {}; for (const s of all()) (by[s.date] ||= []).push(s);
+        const cells = []; for (let i = 0; i < firstDay.getDay(); i++) cells.push('<div class="sc-cell off"></div>');
+        for (let d = 1; d <= days; d++) { const iso = `${month}-${String(d).padStart(2, '0')}`;
+          cells.push(`<div class="sc-cell${iso === D.TODAY ? ' today' : ''}"><span class="sc-d">${d}</span>${(by[iso] || []).map(s => { const t = D.statusOf(s); return `<a class="sc-ev ${t.kind}${s.clinic.cover ? ' cover' : ''}" href="${href(s)}" title="${esc(t.label)}">${esc(D.timeOf(s).split('–')[0])} ${esc(s.clinic.name)}</a>`; }).join('')}</div>`); }
+        const title = firstDay.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        return `<div class="sc-cal-head"><button class="icon-btn" type="button" data-m="-1" aria-label="Previous month"><img src="../organizer/assets/icons/chevron-right.svg" alt="" style="transform:rotate(180deg)"></button><h2 class="h2">${title}</h2><button class="icon-btn" type="button" data-m="1" aria-label="Next month"><img src="../organizer/assets/icons/chevron-right.svg" alt=""></button>
+          <span class="sc-legend"><i class="coach"></i>Coach<i class="cover"></i>Covering<i class="cancelled"></i>Cancelled</span></div>
+          <div class="sc-grid">${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => `<div class="sc-dow">${d}</div>`).join('')}${cells.join('')}</div>`;
+      }
+      const render = () => { $('#sched').innerHTML = view === 'list' ? list() : cal(); document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('on', b.dataset.view === view)); };
+      document.addEventListener('click', e => {
+        const v = e.target.closest('[data-view]'); if (v) { view = v.dataset.view; return render(); }
+        const m = e.target.closest('[data-m]'); if (m) { const [y, mo] = month.split('-').map(Number); const d = new Date(y, mo - 1 + +m.dataset.m, 1); month = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; render(); }
+      });
+      render();
+    })();
+  </script>
+</body>
+</html>

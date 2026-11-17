@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payments · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-overview.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+  <link rel="stylesheet" href="../player/css/pages/clinic.css">
+  <link rel="stylesheet" href="css/coach.css">
+  <link rel="stylesheet" href="css/clinic.css">
+</head>
+<body>
+  <!-- Coaching fees across every clinic: totals, by clinic, and the full history with confirm -->
+  <header data-coach-header data-active="Dashboard"></header>
+  <main class="page">
+    <a class="back" href="dashboard.html"><img class="icon" src="../organizer/assets/icons/arrow-left.svg" alt="">Dashboard</a>
+    <div class="list-head" style="margin-top:20px"><div><h1 class="h1">Payments</h1><p>Your coaching fees across every clinic. Fees count the players who attended each completed session.</p></div>
+      <button class="btn btn-md btn-outline" type="button" data-toast="Statement downloaded (CSV)">Download statement</button></div>
+    <div class="ov-stats cp-stats" id="totals"></div>
+    <section class="pg-sec"><h2 class="h2">By clinic</h2><div class="pg-clinics" id="by-clinic"></div></section>
+    <section class="pg-sec">
+      <div class="section-head"><h2 class="h2">Payment history</h2>
+        <div class="pg-tools"><select class="select" id="clinic-f" aria-label="Clinic"></select><div class="pills" id="pay-filter"></div></div></div>
+      <div class="p-pay-table cp-table pg-table" role="table" id="history"></div>
+    </section>
+  </main>
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script src="js/coach-ui.js"></script>
+  <script>
+    (() => {
+      const D = CoachData, U = CoachUI, $ = s => document.querySelector(s), { esc, st, face } = U;
+      let f = 'all', cid = 'all';
+      const coach = () => D.allClinics().filter(c => c.role !== 'Player');
+      const pill = p => p.status === 'paid' ? st('green', p.method === 'Stripe' ? 'Paid · Stripe' : `${p.method} · confirmed`) : p.status === 'reported' ? st('purple', `${p.method} · confirm it`) : st('yellow', 'Outstanding');
+      function render() {
+        const e = D.earnings();
+        $('#totals').innerHTML = [['Total earned', e.total], ['Received', e.received], ['To confirm', e.reported], ['Outstanding', e.due]].map(([l, v]) => `<div><span>${l}</span><b>$${v.toLocaleString()}</b></div>`).join('');
+        $('#by-clinic').innerHTML = coach().map(c => { const x = D.earnings([c]), up = D.sessionsOf(c).filter(s => !D.isPast(s) && !c.cancelled?.[s.n] && !D.coveredBy(s));
+          const exp = up.reduce((a, s) => a + D.expected(s), 0);
+          return `<a class="pg-clinic" href="clinic.html?id=${c.id}&tab=payments"><div class="pg-ct"><b>${esc(c.name)}</b>${c.cover ? `<span class="chip chip-cover">Covering for ${esc(c.cover.for)}</span>` : `<span class="chip">${c.status === 'completed' ? 'Completed' : 'Coach'}</span>`}</div>
+            <dl><div><dt>Earned</dt><dd>$${x.total}</dd></div><div><dt>Received</dt><dd>$${x.received}</dd></div><div><dt>Outstanding</dt><dd class="${x.due + x.reported ? 'due' : ''}">$${x.due + x.reported}</dd></div><div><dt>Expected</dt><dd>$${exp}</dd></div></dl>
+            ${c.cover ? `<small>Tracked separately from ${esc(c.cover.for)}’s fees</small>` : `<small>$${c.fee} per player, per session</small>`}</a>`; }).join('');
+        $('#clinic-f').innerHTML = `<option value="all">All clinics</option>` + coach().map(c => `<option value="${c.id}"${cid === c.id ? ' selected' : ''}>${esc(c.name)}</option>`).join('');
+        $('#pay-filter').innerHTML = [['all', 'All'], ['due', 'Outstanding'], ['paid', 'Received']].map(([k, l]) => `<button type="button" data-pf="${k}" class="${f === k ? 'on' : ''}">${l}</button>`).join('');
+        const rows = e.rows.filter(r => (cid === 'all' || r.s.clinic.id === cid) && (f === 'all' || (f === 'due' ? r.pay.status !== 'paid' : r.pay.status === 'paid'))).sort((a, b) => b.s.date.localeCompare(a.s.date) || a.player.localeCompare(b.player));
+        $('#history').innerHTML = `<div class="p-pay-row head" role="row"><span>Player</span><span>Clinic · session</span><span>Amount</span><span>Status</span><span></span></div>` + (rows.map(r => `<div class="p-pay-row" role="row"><span class="cp-who">${face(r.player)}${esc(r.player)}</span><span>${esc(r.s.clinic.name)}<small>Session ${r.s.n} · ${D.short(r.s.date)}</small></span><span>$${r.amt}.00</span><span>${pill(r.pay)}${r.pay.how ? '<small>Confirmed by you</small>' : ''}</span><span class="cp-act">${r.pay.status === 'reported' ? `<button class="btn btn-sm btn-outline" type="button" data-confirm="${D.key(r.s.clinic, r.s.n)}|${esc(r.player)}|${r.pay.method}">Confirm</button>` : ''}</span></div>`).join('') || '<div class="p-pay-row"><span class="muted">Nothing here.</span></div>');
+      }
+      const sOf = key => { const [id, n] = key.split(':'); return D.sessionsOf(D.clinic(id)).find(x => x.n === +n); };
+      document.addEventListener('click', e => {
+        const b = s => e.target.closest(s);
+        if (b('[data-pf]')) { f = b('[data-pf]').dataset.pf; return render(); }
+        if (b('[data-confirm]')) { const [k, p, m] = b('[data-confirm]').dataset.confirm.split('|'); return U.record(sOf(k), p, render, m); }
+      });
+      $('#clinic-f').addEventListener('change', e => { cid = e.target.value; render(); });
+      render();
+    })();
+  </script>
+</body>
+</html>

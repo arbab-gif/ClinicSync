@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/dashboard.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+  <link rel="stylesheet" href="css/coach.css">
+</head>
+<body>
+  <!-- Coach dashboard: the organizer dashboard layout (one account, every role on the plan), seen as Maria the coach -->
+  <header data-coach-header data-active="Dashboard"></header>
+
+  <main class="dash-wrap">
+    <div class="stripe-banner" id="stripe-banner">
+      <div class="sb-left">
+        <span class="sb-logo"><img src="../organizer/assets/icons/stripe-wordmark.svg" alt="Stripe"></span>
+        <div>
+          <h2>Connect Stripe to Receive Coaching Fees</h2>
+          <p>Players pay your coaching fee by card, or report Venmo, Zelle and cash payments for you to confirm.</p>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-outline" type="button" data-toast="Redirecting to Stripe Connect onboarding…">Connect Stripe</button>
+    </div>
+
+    <div class="dash">
+      <div class="dash-main">
+        <section class="dash-summary">
+          <div class="section-head">
+            <h1 class="h1" id="welcome">My clinics</h1>
+            <a class="btn btn-md btn-dark" href="/organizer/setup-clinic.html"><img class="icon" src="../organizer/assets/icons/plus.svg" alt="">Create clinic</a>
+          </div>
+          <div class="stats" id="stats"></div>
+        </section>
+
+        <section class="dash-clinics">
+          <div class="section-head">
+            <h2 class="h2">Active clinics</h2>
+            <a class="link" href="clinics.html">View all clinics<img class="icon" src="../organizer/assets/icons/caret-right.svg" alt=""></a>
+          </div>
+          <div class="pills" id="role-pills" aria-label="Filter by role"></div>
+          <div class="clinic-list" id="clinic-list"></div>
+        </section>
+      </div>
+
+      <aside class="dash-side">
+        <section>
+          <h2 class="h2 with-count">Needs your attention <span class="count" id="attn-count"></span></h2>
+          <div class="attn-list" id="attn"></div>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2 class="h2">Upcoming sessions</h2>
+            <a class="link" href="schedule.html">View schedule<img class="icon-16" src="../organizer/assets/icons/arrow-right.svg" alt=""></a>
+          </div>
+          <div class="up-list" id="upcoming"></div>
+        </section>
+
+        <section>
+          <div class="card card-lg pay-card" id="pay-card"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script src="js/coach-ui.js"></script>
+  <script src="js/coach-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invitation · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+  <link rel="stylesheet" href="../player/css/pages/invite.css">
+  <link rel="stylesheet" href="css/coach.css">
+  <link rel="stylesheet" href="css/invitation.css">
+</head>
+<body>
+  <!-- Coach invitation (clinic invite from an organizer, or a coverage request from another coach): review → accept / decline -->
+  <header data-coach-header data-active="Clinics"></header>
+  <main class="page inv" id="inv"></main>
+
+  <div class="overlay" id="decline" hidden role="dialog" aria-modal="true" aria-labelledby="dl-title">
+    <div class="modal p-modal cf-modal">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="dl-title">Decline this invitation?</h2>
+      <p class="lead" id="dl-lead"></p>
+      <div class="field"><label for="dl-reason">Reason <span class="req">*</span></label>
+        <select class="select" id="dl-reason"><option value="">Choose a reason</option><option>I’m not available at that time</option><option>The fee doesn’t work for me</option><option>Too far from me</option><option>Not the right level or sport for me</option><option>Something else</option></select></div>
+      <div class="field"><label for="dl-note">Note <span class="opt">(optional)</span></label><textarea class="textarea" id="dl-note" rows="2" placeholder="Anything you’d like them to know"></textarea></div>
+      <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-close>Keep invitation</button><button class="btn btn-lg btn-primary" type="button" id="dl-go">Decline</button></div>
+    </div>
+  </div>
+
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script src="js/coach-invitation.js"></script>
+</body>
+</html>

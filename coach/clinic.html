@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-overview.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-sessions.css">
+  <link rel="stylesheet" href="../organizer/css/pages/session-location.css">
+  <link rel="stylesheet" href="../organizer/css/pages/direct-chat.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+  <link rel="stylesheet" href="../player/css/pages/clinic.css">
+  <link rel="stylesheet" href="css/coach.css">
+  <link rel="stylesheet" href="css/clinic.css">
+</head>
+<body>
+  <!-- Coach clinic: the organizer's clinic page (header, tabs, session cards, session modal) from the coach's side -->
+  <header data-coach-header data-active="Clinics"></header>
+
+  <main class="page">
+    <div class="c-topbar"><a class="back" href="clinics.html"><img class="icon" src="../organizer/assets/icons/arrow-left.svg" alt="">My clinics</a><span class="badge" id="c-status"></span></div>
+    <div class="clinic-head">
+      <div>
+        <div class="clinic-title"><span class="title-wrap"><h1 id="c-name"></h1></span><span class="chip" id="c-role"></span><span class="chip" id="c-sport"></span></div>
+        <div class="clinic-meta">
+          <span><img class="icon-20" src="../organizer/assets/icons/calendar-blank.svg" alt=""><span id="c-schedule"></span></span>
+          <span><img class="icon-20" src="../organizer/assets/icons/map-pin.svg" alt=""><span id="c-location"></span></span>
+        </div>
+        <p class="clinic-desc" id="c-desc" hidden></p>
+      </div>
+      <div class="clinic-actions">
+        <a class="btn btn-messages" id="c-msg" href="messages.html"><img class="icon-20" src="../organizer/assets/icons/chat-circle.svg" alt="">Messages <span class="msg-count">2</span></a>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Clinic" id="c-tabs">
+      <button type="button" data-tab="overview">Overview</button>
+      <button type="button" data-tab="sessions">Sessions</button>
+      <button type="button" data-tab="players">Players</button>
+      <button type="button" data-tab="payments">Payments</button>
+    </nav>
+    <div id="c-body"></div>
+  </main>
+
+  <div class="overlay" id="session" hidden role="dialog" aria-modal="true" aria-labelledby="sm-title">
+    <div class="modal modal-lg session-modal" id="sm"></div>
+  </div>
+
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script src="js/coach-ui.js"></script>
+  <script src="js/chat-config.js"></script>
+  <script>window.DirectChatConfig = COACH_CHAT;</script>
+  <script src="../organizer/js/direct-chat.js"></script>
+  <script src="js/coach-clinic.js"></script>
+</body>
+</html>

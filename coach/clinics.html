@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinics · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinic-session-card.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+  <link rel="stylesheet" href="../player/css/pages/clinic.css">
+  <link rel="stylesheet" href="css/coach.css">
+</head>
+<body>
+  <!-- Same page as the organizer's Clinics: the clinics Maria coaches, plus her invitations (pending / accepted / declined) -->
+  <header data-coach-header data-active="Clinics"></header>
+
+  <main class="page">
+    <div class="list-head">
+      <div>
+        <h1 class="h1">Clinics</h1>
+        <p>Every clinic you coach or cover. Open one to see its sessions, players and coaching fees.</p>
+      </div>
+    </div>
+
+    <nav class="tabs status-tabs" role="tablist" aria-label="Clinic status" id="status-tabs">
+      <button type="button" role="tab" data-status="active">Active <span class="tab-count"></span></button>
+      <button type="button" role="tab" data-status="completed">Completed <span class="tab-count"></span></button>
+      <button type="button" role="tab" data-status="invitations">Invitations <span class="tab-count"></span></button>
+    </nav>
+    <div class="list-tools">
+      <div class="pills" aria-label="Filter" id="pills"></div>
+      <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="clinic-q" type="search" placeholder="Search clinics" aria-label="Search clinics"></div>
+    </div>
+
+    <div class="clinics-grid" id="clinics"></div>
+    <div class="inv-list" id="invites" hidden></div>
+    <p class="muted" id="clinics-empty" hidden style="margin-top:24px"></p>
+  </main>
+
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/coach-data.js"></script>
+  <script src="js/coach-clinics.js"></script>
+</body>
+</html>

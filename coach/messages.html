@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Messages · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/clinics.css">
+  <link rel="stylesheet" href="../organizer/css/pages/messages.css">
+  <link rel="stylesheet" href="../organizer/css/pages/direct-chat.css">
+  <link rel="stylesheet" href="../player/css/player.css">
+</head>
+<body>
+  <!-- Same page as the organizer's Messages: one group chat per clinic Maria coaches, plus direct messages -->
+  <header data-coach-header data-active="Messages"></header>
+
+  <main class="page">
+    <div class="list-head">
+      <div>
+        <h1 class="h1">Messages</h1>
+        <p>Each clinic has one group chat with its organizer, players, substitutes and you as the coach.</p>
+      </div>
+      <button class="btn btn-md btn-dark" type="button" data-open="#new-dm"><img class="icon" src="../organizer/assets/icons/plus.svg" alt="">New message</button>
+    </div>
+
+    <div class="msg-split">
+      <div class="msg-left">
+        <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="chat-q" type="search" placeholder="Search chats" aria-label="Search chats"></div>
+        <div class="seg" role="tablist" aria-label="Show">
+          <button class="on" type="button" role="tab" data-show="group">Clinics</button>
+          <button type="button" role="tab" data-show="dm">Direct</button>
+        </div>
+        <div class="chat-list" id="chats"></div>
+        <p class="muted" id="chats-empty" hidden>No chats match your search.</p>
+      </div>
+      <div class="msg-right" id="chat-panel"></div>
+    </div>
+  </main>
+
+  <!-- New message: organizers, players and coaches in the clinics you coach -->
+  <div class="overlay" id="new-dm" hidden role="dialog" aria-modal="true" aria-labelledby="nd-title">
+    <div class="modal dm-new">
+      <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
+      <h2 id="nd-title">New message</h2>
+      <p>Message anyone in the clinics you coach, or another coach.</p>
+      <div class="search"><img src="../organizer/assets/icons/search.svg" alt=""><input class="input" id="nd-q" type="search" placeholder="Search by name" aria-label="Search by name"></div>
+      <div class="dm-filter" id="nd-filter" role="tablist" aria-label="Role">
+        <button class="on" type="button" data-role="">All</button><button type="button" data-role="Organizer">Organizers</button><button type="button" data-role="Player">Players</button><button type="button" data-role="Substitute">Substitutes</button><button type="button" data-role="Coach">Coaches</button>
+      </div>
+      <div class="dm-people" id="nd-list"></div>
+    </div>
+  </div>
+
+  <script src="js/coach-header.js"></script>
+  <script src="../organizer/js/organizer.js"></script>
+  <script src="js/chat-config.js"></script>
+  <script>window.DirectChatConfig = { ...COACH_CHAT, inline: '#chat-panel' };</script>
+  <script src="../organizer/js/direct-chat.js"></script>
+  <script src="../organizer/js/messages-page.js"></script>
+  <script>
+    const P = '/organizer/assets/img/people/';
+    MessagesPage({
+      caret: '../organizer/assets/icons/caret-right.svg',
+      unread: { 'Saturday Tennis': 2, 'Albert John': 2, 'James Carter': 2 },
+      groups: [
+        { name: 'Saturday Tennis', ini: 'ST', tone: '', role: 'Coach', members: 7 },
+        { name: 'Weekend Beginners', ini: 'WB', tone: 'purple', role: 'Coach', members: 8 },
+        { name: 'Monday Morning Tennis', ini: 'MM', tone: 'warn', role: 'Player', members: 9, empty: 'No messages yet.' },
+      ],
+      people: [
+        { clinic: 'Saturday Tennis', name: 'Albert John', role: 'Organizer', photo: P + 'man1.png' },
+        { clinic: 'Thursday Rally', name: 'James Carter', role: 'Coach', photo: '/organizer/assets/img/avatar-ethan-patel.png' },
+        { clinic: 'Saturday Tennis', name: 'Jessica Lee', role: 'Player', photo: P + 'blonde.png' },
+        { clinic: 'Weekend Beginners', name: 'Jenny Wilson', role: 'Organizer', photo: P + 'red.png' },
+        { clinic: 'Saturday Tennis', name: 'Liam Johnson', role: 'Player', photo: P + 'curly.png' },
+        { clinic: 'Saturday Tennis', name: 'Olivia Chen', role: 'Player', photo: P + 'sophia.png' },
+        { clinic: 'Saturday Tennis', name: 'Robert Wilson', role: 'Player', photo: P + 'man2.png' },
+        { clinic: 'Saturday Tennis', name: 'Priya Nair', role: 'Substitute', photo: P + 'dark.png' },
+        { clinic: 'Coach network', name: 'Olivia Davis', role: 'Coach', photo: '/organizer/assets/img/coach-olivia-davis.png' },
+      ],
+    });
+    // messages.html?to=<chat name> opens that conversation (from a clinic page or an invitation)
+    (() => {
+      const to = new URLSearchParams(location.search).get('to'); if (!to) return;
+      const find = () => [...document.querySelectorAll('.chat-row')].find(r => r.dataset.name === to);
+      if (!find()) return;
+      if (find().dataset.kind === 'dm') document.querySelector('[data-show="dm"]').click();
+      find().click();   // the list re-renders after switching tabs, so look the row up again
+    })();
+  </script>
+</body>
+</html>

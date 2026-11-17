@@ -1,8 +1,11 @@
 /* Profile & settings: one page, tabs across the top (no left panel, no log out — that lives in the account menu).
-   <body data-role="organizer|player">; ?tab=profile|subscription|invite|password|terms|privacy|support */
+   <body data-role="organizer|player|coach">; ?tab=profile|subscription|invite|password|terms|privacy|support */
 (() => {
-  const role = document.body.dataset.role === 'player' ? 'player' : 'organizer';
-  const ME = role === 'player'
+  const role = ['player', 'coach'].includes(document.body.dataset.role) ? document.body.dataset.role : 'organizer';
+  const ME = role === 'coach'
+    ? { name: 'Maria Lopez', ini: 'ML', line: 'Coach · Riverside, CA · Member since Aug 2026', email: 'maria.lopez@gmail.com', phone: '+1 (951) 555-0163', sports: [['Tennis', 'USPTA certified'], ['Padel', 'Level 2 coach']], plan: 'Pro',
+        extra: [['Experience', '5–10 years · Beginner and intermediate players'], ['Usual coaching fee', '$25 per player, per session'], ['Get paid with', 'Stripe · Venmo @maria-coach · Cash'], ['About', 'Patient, drill-first coach. Builds a reliable serve and net game.']] }
+    : role === 'player'
     ? { name: 'Jessica Lee', ini: 'JL', line: 'Player · Riverside, CA · Member since Sep 2026', email: 'jessica.lee@gmail.com', phone: '+1 (951) 555-0187', sports: [['Tennis', 'NTRP 3.5'], ['Padel', 'Intermediate']], plan: 'Starter' }
     : { name: 'Albert John', ini: 'AJ', line: 'Organizer · Riverside, CA · Member since Sep 2026', email: 'albert.john@gmail.com', phone: '+1 (951) 555-0142', sports: [['Tennis', 'NTRP 4.0'], ['Padel', 'Intermediate']], plan: 'Plus' };
   const TABS = [['profile', 'My profile'], ['subscription', 'Subscription'], ...(role === 'organizer' ? [['invite', 'Invite a coach']] : []), ['password', 'Change password'], ['terms', 'Terms & Conditions'], ['privacy', 'Privacy Policy']];
@@ -24,6 +27,7 @@
           <div><dt>Display name</dt><dd>${ME.ini}</dd></div><div><dt>Email</dt><dd>${ME.email}</dd></div><div><dt>Phone</dt><dd>${ME.phone}</dd></div>
           <div><dt>Location</dt><dd>Riverside, California</dd></div>
           <div><dt>Sports</dt><dd class="st-chips">${ME.sports.map(([s, l]) => `<span class="chip">${s} · ${l}</span>`).join('')}</dd></div>
+          ${(ME.extra || []).map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}
         </dl></section>`,
     subscription: () => `<section class="st-card st-plan">
         <div><div class="st-plan-t"><b>${ME.plan} plan</b><span class="badge badge-brand">Current</span></div><p>$${cur[3]}/month · Renews Dec 1, 2026</p></div>

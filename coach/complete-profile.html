@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coach profile · ClinicSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+  <link rel="icon" href="../organizer/assets/logo-mark.png">
+  <link rel="stylesheet" href="../organizer/css/organizer.css">
+  <link rel="stylesheet" href="../organizer/css/pages/auth.css">
+  <link rel="stylesheet" href="../organizer/css/pages/complete-profile.css">
+  <style>
+    .cp-two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .cp-fee { position: relative; }
+    .cp-fee .cp-input { padding-left: 32px; }
+    .cp-fee::before { content: "$"; position: absolute; left: 14px; bottom: 17px; color: var(--muted); font-weight: 500; }
+    .cp-fee small { color: var(--muted); font-size: 13px; }
+    .cp-text { width: 100%; min-height: 104px; padding: 14px 12px; border: 1px solid transparent; border-radius: 16px; background: var(--field); font: inherit; font-size: 16px; resize: vertical; outline: none; }
+    .cp-text:focus { border-color: var(--brand); background: #fff; }
+    .cp-pay { display: flex; flex-direction: column; gap: 12px; }
+    .cp-stripe { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--stripe-tint); }
+    .cp-stripe img { width: 44px; }
+    .cp-stripe div { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .cp-stripe b { font-weight: 600; }
+    .cp-stripe span { color: var(--muted); font-size: 14px; }
+    .cp-check { display: flex; align-items: center; gap: 10px; font-size: 16px; cursor: pointer; }
+    .cp-check input { width: 18px; height: 18px; accent-color: var(--brand); }
+    .cp-certs { display: flex; flex-wrap: wrap; gap: 10px; }
+    @media (max-width: 720px) { .cp-two { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="cp">
+  <!-- Coach profile after sign-up: same layout as the organizer/player "Tell us a little about yourself" -->
+  <header class="o-header">
+    <a class="o-brand" href="dashboard.html"><img src="../organizer/assets/logo-mark.png" alt=""><span>ClinicSync</span></a>
+    <div class="o-header-right"><div class="o-account"><button type="button" disabled style="cursor:default"><span class="avatar"><img src="../organizer/assets/icons/user.svg" alt=""></span><span class="name" id="hname">Maria Lopez</span></button></div></div>
+  </header>
+
+  <main class="cp-main">
+    <div class="cp-head">
+      <h1>Set up your coaching profile</h1>
+      <p>Organizers see this when they invite you. You can change it any time in Settings.</p>
+    </div>
+
+    <form class="cp-form" id="f" novalidate>
+      <section class="cp-sec">
+        <h2>Basics</h2>
+        <div class="cp-basics">
+          <div class="cp-photo">
+            <span class="cp-avatar" id="av"><img class="ph" src="../organizer/assets/icons/user.svg" alt=""></span>
+            <div class="lbl">Profile photo<button class="cp-upload" type="button" id="up">Upload photo</button><input type="file" id="file" accept="image/*" hidden></div>
+          </div>
+          <div class="cp-field"><label for="dn">Display name <span class="opt">(optional)</span></label><input class="cp-input" id="dn" type="text" value="Maria Lopez"></div>
+        </div>
+      </section>
+      <hr class="cp-rule">
+
+      <section class="cp-sec">
+        <h2>What you coach</h2>
+        <div class="cp-field">
+          <label id="sl">Sports</label>
+          <div class="chips" role="group" aria-labelledby="sl">
+            <button class="cp-chip on" type="button" aria-pressed="true"><img src="../organizer/assets/icons/check-brand.svg" alt="">Tennis</button>
+            <button class="cp-chip" type="button" aria-pressed="false"><img src="../organizer/assets/icons/check-brand.svg" alt="">Padel</button>
+            <button class="cp-chip" type="button" aria-pressed="false"><img src="../organizer/assets/icons/check-brand.svg" alt="">Pickleball</button>
+          </div>
+        </div>
+        <div class="cp-two">
+          <div class="cp-field"><label for="cert">Certification <span class="opt">(optional)</span></label>
+            <select class="cp-select" id="cert"><option>USPTA certified</option><option>PTR certified</option><option>LTA accredited</option><option>Not certified yet</option></select></div>
+          <div class="cp-field"><label for="yrs">Years coaching</label>
+            <select class="cp-select" id="yrs"><option>Less than 1 year</option><option>1–3 years</option><option>3–5 years</option><option selected>5–10 years</option><option>10+ years</option></select></div>
+        </div>
+        <div class="cp-field"><label id="lvl">Levels you coach</label>
+          <div class="cp-certs chips" role="group" aria-labelledby="lvl">
+            <button class="cp-chip on" type="button" aria-pressed="true"><img src="../organizer/assets/icons/check-brand.svg" alt="">Beginner</button>
+            <button class="cp-chip on" type="button" aria-pressed="true"><img src="../organizer/assets/icons/check-brand.svg" alt="">Intermediate</button>
+            <button class="cp-chip" type="button" aria-pressed="false"><img src="../organizer/assets/icons/check-brand.svg" alt="">Advanced</button>
+            <button class="cp-chip" type="button" aria-pressed="false"><img src="../organizer/assets/icons/check-brand.svg" alt="">Juniors</button>
+          </div>
+        </div>
+        <div class="cp-field"><label for="bio">About you <span class="opt">(optional)</span></label><textarea class="cp-text" id="bio" placeholder="Your coaching style, what players can expect">Patient, drill-first coach. I love helping 3.0–4.0 players build a reliable serve and net game.</textarea></div>
+      </section>
+      <hr class="cp-rule">
+
+      <section class="cp-sec">
+        <h2>Coaching fee</h2>
+        <div class="cp-two">
+          <div class="cp-field cp-fee"><label for="fee">Usual fee per player, per session</label><input class="cp-input" id="fee" inputmode="decimal" value="25"></div>
+          <div class="cp-field"><label>&nbsp;</label><p class="hint" style="margin-top:6px">Organizers propose a fee when they invite you. You see it before you accept, and each clinic can be different.</p></div>
+        </div>
+      </section>
+      <hr class="cp-rule">
+
+      <section class="cp-sec">
+        <h2>How players pay you</h2>
+        <div class="cp-pay">
+          <div class="cp-stripe"><img src="../organizer/assets/icons/stripe-logo.svg" alt="Stripe"><div><b>Card payments with Stripe</b><span>Players pay by card and it’s marked paid automatically.</span></div><button class="btn btn-sm btn-outline" type="button" data-toast="Redirecting to Stripe Connect onboarding…">Connect Stripe</button></div>
+          <div class="cp-two">
+            <div class="cp-field"><label for="venmo">Venmo <span class="opt">(optional)</span></label><input class="cp-input" id="venmo" placeholder="@username" value="@maria-coach"></div>
+            <div class="cp-field"><label for="zelle">Zelle <span class="opt">(optional)</span></label><input class="cp-input" id="zelle" placeholder="Email or phone"></div>
+          </div>
+          <label class="cp-check"><input type="checkbox" checked> I accept cash at the court</label>
+          <p class="hint">Players report Venmo, Zelle and cash payments in ClinicSync. You confirm each one once it reaches you.</p>
+        </div>
+      </section>
+      <hr class="cp-rule">
+
+      <section class="cp-sec">
+        <h2>Your Location</h2>
+        <div class="cp-loc">
+          <div class="cp-field"><label for="st">State <span class="opt">(optional)</span></label><select class="cp-select" id="st"><option>California</option><option>Florida</option><option>New York</option><option>Texas</option></select></div>
+          <div class="cp-field"><label for="ct">City <span class="opt">(optional)</span></label><select class="cp-select" id="ct"><option>Riverside</option><option>Los Angeles</option><option>San Diego</option></select></div>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer class="cp-foot">
+    <a class="btn btn-soft" href="sign-up.html">Back</a>
+    <div class="right">
+      <a class="btn btn-soft" href="dashboard.html?welcome=1">Skip for now</a>
+      <a class="btn btn-primary" href="dashboard.html?welcome=1">Save and continue</a>
+    </div>
+  </footer>
+
+  <script src="../organizer/js/organizer.js"></script>
+  <script>
+    const nm = sessionStorage.getItem('cs_name');
+    if (nm) { document.getElementById('hname').textContent = nm; document.getElementById('dn').value = nm; }
+    document.querySelectorAll('.cp-chip').forEach(c => c.addEventListener('click', () => { c.classList.toggle('on'); c.setAttribute('aria-pressed', c.classList.contains('on')); }));
+    document.getElementById('up').onclick = () => document.getElementById('file').click();
+    document.getElementById('file').onchange = e => { const f = e.target.files[0]; if (!f) return; const img = Object.assign(document.createElement('img'), { className: 'up', alt: 'Profile photo', src: URL.createObjectURL(f) }); document.getElementById('av').replaceChildren(img); };
+  </script>
+</body>
+</html>
