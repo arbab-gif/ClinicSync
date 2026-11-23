@@ -91,7 +91,17 @@
     const s = s$(n); if (!s) return; modalFor = n;
     const t = D.statusOf(s), past = D.isPast(s);
     const orgRow = `<section class="m-sec"><h3>Organizer</h3><div class="m-row">${face(c.organizer)}<div class="m-who"><b>${esc(c.organizer)}</b><span class="m-tags"><span class="tag">Organizer</span></span></div></div></section>`;
-    if (past && t.kind !== 'cancelled') {
+    if (t.kind === 'cancelled') {
+      // cancelled: why, what it means for the coach's fee, who cancelled it and who was told
+      const told = D.lineup(s).filter(p => !p.out);
+      $('#sm').innerHTML = `${mHead(s, ` · ${st('red', 'Cancelled')}`)}
+        <div class="m-cancel"><img src="${I}x-circle.svg" alt=""><div><b>${Org} cancelled this session</b><span>“${esc(c.cancelled[s.n])}”</span></div></div>
+        <section class="m-sec"><h3>Coaching fee</h3><div class="m-row coach">${face(D.ME.name)}<div class="m-who"><b>You</b><span>No coaching fee for a cancelled session</span></div><span class="m-fee">$0</span>${st('gray', 'Not charged')}</div></section>
+        <hr class="m-hr">${orgRow}<hr class="m-hr">
+        <section class="m-sec"><div class="m-sec-h"><h3>Players notified</h3><span class="m-count">${told.length} players</span></div>
+          ${told.map(p => `<div class="m-row">${face(p.name)}<div class="m-who"><b>${esc(p.name)}</b><span class="m-tags"><span class="tag">${p.role}</span></span></div>${st('gray', 'Notified')}</div>`).join('') || '<p class="muted">No players were booked yet.</p>'}
+        </section>`;
+    } else if (past) {
       const at = D.attendees(s), cov = D.coveredBy(s);
       const ab = c.players.filter(p => !at.includes(p));
       // payments are handled on the Payments tab; the session shows who attended

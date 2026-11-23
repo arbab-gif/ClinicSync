@@ -59,9 +59,11 @@
     <div class="modal p-modal">
       <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
       <h2 id="rp-title">Can’t make it?</h2>
-      <p class="lead" id="rp-lead"></p>
-      <div class="field"><label for="rp-reason">Reason <span class="opt">(optional)</span></label><textarea class="textarea" id="rp-reason" rows="2" placeholder="Let Jenny and the group know why"></textarea></div>
-      <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-close>Keep my spot</button><button class="btn btn-lg btn-primary" type="button" id="rp-go">Request a replacement</button></div>
+      <p class="lead">Your spot goes to other players first, then substitutes.</p>
+      <p class="cm-session"><img src="../organizer/assets/icons/calendar-blank-16.svg" alt=""><span id="rp-lead"></span></p>
+      <div class="field"><label for="rp-why">Reason <span class="req">*</span></label><select class="select" id="rp-why" required><option value="">Choose a reason</option><option>Illness</option><option>Work</option><option>Travel</option><option>Family</option><option>Other</option></select></div>
+      <div class="field"><textarea class="textarea cm-note" id="rp-reason" rows="1" aria-label="Add a note" placeholder="Add a note for Jenny and the group"></textarea></div>
+      <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-close>Keep my spot</button><button class="btn btn-lg btn-primary" type="button" id="rp-go" disabled>Request a replacement</button></div>
     </div>
   </div>
 

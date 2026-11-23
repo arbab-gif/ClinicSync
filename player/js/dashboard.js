@@ -113,21 +113,35 @@
     document.querySelectorAll('[data-p="name"]').forEach(el => (el.textContent = P.PLAYER.name));
   }
 
+  function showRsvpStep(needsReason) {
+    $('#rsvp-choice').hidden = needsReason;
+    $('#rsvp-why').hidden = !needsReason;
+    $('#rsvp-reason').value = '';
+    $('#rsvp-cant-go').disabled = true;
+    if (needsReason) $('#rsvp-reason').focus();
+  }
+  $('#rsvp-reason').addEventListener('change', () => { $('#rsvp-cant-go').disabled = !$('#rsvp-reason').value; });
+
   document.addEventListener('click', e => {
     const open = e.target.closest('[data-rsvp-open]');
     if (open) {
       const [id, n] = open.dataset.rsvpOpen.split(':');
       rsvpFor = P.sessionsOf(P.clinic(id))[n - 1];
       $('#rsvp-lead').textContent = `${rsvpFor.clinic.name} · ${fmt(rsvpFor.date, { weekday: 'long', month: 'long', day: 'numeric' })}, ${P.timeRange(rsvpFor.clinic)} at ${rsvpFor.clinic.location}. ${rsvpFor.clinic.organizer} sees your answer.`;
+      showRsvpStep(false);
       $('#rsvp').hidden = false;
       $('#rsvp [data-rsvp="going"]').focus();
       return;
     }
     const pick = e.target.closest('[data-rsvp]');
     if (pick && rsvpFor) {
-      P.setRsvp(rsvpFor, pick.dataset.rsvp);
+      if (pick.dataset.rsvp === 'cant') return showRsvpStep(true);
+      if (pick.dataset.rsvp === 'back') return showRsvpStep(false);
+      if (pick.dataset.rsvp === 'cant-go' && !$('#rsvp-reason').value) return;
+      const answer = pick.dataset.rsvp === 'cant-go' ? 'cant' : pick.dataset.rsvp;
+      P.setRsvp(rsvpFor, answer);
       $('#rsvp').hidden = true;
-      window.toast(pick.dataset.rsvp === 'going'
+      window.toast(answer === 'going'
         ? `You’re going on ${fmt(rsvpFor.date, { month: 'short', day: 'numeric' })}`
         : `${rsvpFor.clinic.organizer} will know you can’t make it on ${fmt(rsvpFor.date, { month: 'short', day: 'numeric' })}`);
       rsvpFor = null; render();

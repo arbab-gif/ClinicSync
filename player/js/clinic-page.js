@@ -151,8 +151,8 @@
     }
     const confirmed = ps.filter(p => !p.out && !(p.me && st.kind !== 'going' && st.kind !== 'attended')).length;
     const pStatus = p => p.out ? (p.me ? '<span class="st st-gray">Replaced</span>' : '<span class="st st-gray">Can’t make it</span>')
-      : p.me ? (st.kind === 'requested' ? '<span class="st st-red">Need Replacement</span>' : st.kind === 'pending' ? '<span class="st st-yellow">RSVP pending</span>' : '<span class="st st-green">Confirmed</span>')
-      : '<span class="st st-green">Confirmed</span>';
+      : p.me ? (st.kind === 'requested' ? '<span class="st st-red">Need Replacement</span>' : st.kind === 'pending' ? '<span class="st st-yellow">RSVP pending</span>' : '')
+      : '';
     $('#sm').innerHTML = `
       ${mHead(s, n)}
       <div class="m-stats"><div><span>Confirmed</span><b>${String(confirmed).padStart(2, '0')}</b></div><div><span>Open spots</span><b>${String(Math.max(0, c.capacity - confirmed)).padStart(2, '0')}</b></div><div><span>Capacity</span><b>${String(c.capacity).padStart(2, '0')}</b></div></div>
@@ -162,10 +162,10 @@
         <div class="m-row loc${mv ? ' moved' : ''}"><span class="loc-ic"><img src="${I}map-pin-24.svg" alt=""></span><div class="m-who"><b>${esc(mv ? mv.venue : c.location)}</b><span>${mv ? `Moved for this session · ${esc(mv.reason)}` : `Clinic location · ${esc(c.court || '')}`}</span></div></div></section>
       <hr class="m-hr">
       <section class="m-sec"><h3>Coach</h3>
-        ${c.coach ? `<div class="m-row coach">${face(c.coach)}<div class="m-who"><b>${esc(c.coach)}</b><span>Clinic coach</span></div><span class="m-fee">$${c.coachFee}<small>/player</small></span><span class="st st-green">Confirmed</span></div>`
+        ${c.coach ? `<div class="m-row coach">${face(c.coach)}<div class="m-who"><b>${esc(c.coach)}</b><span>Clinic coach</span></div><span class="m-fee">$${c.coachFee}<small>/player</small></span></div>`
           : '<div class="m-row coach"><span class="initials m-av">—</span><div class="m-who"><b>No coach</b><span>Players pay the facility share only</span></div></div>'}</section>
       <hr class="m-hr">
-      <section class="m-sec"><div class="m-sec-h"><h3>Session Participants</h3><span class="m-count">${confirmed} Confirmed</span></div>
+      <section class="m-sec"><div class="m-sec-h"><h3>Session Participants</h3></div>
         ${ps.map(p => `<div class="m-row${p.out ? ' out' : ''}">${face(p.name)}<div class="m-who"><b${p.me ? ' data-me' : ''}>${esc(p.name)}${p.me ? ' (You)' : ''}</b><span class="m-tags"><span class="tag">${p.role}</span>${p.replacement ? '<span class="tag tag-repl">Replacement</span>' : ''}</span></div>${pStatus(p)}${p.me && c.role !== 'Substitute' && ['going', 'today'].includes(st.kind) ? `<button class="btn btn-sm btn-outline m-cant" type="button" data-cant="${n}">Can’t make it</button>` : ''}</div>`).join('')}
       </section>`;
     const ov = $('#session'); if (ov.hidden) { ov.hidden = false; document.body.style.overflow = 'hidden'; }
@@ -322,7 +322,7 @@
     if (b('[data-goto]')) return go(b('[data-goto]').dataset.goto);
     if (b('[data-view]')) return openSession(+b('[data-view]').dataset.view);
     if (b('[data-going]')) { const s = s$(+b('[data-going]').dataset.going); P.setRsvp(s, 'going'); window.toast(`You’re going on ${short(s.date)}`); return render(); }
-    if (b('[data-cant]')) { actFor = s$(+b('[data-cant]').dataset.cant); $('#rp-lead').textContent = `${long(actFor.date)} · ${P.timeRange(c)} · Session ${actFor.n}`; $('#rp-reason').value = ''; $('#replace').hidden = false; return; }
+    if (b('[data-cant]')) { actFor = s$(+b('[data-cant]').dataset.cant); $('#rp-lead').textContent = `${long(actFor.date)} · ${P.timeRange(c)} · Session ${actFor.n}`; $('#rp-why').value = ''; $('#rp-reason').value = ''; $('#rp-go').disabled = true; $('#replace').hidden = false; $('#rp-why').focus(); return; }
     if (b('[data-cancel-req]')) { const s = s$(+b('[data-cancel-req]').dataset.cancelReq); P.cancelRequest(s); window.toast('Request cancelled. You’re back in the session.'); return render(); }
     if (b('[data-demo]')) {
       const s = s$(+b('[data-demo]').dataset.demo); P.toSubs(s); render(); window.toast('No player joined in time. Your spot went to the substitutes.');
@@ -356,8 +356,11 @@
     if (b('[data-play-next]')) { const x = P.playNext(c); if (x) window.toast(`Session ${x.n} on ${short(x.date)} is done. Its $${c.coachFee} coach fee is now due.`); return render(); }
     if (b('[data-chat]')) { const x = b('[data-chat]'); return DirectChat.open({ name: x.dataset.chat, role: x.dataset.role, photo: photo(x.dataset.chat), ctx: ' · ' + c.name }); }
   });
+  $('#rp-why').addEventListener('change', () => { $('#rp-go').disabled = !$('#rp-why').value; });
   $('#rp-go').addEventListener('click', () => {
-    P.requestReplacement(actFor, $('#rp-reason').value.trim()); $('#replace').hidden = true;
+    const why = $('#rp-why').value, note = $('#rp-reason').value.trim();
+    if (!why) return;
+    P.requestReplacement(actFor, note ? `${why}: ${note}` : why); $('#replace').hidden = true;
     window.toast('Replacement requested. Your spot is offered to the clinic’s players.'); render();
   });
   $('#pc-go').addEventListener('click', () => {

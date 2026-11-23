@@ -139,3 +139,10 @@ button.sc-ev { width: 100%; border: 0; text-align: left; cursor: pointer; font-f
 .rs-ic { background: #90DD38; }
 .rs-ic i { background: #1c2536; }
 .p-scard.resched, .p-scard.unavail { box-shadow: none; }   /* no outline on cards with a request */
+
+/* cancelled session details */
+.m-cancel { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #fef3f2; }
+.m-cancel img { width: 20px; height: 20px; flex: none; margin-top: 2px; }
+.m-cancel div { display: flex; flex-direction: column; gap: 4px; }
+.m-cancel b { font-size: 15px; font-weight: 600; color: #b42318; }
+.m-cancel span { font-size: 14px; color: var(--text-2, #4d5761); }

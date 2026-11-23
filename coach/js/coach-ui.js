@@ -51,6 +51,7 @@ window.CoachUI = (() => {
     ov.dataset.rsflow = rs ? '1' : '';
     const reasons = rs ? ['I’m coaching another clinic then', 'I’m away that day', 'That time doesn’t work for me', 'Something else'] : ['I’m sick', 'Family commitment', 'Travel', 'Clash with another clinic', 'Something else'];
     show(`<h2>${rs ? 'Can’t make the new time?' : 'Can’t make this session?'}</h2>
+      <p class="lead">Tell ${esc(org)} why, then choose who finds a replacement coach.</p>
       ${sessBox(rs ? { ...s, date: r.date, time: r.time } : s)}
       <div class="field"><label for="cf-reason">Reason <span class="req">*</span></label><select class="select" id="cf-reason"><option value="">Choose a reason</option>${reasons.map(x => `<option>${x}</option>`).join('')}</select></div>
       <div class="field"><label for="cf-note">Note <span class="opt">(optional)</span></label><textarea class="textarea" id="cf-note" rows="2" placeholder="Anything ${esc(org)} should know"></textarea></div>

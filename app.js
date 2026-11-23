@@ -379,15 +379,16 @@ function openDecline() {
         <p>${CLINIC.organizer} will be notified that you won't be joining ${CLINIC.name}. You'll need a new invitation to join later.</p>
       </div>
       <div class="field">
-        <label for="reason">Reason <span class="opt">(optional)</span></label>
-        <input class="input" id="reason" placeholder="Let ${CLINIC.organizer.split(' ')[0]} know why (optional)">
+        <label for="reason">Reason <span style="color:var(--danger,#d92d20)">*</span></label>
+        <input class="input" id="reason" required placeholder="Let ${CLINIC.organizer.split(' ')[0]} know why">
       </div>
       <div class="actions">
         <button class="btn btn-secondary" type="button" id="keep">Keep Invitation</button>
-        <button class="btn btn-danger" type="button" id="yes">Yes, Decline</button>
+        <button class="btn btn-danger" type="button" id="yes" disabled>Yes, Decline</button>
       </div>
     </div>
   </div>`;
+  $('#reason').oninput = () => { $('#yes').disabled = !$('#reason').value.trim(); };
   const close = () => { root.innerHTML = ''; document.removeEventListener('keydown', onKey); $('#decline')?.focus(); };
   const onKey = e => { if (e.key === 'Escape') close(); };
   document.addEventListener('keydown', onKey);
@@ -560,7 +561,7 @@ screens.payment = () => {
   const draw = () => {
     app.innerHTML = `
     <div class="page">
-      <div class="hero"><h1>Pay Your Facility Fee</h1><p>Your spot is saved. Pay by card, Venmo or cash, now or later.</p></div>
+      <div class="hero"><h1>Pay Your Facility Fee</h1><p>Pay your facility fee to confirm your spot. Pay by card, Venmo or cash.</p></div>
       <div class="card">
         <div class="card-head"><h2>${CLINIC.name}</h2><span class="badge pending">Outstanding</span></div>
         <div class="inner">
@@ -579,7 +580,7 @@ screens.payment = () => {
       </div>
       <div class="alert info">${icon(I.info)}<span>${note[method]}</span></div>
     </div>
-    ${stepbar({ step: 3, primary: primary[method], disabled: method !== 'card' && !confirmed[method], extra: '<button class="btn btn-secondary" type="button" id="later">Pay Later</button>' })}`;
+    ${stepbar({ step: 3, primary: primary[method], disabled: method !== 'card' && !confirmed[method] })}`;
 
     $$('.pay-method').forEach(b => b.onclick = () => {
       method = b.dataset.method; state.method = method; save(); draw();
@@ -588,7 +589,6 @@ screens.payment = () => {
     const ack = $('#ack');
     if (ack) ack.onchange = () => { confirmed[method] = ack.checked; $('#next').disabled = !ack.checked; };
     $('#back').onclick = () => go('sessions');
-    $('#later').onclick = () => { state.payment = 'outstanding'; save(); go('success'); };
     $('#next').onclick = () => {
       if (method === 'venmo') { state.payment = 'reported'; save(); return go('success'); }
       if (method === 'cash') { state.payment = 'cash'; save(); return go('success'); }
@@ -694,9 +694,9 @@ screens.checkout = () => {
 // 07 — Onboarding success
 screens.success = () => {
   if (state.selected.length !== CLINIC.allowed) return go('sessions');
+  if (state.payment === 'outstanding') return go('payment');
   const sel = SESSIONS.filter(s => state.selected.includes(s.n));
   const coachTotal = CLINIC.coachFee * sel.length;
-  const settled = state.payment !== 'outstanding';
   app.innerHTML = `
   <div class="page">
     <div class="hero">
@@ -718,18 +718,17 @@ screens.success = () => {
         <div class="row total"><span class="k">Total fee</span><span class="v">${money(CLINIC.facilityFee + coachTotal)}</span></div>
       </div>
     </div>
-    <div class="actions ${settled ? 'single' : ''}">
-      ${settled ? '' : '<button class="btn btn-secondary" type="button" id="pay">Pay Facility Fee</button>'}
+    <div class="actions single">
       <button class="btn btn-primary" type="button" id="dash">Go to Dashboard</button>
     </div>
   </div>`;
   $('#dash').onclick = () => go('dashboard');
-  $('#pay')?.addEventListener('click', () => go('payment'));
 };
 
 // 08 — Player dashboard
 screens.dashboard = () => {
   if (state.selected.length !== CLINIC.allowed) return go('sessions');
+  if (state.payment === 'outstanding') return go('payment');
   const sel = SESSIONS.filter(s => state.selected.includes(s.n));
   const rs = n => state.rsvp[n] || (n === sel[0].n ? 'going' : 'pending');
   app.innerHTML = `

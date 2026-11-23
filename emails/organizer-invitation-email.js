@@ -12,7 +12,7 @@
   };
   const FONT = "'Familjen Grotesk', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
-  const subject = o => `${o.firstName}, join ${o.clinic.name} this season. Your spot is saved`;
+  const subject = o => `${o.firstName}, join ${o.clinic.name} this season. Your spot is waiting`;
 
   const defaultMessage = o => {
     const c = o.clinic;
@@ -163,7 +163,7 @@
                   <td align="right" style="padding-top:10px;font:600 15px/20px ${FONT};color:${C.ink};">${c.coachFee}</td>
                 </tr>
               </table>
-              <p style="margin:12px 0 0;font:400 13px/19px ${FONT};color:${C.muted};">Pay the facility fee by card, on Venmo to ${c.venmo}, or in cash at your first session. Pay now or later, whatever is easier.</p>
+              <p style="margin:12px 0 0;font:400 13px/19px ${FONT};color:${C.muted};">Pay the facility fee by card, on Venmo to ${c.venmo}, or in cash at your first session. Payment confirms your spot.</p>
             </td></tr>
           </table>
         </td></tr>

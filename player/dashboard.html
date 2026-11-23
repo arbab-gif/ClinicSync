@@ -79,9 +79,13 @@
       <button class="x-btn" type="button" data-close aria-label="Close">✕</button>
       <h2 id="rsvp-title">Will you be there?</h2>
       <p class="lead" id="rsvp-lead"></p>
-      <div class="p-acts">
+      <div class="p-acts" id="rsvp-choice">
         <button class="btn btn-lg btn-soft" type="button" data-rsvp="cant">Can’t make it</button>
         <button class="btn btn-lg btn-primary" type="button" data-rsvp="going">I’m going</button>
+      </div>
+      <div id="rsvp-why" hidden>
+        <div class="field"><label for="rsvp-reason">Reason <span class="req">*</span></label><select class="select" id="rsvp-reason" required><option value="">Choose a reason</option><option>Illness</option><option>Work</option><option>Travel</option><option>Family</option><option>Other</option></select></div>
+        <div class="p-acts"><button class="btn btn-lg btn-soft" type="button" data-rsvp="back">Back</button><button class="btn btn-lg btn-primary" type="button" data-rsvp="cant-go" id="rsvp-cant-go" disabled>Confirm</button></div>
       </div>
     </div>
   </div>
